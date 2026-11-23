@@ -1,0 +1,8 @@
+composio
+composio-gemini
+google-genai
+python-dotenv
+pydantic
+pandas
+requests
+beautifulsoup4

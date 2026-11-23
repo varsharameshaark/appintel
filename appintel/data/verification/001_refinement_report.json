@@ -1,0 +1,60 @@
+{
+    "app_id": 1,
+    "app_name": "Salesforce",
+    "baseline_type": "Original AI research file",
+    "fields_changed": 2,
+    "fields_unchanged": 4,
+    "fields_skipped": 2,
+    "changes": [
+        {
+            "field": "mcp_evidence",
+            "original_ai_value": "Salesforce provides standard hosted MCP servers for SObject operations, Content, Data 360, Metadata Grounding, Tableau Next, and CRM Analytics. Servers are disabled by default, require administrator activation, and use per-user authentication and Salesforce permissions.",
+            "refined_value": "Salesforce provides standard hosted MCP servers. They are disabled by default, require administrator activation, and use External Client App configuration for standard client connections.",
+            "change_type": "Evidence-verified correction",
+            "verification_status": "Confirmed"
+        },
+        {
+            "field": "blocker",
+            "original_ai_value": "Requires OAuth configuration through an External Client App, administrator activation of hosted MCP servers, appropriate user permissions, and an edition with API access. Hosted MCP usage may also require Flex Credits.",
+            "refined_value": "OAuth configuration, administrator activation, edition requirements and user permissions.",
+            "change_type": "Analyst-assessed refinement",
+            "verification_status": "Analyst-assessed"
+        }
+    ],
+    "unchanged_fields": [
+        "auth_methods",
+        "credential_access",
+        "mcp_available",
+        "buildability"
+    ],
+    "skipped_fields": [
+        {
+            "field": "api_type",
+            "reason": "Manual verification is incomplete"
+        },
+        {
+            "field": "api_breadth",
+            "reason": "Manual verification is incomplete"
+        }
+    ],
+    "verification_status": {
+        "auth_methods": "Confirmed",
+        "credential_access": "Confirmed",
+        "api_type": "Needs review",
+        "api_breadth": "Needs review",
+        "mcp_available": "Confirmed",
+        "mcp_evidence": "Confirmed",
+        "buildability": "Analyst-assessed",
+        "blocker": "Analyst-assessed",
+        "app_id": "AI-generated / Not independently verified",
+        "app_name": "AI-generated / Not independently verified",
+        "category": "AI-generated / Not independently verified",
+        "description": "AI-generated / Not independently verified"
+    },
+    "limitations": [
+        "The complete API catalog has not been independently verified.",
+        "Not every API endpoint has been tested.",
+        "Buildability is an analyst judgement rather than an official Salesforce classification."
+    ],
+    "interpretation": "Refined values are derived from manually reviewed verification data. Confirmed changes and analyst-assessed changes are distinguished. Unverified AI-generated fields are explicitly labelled. This process does not independently measure factual accuracy."
+}

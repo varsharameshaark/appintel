@@ -1,0 +1,206 @@
+{
+    "results": [
+        {
+            "response": {
+                "successful": true,
+                "data": {
+                    "results": [
+                        {
+                            "cost": 3,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "## OAuth 2.0 for V8 APIs - An Overview\n\nThe Zoho CRM API uses the **OAuth 2.0** protocol for authentication. **OAuth 2.0** is an industry-standard protocol specification that enables third-party applications (clients) to gain delegated access to protected resources in Zoho via an API.\n\n## Why should we use OAuth 2.0?\n\n- Clients are not required to support password authentication or store user credentials.\n- Clients gain delegated access, i.e., access only to resources authenticated by the user.\n- Users can revoke the client's delegated access anytime.\n- **OAuth 2.0** access tokens expire after a set time. If the client faces a security breach, user data will be compromised only until the access token is valid.\n\n## How OAuth 2.0 works?\n\nOAuth 2.0 Workflow\n\n## Key Terminologies in OAuth 2.0\n\nThe following are some terms you need to know before you start using the Zoho CRM APIs.\n\n#### Protected resources\n\nThe Zoho CRM resources, such as Leads, Contacts, Deals, etc.\n\n#### Resource server\n\nThe Zoho CRM server that hosts protected resources.\n\n#### Resource owner\n\nAny end-user of your account, who can grant access to the protected resources.\n\n#### Client\n\nAn application that sends requests to the resource server to access the protected resources on behalf of the end-user.\n\n#### Client ID\n\nThe consumer key generated from the connected application.\n\n#### Client Secret\n\nThe consumer secret generated from the connected application.\n\n#### Authentication server\n\nAuthorization server provides the necessary credentials (such as Access and Refresh tokens) to the client. In this case, it will be the Zoho CRM authorization server.\n\n#### Authentication code\n\nThe authorization server creates a temporary token and sends it to the client via the browser. The client will send this code to the authorization server to obtain access and refresh tokens.\n\n## Tokens\n\n#### Access Token\n\nA token that is sent to the resource server to access the protected resources of the user. The Access token provides secure and temporary access to the protected resources and is used by the applications to make requests to the connected app. Each access token will be valid only for an hour and can be used only for the set of operations that are described in the scope.\n\n#### Refresh Token\n\nA token that can be used to obtain new access tokens. This token has an unlimited lifetime until it is revoked by the end-user.\n\n**Important**\n\nUser Access Token must be kept confidential since it provides access to protected resources. Do NOT expose your Access Token anywhere in public forums, public repositories or on your website's client-side code like HTML or JavaScript. Exposing it to the public may lead to data theft, loss or corruption.",
+                                        "link": "https://www.zoho.com/crm/developer/docs/api/v8/oauth-overview.html",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "OAuth 2.0 for V8 APIs - An Overview ... The Zoho CRM API uses the OAuth 2.0 protocol for authentication. OAuth 2.0 is an industry-standard protocol specification ...",
+                                        "title": "OAuth 2.0 Authentication | Zoho CRM API | V8"
+                                    },
+                                    {
+                                        "content": "## Authorization Request\n\nTo use the Zoho CRM APIs, the users must authenticate the application to make API calls on their behalf with an **access token**.\n\nThe access token, in return, must be obtained from a **grant token** (authorization code). The Zoho CRM APIs use the authorization code grant type to provide access to protected resources.\n\n**Note**\n\n### Organization-Specific Grant Token (Authorization Code)\n\n- The user can choose to grant access to the application **only to a particular organization** (either in the Production, Sandbox, or Developer environment of CRM). Therefore, the access and refresh token generated for a user becomes **organization-specific** in an environment. For instance, the application owner cannot use tokens generated for an organization in the Production environment to make API calls to the organizations in the sandbox or developer accounts.\n- If your web-based application has **more than one organization** in multiple environments (for instance, one in production, and two each in sandbox and developer environments), the user will be allowed to **choose the organization** for which the grant token must be generated.\n\tOn the contrary, if your application has **only one organization** (for instance, one in production and none in sandbox or developer environments), the **system automatically generates the grant token** for the same, without asking for any choices.\n- For self-clients, the system presents the list of available organizations, irrespective of the number of organizations in your application.\n\nThere are three ways in which you can generate the grant token based on the client type.\n\n- Web-based application\n- Self-client - Authorization code flow\n- [Self-client - Client Credentials Flow](https://www.zoho.com/crm/developer/docs/api/v8/client-credentials.html)\n\n## Web-based application\n\nWeb-based applications are chosen when your application is used by multiple users and requires user intervention during authorization. For this client type, you must use redirection-based code generation. In this authorization flow,\n\n- The user clicks the **Login with Zoho** button on any third-party web-based application.\n- The application redirects the user to the Zoho Login page, and the user enters the Zoho credentials.\n\tAuthorization request URL:\n\t```\n\t\"https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.users.ALL&client_id={client_id}&response_type=code&access_type={\"offline\"or\"online\"}&redirect_uri={redirect_uri}\"\n\t```\n\n- A new pop-up, similar to the one below, appears to ask the user to choose the **environment-specific organization**, such as Production, Sandbox, or Developer, whose data the application can access. This applies only to applications with more than one organization.\n\n- The user selects the organization for which the grant token has to be generated, and clicks **Submit**.\n- The web application redirects the user to the Zoho OAuth server with the required scope in the Accounts URL.\n\n\tThe page displays the **chosen organization** and the **data (scope) that the application wants to access**. Also, the request URL has the following parameters:\n\t- **scope**: Scope limits the level of access the application has to access protected resources.Refer to [Scopes](https://www.zoho.com/crm/developer/docs/api/v8/scopes.html) for more details.\n\t\t- **client\\_id**: Client ID(consumer key) that you obtained during client registration.\n\t\t- **response\\_type**: This parameter is sent with value **code**\n\t\t- **access\\_type**: Enter access\\_type as **online** or **offline**. If you want to generate the refresh token, set this value as **offline**.\n\t\t- **redirect\\_uri**: The URI to which the authorization server will redirect the browser back with the authorization code. It must be the same URI provided when registering the app in the API console. It should start with http:// or https://. For example: https://www.zylker.com/oauthredirect\n- Based on the user's login details, the system automatically detects the user's domain and uses the domain-specific authentication URL to obtain the organization-specific grant token (code).\n- **When the user clicks Accept:** The application gets authorized. The **organization-specific grant token** is sent as a parameter in the redirect\\_uri.\n\n- A back-end script from your end needs to store the following details from the above URL.\n\t- **code={grant\\_token}** - This is used to generate access and refresh tokens.\n\t\t- **location={domain}** - This tells you the domain of the user from which you have to make API calls.\n\t\t- **accounts-server={accounts\\_URL}** - This is your accounts URL which you have to use to [generate access and refresh tokens](https://www.zoho.com/crm/developer/docs/api/v8/access-refresh.html).\n- The application exchanges the grant token for an access token.\n- **When the user clicks Reject:** The browser redirects to the redirect URI with the parameter **error=access\\_denied**, and your application is denied access to the user's data in Zoho CRM.\n\n**Note**\n\n- The grant token is valid only for **two minutes**. Refer to the [Token Validity](https://www.zoho.com/crm/developer/docs/api/v8/token-validity.html) page for more details.\n- The authorization URL has the scope for Users. You can change the scope as per your requirement.\n\n##### Possible Errors\n\n- ERROR\\_invalid\\_response\\_type\n\t**Resolution:** The value of the \"response\\_type\" key is not \"code\". Update the value as \"code\".\n\t(or)\n\tYou have not passed the mandatory keys in the request. Pass all the mandatory keys in the request to generate the organization-specific grant token.\n- ERROR\\_invalid\\_client\n\t**Resolution:** The client ID is wrong or empty. Pass the right client ID. You can check your client ID from the developer console.\n- ERROR\\_invalid\\_redirect\\_uri\n\t**Resolution:** The redirect URI value passed, and the one registered in the developer console mismatches. Pass the right redirect URI.\n- ERROR\\_invalid\\_scope\n\t**Resolution:** The scope is invalid. Pass valid scopes. You can refer to the list of scopes [here](https://www.zoho.com/crm/developer/docs/api/v8/scopes.html).\n\n## Self-Client option\n\nUse this method to generate the organization-specific grant token if your application does not have a domain and a redirect URL.\nYou can also use this option when your application is a standalone server-side application performing a back-end job.\n\n1. Go to [Zoho Developer Console](https://api-console.zoho.com/) and log in with your Zoho CRM username and password.\n2. Choose **Self Client** from the list of client types, and click **Create Now**.\n3. Click **OK** in the pop up to enable a self client for your account.\n4. Now, your client ID and client secret are displayed under the Client Secret tab.\n\n5. Click the **Generate Code** tab and enter the required scope separated by commas. Refer to our list of [Scopes](https://www.zoho.com/crm/developer/docs/api/v8/scopes.html), for more details. The system throws an ' Enter a valid scope ' error when you enter one or more incorrect scopes.\n6. Select the **Time Duration** for which the grant token is valid. Please note that after this time, the grant token expires.\n7. Enter a description and click **Create**.\n\n8. A pop up displays the list of portals as shown below. Choose your portal. Further, the pop-up displays the list of environments and different organizations under each environment.\n\n9. Select the organization in an environment you want to generate the grant token for, and click **Create**.\n10. The organization-specific grant token code for the specified scope is displayed. Copy the grant token.\n\n**Note**\n\n- Generating the organization-specific grant token is a one-time process, provided you generate the access and refresh tokens within the time the grant token is valid for.",
+                                        "link": "https://www.zoho.com/crm/developer/docs/api/v8/auth-request.html",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "To use the Zoho CRM APIs, the users must authenticate the application to make API calls on their behalf with an access token. The access token, in return, must ...",
+                                        "title": "Authorization Request | Zoho CRM API | V8"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://www.zoho.com/crm/developer/docs/api/v8/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Use Zoho CRM's V8 APIs to create custom solutions to your requirements and integrate third-party applications seamlessly with Zoho CRM.",
+                                        "title": "Zoho CRM V8 APIs"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://www.zoho.com/crm/developer/docs/functions/serverless.html",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Explore how to expose functions as REST APIs to customize Zoho CRM operations for your various business needs ... REST API endpoints support OAuth 2.0 and API key ...",
+                                        "title": "Serverless Functions | Zoho CRM | Developer Tools"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://www.zoho.com/crm/developer/docs/api/v8/get-org-data.html",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Retrieve organization data in Zoho CRM using API V8. This page explains how to access and manage organizational information to optimize your CRM setup and ...",
+                                        "title": "Get Organization Details | Zoho CRM API | V8"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 2,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "zoho.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 5,
+                                    "page": 1,
+                                    "query": "\"Zoho CRM\" official developer documentation API authentication OAuth API key REST GraphQL",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        },
+                        {
+                            "cost": 2,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "## Hi, how can we help?\n\n## Zoho CRM MCP Servers\n\nConnect your AI tools to Zoho CRM using the Model Context Protocol (MCP) to perform CRM operations using natural language.\n\n## Overview\n\nZoho CRM MCP servers connect your AI tools to Zoho CRM using the Model Context Protocol (MCP). They expose CRM capabilities as tools that your AI agent can invoke during a conversation.\n\nThis allows you to perform CRM operations directly from your AI tool using natural language, without navigating the CRM interface or working with APIs.\n\nZoho CRM provides these as pre-built MCP servers, so you don't need to build, host, or maintain any infrastructure.\n\n## How it works\n\n1. Install an MCP server in your AI tool.\n2. The server registers its capabilities as tools with the AI agent.\n3. Provide instructions in natural language.\n4. The agent maps your request to the appropriate tool and executes the action in Zoho CRM.\n\nYou do not need to learn API endpoints or write code. The MCP server translates your prompts into CRM operations.\n\n#### Note\n\nZoho CRM MCP servers work with any AI tool that supports MCP, including **Cursor**, **Claude Desktop**, **VS Code**, and **Windsurf**.\n\n## Pre-built MCP Servers\n\nZoho CRM groups its MCP capabilities into four pre-built servers. Each server focuses on a specific area of CRM functionality and registers its own set of tools with your AI agent.\n\nSince the servers are pre-built, you can directly install the servers in your AI tool and start prompting. You can install more than one servers to cover a broader range of tasks.\n\nThe sections below describe what each server offers, along with example prompts to get you started.\n\n### Data Insights\n\nProvides read-only access to your organisation's CRM data. This allows you to query records, retrieve module lists, and view field schemas.\n\n#### Available Actions\n\n- Query records across standard and custom modules using COQL\n- Filter, sort, group, and paginate results\n- Retrieve the list of all modules in your CRM\n- Access field schemas for any module\n\n#### Example prompts\n\n- **\"Show me all the deals closing this month\"**\n\tLists deals with a closing date in the current month.\n- **\"How many leads were created last week?\"**\n\tReturns the total lead count for the past 7 days.\n- **\"List the top 10 accounts by annual revenue\"**\n\tReturns accounts sorted by revenue in descending order.\n\n### Data Operations\n\nAllows you to manage CRM records across standard and custom modules including create, read, update, and delete operations.\n\n#### Available Actions\n\n- Create, read, update, and delete records\n- Perform bulk operations on multiple records at once\n- Retrieve and update related records associated with a parent record\n- Search records using COQL queries\n- Retrieve the list of all modules and field schemas\n\n#### Example prompts\n\n- **\"Create a new lead: Patricia Boyle, Zylker Corp, patricia.boyle@zylker.com\"**\n\tCreates a lead record with the specified details.\n- **\"Delete all deals that have been stuck in the 'Negotiation' stage since March\"**\n\tDeletes matching deal records.\n- **\"Show all contacts related to the account 'zylker'\"**\n\tRetrieves contact records for the specified account.\n\n### Module Customization\n\nConfigure your organisation's data model, including modules, fields and page layouts.\n\n#### Available Actions\n\n- Retrieve the list of all modules and view module metadata\n- Create new custom modules\n- Update module-level settings and properties\n- Retrieve field schemas and create custom fields\n- Update field properties (label, required, tooltip, etc.)\n- Retrieve, update, activate, and deactivate page layouts\n\n#### Example prompts\n\n- **\"Add a text field called 'Customer Type' to the Leads module\"**\n\tCreates a new text field in the Leads module.\n- **\"List all the fields in the Contacts module\"**\n\tRetrieves a list of all fields in the specified module.\n- **\"Show all layouts in the Deals module\"**\n\tProvides a list of all layouts in the specified module.\n\n### Workflow & Process Automation\n\nConfigure automation rules and manage workflow tasks.\n\n#### Available Actions\n\n- Create, update, and list workflow rules\n- Reorder the sequence of workflow rules\n- Create, update, and list workflow task actions\n- Retrieve workflow configuration details\n\n#### Example prompts\n\n- **\"Create a task to call new leads within 1 day\"**\n\tCreates a new automation task that triggers a call action for new leads after 1 day.\n- **\"List all active workflow rules in the Leads module\"**\n\tReturns workflow rules currently enabled for Leads.\n- **\"Show the workflow configuration for Big Deal Alert workflow in the Deals module\"**\n\tDisplays the configuration details for the specified workflow.\n\n#### Note\n\nAPI calls executed through MCP consume API credits in the same way as standard API calls. These requests are subject to the existing [API credit limits](https://www.zoho.com/crm/developer/docs/api/v8/api-limits.html).\n\n## Setup\n\nSet up Zoho CRM MCP servers in your AI tool to start interacting with your CRM using natural language.\n\n### Prerequisites\n\n1. A Zoho CRM account with appropriate user permissions.\n2. Any of the supported IDEs including Cursor, Claude, VS Code, or Windsurf.\n\n### Authentication\n\nWhen you invoke an MCP tool for the first time, the server initiates an OAuth flow. A browser window opens and prompts you to log in to your Zoho account. Once authentication is complete, the tools become available in your AI tool.\n\nOAuth Flow\n\n- All actions are scoped to your Zoho CRM user permissions. You can only perform operations that your CRM role allows.\n- To switch between different orgs or users, disconnect the MCP server in your AI tool, then re-authenticate/restart with the organization you want to use. The new session will be scoped to that organization.",
+                                        "link": "https://www.zoho.com/crm/developer/docs/mcp/overview.html",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Zoho CRM MCP servers connect your AI tools to Zoho CRM using the Model Context Protocol (MCP). They expose CRM capabilities as tools that your AI agent can ...",
+                                        "title": "Zoho CRM MCP - An Overview | Developer Tools"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://www.zoho.com/mcp/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Meet Zoho MCP (Model Context Protocol), which enables developers to ... Zoho CRM; OnceHub; PagerDuty; Zoho Cliq; GitLab; Apify; Zoho Books; Zoho Survey ...",
+                                        "title": "Zoho MCP | Zoho's Model Context Protocol to empower AI Agents"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://help.zoho.com/portal/en/kb/mcp/getting-started/articles/zoho-mcp-help-documentation",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "What is MCP?Model Context Protocol (MCP) ... To authorize and use the required tools, you each would need to have individual accounts in the Zoho CRM and Zoho Mail ...",
+                                        "title": "Get Started With Zoho MCP"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 1,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "zoho.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 3,
+                                    "page": 1,
+                                    "query": "\"Zoho CRM\" official developer documentation MCP Model Context Protocol integrations API",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        }
+                    ],
+                    "summary": {
+                        "failed": 0,
+                        "successful": 2,
+                        "total": 2,
+                        "total_cost": 5
+                    }
+                }
+            },
+            "tool_slug": "SEARCH1API_SEARCH_WEB",
+            "index": 0,
+            "structure_info": {
+                "data_structure": {
+                    "type": "object",
+                    "properties": {
+                        "results": {
+                            "type": "array",
+                            "length": 2,
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 5 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 3 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                }
+                            ]
+                        },
+                        "summary": {
+                            "type": "object",
+                            "properties": {
+                                "failed": "number",
+                                "successful": "number",
+                                "total": "number",
+                                "total_cost": "number"
+                            }
+                        }
+                    }
+                },
+                "note": "This shows the complete structure of this tool's response data in the saved file"
+            },
+            "instruction": "Use structure_info (schema) and data_preview (samples) to understand the result, then process the remote response file."
+        }
+    ],
+    "total_count": 1,
+    "success_count": 1,
+    "error_count": 0,
+    "session": {
+        "id": "page",
+        "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+    },
+    "remote_file_info": {
+        "message": "As requested, responses have been saved to remote workbench in /mnt/files/mex/cage.json. The response was not too large, so it has also been returned inline below. Use the inline response itself for summary/analysis, DO NOT use the workbench for small data or simple calculations—reserve it for larger or more complex tasks.",
+        "file_path": "/mnt/files/mex/cage.json",
+        "filename": "cage.json",
+        "total_tools_executed": 1,
+        "successful_tools": 1,
+        "failed_tools": 0,
+        "instructions": "IMPORTANT: Each result in the response above includes 'structure_info' showing the complete data structure, as well as 'data_preview' showing truncated data - USE THEM to understand the result structures and process the results in the remote file. DO NOT iterate the file to discover structure and DO NOT assume the structure!\n\nTo process the complete file inside the sandbox, use one of the following:\n- Use COMPOSIO_REMOTE_WORKBENCH and write Python code to programmatically parse and get the information needed.\n- Use COMPOSIO_REMOTE_BASH_TOOL and use `jq`, `rg` and write bash scripts to handle the file, break it down and more\n\nThe file is saved at /mnt/files/mex/cage.json.\n\nThe file contains the complete multi-execute response. When working with the data:\n1-2. NOTE: Use this code snippet to load JSON and access i-th result:\n   ```python\n   file_data = json.load(open(\"/mnt/files/mex/cage.json\"))  # Load the complete response file\n   i = 0  # Result index (0 for first result, 1 for second, etc.)\n   result_data = file_data['results'][i]['response']['data']  # Access the i-th result data directly\n   ```\n3. Each result's structure_info.data_structure shows the EXACT structure of what's INSIDE that result's ['response']['data'] - use it directly!\n4. For data_structure: 'type'=object/array, 'properties'=direct child fields, 'length'=array count\n5. Example: if results[0].structure_info shows messages: {type: 'array', length: 1000}, the messages are at file_data['results'][0]['response']['data']['messages'] (direct child)\n6. CRITICAL: The properties shown in data_structure are the direct children of ['response']['data'], NOT nested under another 'data' key"
+    },
+    "next_steps": "DO NOT call workbench tools (COMPOSIO_REMOTE_WORKBENCH or COMPOSIO_REMOTE_BASH_TOOL) for this response. The data is available inline above - process it directly in your next message. Only use workbench if you need complex scripting, pagination loops, or bulk tool calls that cannot be done inline."
+}

@@ -1,0 +1,181 @@
+{
+    "results": [
+        {
+            "response": {
+                "successful": true,
+                "data": {
+                    "results": [
+                        {
+                            "cost": 3,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "## Authentication\n\nThere are two ways to access the Copper Developer API: API keys and OAuth2.0. API Keys are suitable for individual users, while OAuth2.0 is the preferred approach for partner integrations.\n\n## API Keys\n\nThe Dev API uses token based authentication. You have to include the token in the header of every request, along with the email address of the user who generated the token. Users can hold multiple valid tokens at the same time. Admins can see all user generated tokens and generate new ones.\n\nTo generate an API token, in the Copper web app go to System settings > API Keys and click the 'GENERATE API KEY' button. Copper allows you to label each key for its unique purpose. You'll need to generate an API key to make an API Request.\n\n## OAuth2.0\n\n[Click here](https://developer.copper.com/introduction/oauth/index.html) to get started.",
+                                        "link": "https://developer.copper.com/introduction/authentication.html",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "To generate an API token, in the Copper web app go to System settings > API Keys and click the 'GENERATE API KEY' button. Copper allows you to label each key ...",
+                                        "title": "Authentication"
+                                    },
+                                    {
+                                        "content": "## Authentication via OAuth2.0\n\n## 1\\. Introduction\n\nYou can now access the Copper Developer API via [OAuth2.0](https://oauth.net/2/). This authentication method is an alternative to Copper's legacy [API Keys](https://developer.copper.com/introduction/authentication.html), and is particularly well-suited for third-party integrations looking to create a seamless and secure link between their users and Copper.\n\nOAuth2.0 offers several advantages over the API Key flow:\n\n- Authentication is open to all users, not just administrators\n- No need to generate and copy API keys from Copper to your application\n- Readily available client libraries help with smooth integration\n\n## 2\\. Prerequisites\n\nTo use OAuth2.0 with Copper, you must first register your application. This step protects requests from forgery and keeps your users secure.\n\nTo register your application, [contact us](mailto:partners@copper.com). You will need to provide the name and purpose of your application as well as a URL to an HTTPS endpoint that will handle the secure callback.\n\nYou will receive two credentials, `client_id` and `client_secret`, required for all authorization flows.\n\n| Parameter | Description |\n| --- | --- |\n| client\\_id | A public alphanumeric string that uniquely identifies your application |\n| client\\_secret | A private alphanumeric secret that verifies your application's identity |\n| redirect\\_uri | The callback endpoint of your application (e.g. `https://yourapp.com/callback`) |\n\n## 3\\. Authorization Flow Overview\n\nCopper implements the commonly-used [Authorization Code Grant](https://oauth.net/2/grant-types/authorization-code/) flow:\n\n1. Your application initiates the authorization flow by directing the user to Copper's authorization endpoint\n2. The user then logs into their Copper account, and accepts the permission scopes requested by your application\n3. The user is then redirected back to your application with a temporary authorization code\n4. Lastly, your application exchanges this code for an access token, which can be used to query Developer API endpoints\n\nCopper OAuth2.0\n\nFor more details, [click here](https://developer.copper.com/introduction/oauth/flow.html).\n\n## 4\\. Quickstart Guide\n\nFollow our [quickstart guide](https://developer.copper.com/introduction/oauth/quickstart.html) to get up and running quickly.\n\n## 5\\. Documentation\n\nThe detailed Copper authorization flow documentation can be [found here](https://developer.copper.com/introduction/oauth/flow.html).\n\n## 6\\. Access Token Management\n\nActive OAuth2.0 connections are shown in the Copper user interface, under **Settings ➡ Integrations ➡ Active Integrations**. This interface also lets users revoke their tokens.\n\nSettings UI\n\n> Note: account administrators may revoke tokens on behalf of other users\n\n## 7\\. Scopes\n\nScopes define specific permissions your application wants to obtain from the user. Currently, only the `developer/v1/all` scope is supported, which grants full read and modify access to the authenticated user's records. This scope is backward compatible with our legacy API Key authentication.\n\n| Scope | Permissions |\n| --- | --- |\n| developer/v1/all | Read and modify user records |\n\n> Note: more granular scopes will be added in the future\n\n## 8\\. Client Libraries\n\nAlthough it's entirely feasible to implement the OAuth 2.0 flow through plain REST, it's advisable to leverage a library tailored to your chosen application language or framework.\n\n| Language | Library |\n| --- | --- |\n| Python | [`requests-oauthlib`](https://requests-oauthlib.readthedocs.io/) |\n| Java | [`Spring Security OAuth`](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/index.html) |\n| JavaScript (Node.js) | [`simple-oauth2`](https://github.com/lelylan/simple-oauth2) |\n| Ruby | [`omniauth`](https://github.com/omniauth/omniauth), [`oauth2`](https://github.com/oauth-xx/oauth2) |\n| PHP | [`league/oauth2-client`](https://github.com/thephpleague/oauth2-client) |\n| C# (.NET) | [`DotNetOpenAuth`](http://dotnetopenauth.net/) |\n| Go (Golang) | [`golang/oauth2`](https://pkg.go.dev/golang.org/x/oauth2) |\n| Swift (iOS/macOS) | [`OAuthSwift`](https://github.com/OAuthSwift/OAuthSwift) |",
+                                        "link": "https://developer.copper.com/introduction/oauth/index.html",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "The Copper Developer API provides a RESTful interface with JSON-formatted responses to access most Copper resources.",
+                                        "title": "Authentication via OAuth2.0"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developer.copper.com/introduction/oauth/flow.html",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "The Copper Developer API provides a RESTful interface with JSON-formatted responses to access most Copper resources.",
+                                        "title": "Documentation - Copper Developer API"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developer.copper.com/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "The Copper Developer API provides a RESTful interface with JSON-formatted responses to access most Copper resources.",
+                                        "title": "Copper Developer API: Getting started"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developer.copper.com/introduction/requests.html",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "The Copper Developer API provides a RESTful interface with JSON-formatted responses to access most Copper resources.",
+                                        "title": "Requests - Copper Developer API"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 2,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "copper.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 5,
+                                    "page": 1,
+                                    "query": "\"Copper\" official developer documentation API authentication OAuth API key REST GraphQL",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        },
+                        {
+                            "cost": 1,
+                            "data": {
+                                "images": null,
+                                "results": [],
+                                "search_parameters": {
+                                    "crawl_results": 1,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "copper.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 3,
+                                    "page": 1,
+                                    "query": "\"Copper\" official developer documentation MCP Model Context Protocol integrations API",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        }
+                    ],
+                    "summary": {
+                        "failed": 0,
+                        "successful": 2,
+                        "total": 2,
+                        "total_cost": 4
+                    }
+                }
+            },
+            "tool_slug": "SEARCH1API_SEARCH_WEB",
+            "index": 0,
+            "structure_info": {
+                "data_structure": {
+                    "type": "object",
+                    "properties": {
+                        "results": {
+                            "type": "array",
+                            "length": 2,
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 5 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 0 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                }
+                            ]
+                        },
+                        "summary": {
+                            "type": "object",
+                            "properties": {
+                                "failed": "number",
+                                "successful": "number",
+                                "total": "number",
+                                "total_cost": "number"
+                            }
+                        }
+                    }
+                },
+                "note": "This shows the complete structure of this tool's response data in the saved file"
+            },
+            "instruction": "Use structure_info (schema) and data_preview (samples) to understand the result, then process the remote response file."
+        }
+    ],
+    "total_count": 1,
+    "success_count": 1,
+    "error_count": 0,
+    "session": {
+        "id": "page",
+        "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+    },
+    "remote_file_info": {
+        "message": "As requested, responses have been saved to remote workbench in /mnt/files/mex/held.json. The response was not too large, so it has also been returned inline below. Use the inline response itself for summary/analysis, DO NOT use the workbench for small data or simple calculations—reserve it for larger or more complex tasks.",
+        "file_path": "/mnt/files/mex/held.json",
+        "filename": "held.json",
+        "total_tools_executed": 1,
+        "successful_tools": 1,
+        "failed_tools": 0,
+        "instructions": "IMPORTANT: Each result in the response above includes 'structure_info' showing the complete data structure, as well as 'data_preview' showing truncated data - USE THEM to understand the result structures and process the results in the remote file. DO NOT iterate the file to discover structure and DO NOT assume the structure!\n\nTo process the complete file inside the sandbox, use one of the following:\n- Use COMPOSIO_REMOTE_WORKBENCH and write Python code to programmatically parse and get the information needed.\n- Use COMPOSIO_REMOTE_BASH_TOOL and use `jq`, `rg` and write bash scripts to handle the file, break it down and more\n\nThe file is saved at /mnt/files/mex/held.json.\n\nThe file contains the complete multi-execute response. When working with the data:\n1-2. NOTE: Use this code snippet to load JSON and access i-th result:\n   ```python\n   file_data = json.load(open(\"/mnt/files/mex/held.json\"))  # Load the complete response file\n   i = 0  # Result index (0 for first result, 1 for second, etc.)\n   result_data = file_data['results'][i]['response']['data']  # Access the i-th result data directly\n   ```\n3. Each result's structure_info.data_structure shows the EXACT structure of what's INSIDE that result's ['response']['data'] - use it directly!\n4. For data_structure: 'type'=object/array, 'properties'=direct child fields, 'length'=array count\n5. Example: if results[0].structure_info shows messages: {type: 'array', length: 1000}, the messages are at file_data['results'][0]['response']['data']['messages'] (direct child)\n6. CRITICAL: The properties shown in data_structure are the direct children of ['response']['data'], NOT nested under another 'data' key"
+    },
+    "next_steps": "DO NOT call workbench tools (COMPOSIO_REMOTE_WORKBENCH or COMPOSIO_REMOTE_BASH_TOOL) for this response. The data is available inline above - process it directly in your next message. Only use workbench if you need complex scripting, pagination loops, or bulk tool calls that cannot be done inline."
+}

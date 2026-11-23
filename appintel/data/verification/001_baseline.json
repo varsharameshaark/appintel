@@ -1,0 +1,16 @@
+
+{
+    "app_id": 1,
+    "app_name": "Salesforce",
+    "baseline_type": "Reconstructed from the initial AI research output recorded during development",
+    "baseline_fields": {
+        "credential_access": "Unknown",
+        "buildability": "Easy",
+        "blocker": "None"
+    },
+    "limitations": [
+        "This is a reconstructed baseline, not an untouched original AI output file.",
+        "Only fields whose initial values are known have been included.",
+        "The baseline is used to document research refinement, not to claim measured factual accuracy improvement."
+    ]
+}

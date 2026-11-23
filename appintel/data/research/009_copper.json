@@ -1,0 +1,47 @@
+{
+    "app_id": 9,
+    "app_name": "Copper",
+    "category": "CRM and Sales",
+    "description": "Copper is a CRM and sales management platform that provides a RESTful Developer API for accessing and managing Copper resources.",
+    "auth_methods": [
+        "API Key",
+        "OAuth 2.0"
+    ],
+    "credential_access": "Partnership/contact sales",
+    "api_type": [
+        "REST"
+    ],
+    "api_breadth": "Provides access to Copper resources with the developer/v1/all scope granting full read and modify access to authenticated user records.",
+    "mcp_available": "Unknown",
+    "mcp_evidence": "No mention of an official Model Context Protocol (MCP) server was found in the provided documentation.",
+    "buildability": "Medium",
+    "blocker": "OAuth 2.0 client registration requires contacting partners@copper.com to get client_id and client_secret credentials. API Key requests require including both the API token and the user's email address in the request headers.",
+    "evidence": [
+        {
+            "url": "https://developer.copper.com/introduction/authentication.html",
+            "title": "Authentication",
+            "source_type": "Official",
+            "supports": "Describes token-based API Key authentication, requiring the token and user email in request headers, generated via System settings > API Keys.",
+            "research_method": "Crawl",
+            "excerpt": "The Dev API uses token based authentication. You have to include the token in the header of every request, along with the email address of the user who generated the token."
+        },
+        {
+            "url": "https://developer.copper.com/introduction/oauth/index.html",
+            "title": "Authentication via OAuth2.0",
+            "source_type": "Official",
+            "supports": "Outlines OAuth 2.0 Authorization Code Grant flow, client registration via email contact (partners@copper.com), and the developer/v1/all scope.",
+            "research_method": "Crawl",
+            "excerpt": "To register your application, contact us (mailto:partners@copper.com). You will need to provide the name and purpose of your application as well as a URL to an HTTPS endpoint that will handle the secure callback."
+        },
+        {
+            "url": "https://developer.copper.com/",
+            "title": "Copper Developer API: Getting started",
+            "source_type": "Official",
+            "supports": "Confirms the Copper Developer API uses a RESTful interface with JSON-formatted responses.",
+            "research_method": "Search",
+            "excerpt": "The Copper Developer API provides a RESTful interface with JSON-formatted responses to access most Copper resources."
+        }
+    ],
+    "confidence": "Medium",
+    "research_notes": "Copper offers API Key access self-served via System Settings (requiring token + user email in headers) and OAuth 2.0 authorization, which requires contacting partners@copper.com to register client credentials."
+}

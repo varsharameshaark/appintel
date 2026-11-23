@@ -1,0 +1,206 @@
+{
+    "results": [
+        {
+            "response": {
+                "successful": true,
+                "data": {
+                    "results": [
+                        {
+                            "cost": 3,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "## Authentication\n\nThe Intapp REST Client supports multiple authentication methods. Choose based on your API requirements.\n\n## Authentication Methods\n\n| Method | Use Case | Configuration |\n| --- | --- | --- |\n| **OAuth2** | Most REST APIs | `OAuth2Config` |\n| **API Key** | Simple APIs | `api_key` parameter |\n| **Basic Auth** | Legacy systems | `basic_auth` tuple |\n| **JWT** | Token-based | `JWTConfig` |\n| **Entra ID** | Microsoft APIs | `EntraConfig` |\n| **Okta** | Enterprise SSO | `OktaConfig` |\n| **External** | Azure AD, AWS, etc. | `httpx_auth` |\n\n## OAuth2 Client Credentials\n\nThe most common authentication method for API integrations.\n\n```python\nfrom intapp_rest_client import RestClient, OAuth2Config\n\nclient = RestClient(\n    base_url=\"https://api.example.com\",\n    oauth2_config=OAuth2Config(\n        token_url=\"https://api.example.com/oauth/token\",\n        client_id=\"your_client_id\",\n        client_secret=\"your_secret\",\n        scope=\"data\"  # Optional\n    )\n)\n\n# Tokens are automatically managed\ndata = client.get(\"/api/v4/resources\")\n```\n\n### OAuth2 Password Grant\n\nFor APIs that require user credentials:\n\n```python\nfrom intapp_rest_client import OAuth2Config, OAuth2GrantType\n\nconfig = OAuth2Config(\n    token_url=\"https://api.example.com/oauth/token\",\n    client_id=\"your_client_id\",\n    client_secret=\"your_secret\",\n    grant_type=OAuth2GrantType.PASSWORD,\n    username=\"user@example.com\",\n    password=\"user_password\"\n)\n```\n\n### Token Management\n\nThe client automatically handles:\n\n- **Token Acquisition**: Fetches token on first request\n- **Token Caching**: Reuses valid tokens\n- **Token Refresh**: Refreshes before expiration (default: 30 seconds before)\n- **401 Handling**: Automatically retries with fresh token\n\n```python\n# Configure refresh timing\nconfig = OAuth2Config(\n    token_url=\"https://api.example.com/oauth/token\",\n    client_id=\"client_id\",\n    client_secret=\"secret\",\n    token_refresh_margin=60  # Refresh 60 seconds before expiry\n)\n```\n\n### Advanced Token Control\n\nFor custom token management workflows, the client stores the OAuth2 manager in the internal attribute `_auth` (only when using OAuth2). You can check refresh state, force refresh, or parse token responses:\n\n```python\nfrom intapp_rest_client import RestClient, OAuth2Config\n\nclient = RestClient(\n    base_url=\"https://api.example.com\",\n    oauth2_config=OAuth2Config(...)\n)\n\n# When using OAuth2, client._auth is the OAuth2Manager instance\noauth_manager = client._auth\n\n# Check if token needs refresh\nif oauth_manager.token_needs_refresh:\n    print(\"Token will be refreshed soon\")\n\n# Force token refresh\noauth_manager.force_refresh_sync()\n\n# Parse token responses from external sources (class method)\nfrom intapp_rest_client import OAuth2Manager\ntoken_data = OAuth2Manager.parse_token_response({\n    \"access_token\": \"...\",\n    \"expires_in\": 3600,\n    \"token_type\": \"Bearer\"\n})\n```\n\n⚠️\n\n`client._auth` is an internal attribute and may change in future versions. Prefer using the client's public API (e.g. `get()`, `post()`) and let the client manage tokens automatically.\n\n## API Key Authentication\n\n```python\nfrom intapp_rest_client import RestClient\n\n# API key in header (default: X-API-Key)\nclient = RestClient(\n    base_url=\"https://api.example.com\",\n    api_key=\"your-api-key\"\n)\n\n# Custom header name\nclient = RestClient(\n    base_url=\"https://api.example.com\",\n    api_key=\"your-api-key\",\n    api_key_header=\"Authorization\"  # or \"Api-Key\", etc.\n)\n```\n\n## Basic Authentication\n\nFor APIs using HTTP Basic Auth:\n\n```python\nfrom intapp_rest_client import RestClient\n\nclient = RestClient(\n    base_url=\"https://api.example.com\",\n    basic_auth=(\"username\", \"password\")\n)\n```\n\n## JWT Authentication\n\nGenerate and sign JWT tokens locally:\n\n```python\nfrom intapp_rest_client import RestClient, JWTConfig\n\nclient = RestClient(\n    base_url=\"https://api.example.com\",\n    jwt_config=JWTConfig(\n        secret_key=\"your-secret-key\",\n        algorithm=\"HS256\",  # HS256, RS256, ES256, etc.\n        token_lifetime=3600,  # seconds\n        issuer=\"my-service\",  # Optional: iss claim\n        audience=\"api.example.com\",  # Optional: aud claim\n        custom_claims={  # Additional claims\n            \"user_id\": 123,\n            \"role\": \"admin\"\n        }\n    )\n)\n```\n\n💡\n\nJWT support requires the `jwt` extra:\n\n- **pip**: `pip install intapp-rest-client[jwt]`\n- **uv**: `uv add intapp-rest-client[jwt]`\n- **poetry**: `poetry add intapp-rest-client -E jwt`\n\n### Supported Algorithms\n\n| Algorithm | Type | Use Case |\n| --- | --- | --- |\n| HS256, HS384, HS512 | HMAC | Shared secret |\n| RS256, RS384, RS512 | RSA | Public/private key |\n| ES256, ES384, ES512 | ECDSA | Elliptic curve |\n| PS256, PS384, PS512 | RSA-PSS | Enhanced RSA |\n\n## Microsoft Entra ID (Azure AD)\n\nBuilt-in support for Microsoft identity platform:\n\n```python\nfrom intapp_rest_client import RestClient, EntraConfig\n\nclient = RestClient(\n    base_url=\"https://api.example.com\",\n    entra_config=EntraConfig(\n        tenant_id=\"your-tenant-id\",\n        client_id=\"your-client-id\",\n        client_secret=\"your-client-secret\",\n        scope=\"api://your-api/.default\"\n    )\n)\n```\n\n## Okta\n\nBuilt-in support for Okta:\n\n```python\nfrom intapp_rest_client import RestClient, OktaConfig\n\nclient = RestClient(\n    base_url=\"https://api.example.com\",\n    okta_config=OktaConfig(\n        domain=\"your-org.okta.com\",\n        client_id=\"your-client-id\",\n        client_secret=\"your-client-secret\",\n        scope=\"api-scope\"\n    )\n)\n```\n\n## Enterprise Authentication (httpx-auth)\n\nFor other identity providers, use the `httpx_auth` parameter with [httpx-auth](https://colin-b.github.io/httpx_auth/):\n\n```bash\npip install intapp-rest-client[enterprise-auth]\n```\n\n### Azure AD via httpx-auth\n\n```python\nfrom intapp_rest_client import RestClient\nfrom httpx_auth import AzureActiveDirectoryClientCredentials\n\nazure_auth = AzureActiveDirectoryClientCredentials(\n    tenant_id=\"your-tenant-id\",\n    client_id=\"your-client-id\",\n    client_secret=\"your-client-secret\",\n    scope=\"api://your-api/.default\"\n)\n\nclient = RestClient(\n    base_url=\"https://api.example.com\",\n    httpx_auth=azure_auth\n)\n```\n\n### AWS Signature V4\n\n```python\nfrom intapp_rest_client import RestClient\nfrom httpx_auth import AWS4Auth\n\naws_auth = AWS4Auth(\n    access_id=\"your-access-key\",\n    secret_key=\"your-secret-key\",\n    region=\"us-east-1\",\n    service=\"execute-api\"\n)\n\nclient = RestClient(\n    base_url=\"https://your-api.execute-api.us-east-1.amazonaws.com\",\n    httpx_auth=aws_auth\n)\n```\n\n### Okta via httpx-auth\n\n```python\nfrom intapp_rest_client import RestClient\nfrom httpx_auth import OktaClientCredentials\n\nokta_auth = OktaClientCredentials(\n    instance=\"your-org.okta.com\",\n    client_id=\"your-client-id\",\n    client_secret=\"your-client-secret\",\n    scope=\"api-scope\"\n)\n\nclient = RestClient(\n    base_url=\"https://api.example.com\",\n    httpx_auth=okta_auth\n)\n```\n\n### Other Supported Providers\n\nhttpx-auth supports:\n\n- **Azure AD** - `AzureActiveDirectoryClientCredentials`, `AzureActiveDirectoryImplicit`\n- **Okta** - `OktaClientCredentials`, `OktaImplicit`, `OktaAuthorizationCode`\n- **AWS** - `AWS4Auth` (Signature V4)\n- **OAuth2** - `OAuth2ClientCredentials`, `OAuth2ResourceOwnerPasswordCredentials`\n- **API Key** - `HeaderApiKey`, `QueryApiKey`\n- **Basic/Digest** - `Basic`, `Digest`\n- **NTLM** - `NTLM`\n\nSee [httpx-auth documentation](https://colin-b.github.io/httpx_auth/) for details.\n\n## Combining with Retry\n\nExternal auth works seamlessly with retry configuration:\n\n```python\nfrom intapp_rest_client import RestClient, RetryConfig\nfrom httpx_auth import AzureActiveDirectoryClientCredentials\n\nclient = RestClient(\n    base_url=\"https://api.example.com\",\n    httpx_auth=AzureActiveDirectoryClientCredentials(...),\n    retry_config=RetryConfig(\n        max_retries=5,\n        backoff_factor=2.0,\n        retryable_statuses=(429, 500, 502, 503, 504)\n    )\n)\n```\n\n## Security Best Practices\n\n⚠️\n\n**Never hardcode credentials** in source code. Use environment variables or secrets managers.\n\n### Environment Variables\n\n```python\nimport os\nfrom intapp_rest_client import RestClient, OAuth2Config\n\nclient = RestClient(\n    base_url=os.environ[\"API_BASE_URL\"],\n    oauth2_config=OAuth2Config(\n        token_url=os.environ[\"TOKEN_URL\"],\n        client_id=os.environ[\"CLIENT_ID\"],\n        client_secret=os.environ[\"CLIENT_SECRET\"]\n    )\n)\n```\n\n### Cloud Secrets Managers\n\n```python\n# AWS Secrets Manager\nimport boto3\nimport json\n\ndef get_client():\n    sm = boto3.client('secretsmanager')\n    secret = json.loads(\n        sm.get_secret_value(SecretId='my-api-creds')['SecretString']\n    )\n    return RestClient(\n        base_url=secret['base_url'],\n        oauth2_config=OAuth2Config(\n            token_url=secret['token_url'],\n            client_id=secret['client_id'],\n            client_secret=secret['client_secret']\n        )\n    )\n```\n\n## Next Steps\n\n- [Retry Configuration](https://api.docs.dealcloud.com/sdk/intapp-rest-client/configuration/retry) - Configure retry behavior\n- [Connection Pooling](https://api.docs.dealcloud.com/sdk/intapp-rest-client/configuration/connection-pool) - Optimize connections\n- [Error Handling](https://api.docs.dealcloud.com/sdk/intapp-rest-client/advanced/errors) - Handle authentication errors",
+                                        "link": "https://api.docs.dealcloud.com/sdk/intapp-rest-client/configuration/authentication",
+                                        "metadata": null,
+                                        "published_date": "2026-08-26",
+                                        "snippet": "Intapp DealCloud FeedbackFeedback (opens in a new tab). CTRL K. CTRL K ... Configuration. OAuth2, Most REST APIs, OAuth2Config. API Key, Simple ...",
+                                        "title": "Authentication - DealCloud API Docs"
+                                    },
+                                    {
+                                        "content": "## Requesting an OAuth2 Bearer Token\n\nDealCloud uses the OAuth2 Client Credentials flow to generate a bearer token, which is then used in the HTTP Authentication header for API requests.\n\n**How the OAuth2 Client Credentials Flow Works:**\n\n1. The client application sends a POST request to the token endpoint, providing its `client_id`, `apiKey`, and the required `scope(s)`.\n2. The authorization server validates the credentials and scopes.\n3. If valid, the server responds with an `access_token` (bearer token), its type, and expiration time.\n4. The client includes this token in the `Authorization` header for subsequent API requests `Authorization: Bearer {{token}}`.\n5. Tokens expire after 900 seconds (15 minutes) and must be refreshed by repeating the flow.\n\n**Security Best Practices**\n\n- Avoid exposing your `apiKey` in client-side code or public repositories.\n- Only request the scopes necessary for your use case to minimize risk of interruptions.\n\n## Scopes\n\nWhen generating a token, use one or more scopes listed below, separated by a space. **It is recommended to include only the scopes needed.** If you receive a `403 Forbidden` response, the most likely cause is due to a missing scope or user group permissions.\n\n| Scope | Description |\n| --- | --- |\n| user\\_management | Required when accessing the [User Management](https://api.docs.dealcloud.com/docs/management) API endpoints (api/rest/v1/management) |\n| data | Required when accessing the [Data](https://api.docs.dealcloud.com/docs/data) or [Schema](https://api.docs.dealcloud.com/docs/schema) API endpoints (api/rest/v4/data or api/rest/v4/schema). |\n| publish | Required when accessing the [Publications](https://api.docs.dealcloud.com/docs/publications) API endpoints (api/rest/v1/publication). |\n| ri\\_import | Required when accessing the [Relationship Intelligence Import](https://api.docs.dealcloud.com/docs/relintel) API endpoints (api/rest/v1/ri/import). |\n| backup | Required when accessing the [Site Backup](https://api.docs.dealcloud.com/docs/backups) API endpoints (api/rest/v4/backups). |\n\n- Scopes not included here but listed in swagger: provider\\_sync, api, data\\_provider, and exchange are either deprecated or specialized and are not required for any of the APIs documented here.\n\n## Examples\n\n### HTTP\n\n```http\nPOST {baseUrl}/api/rest/v1/oauth/token\nContent-Type: application/x-www-form-urlencoded\n\nscope=data user_management\n&grant_type=client_credentials\n&client_id=106\n&client_secret=1356GYNU\n```",
+                                        "link": "https://api.docs.dealcloud.com/docs/token",
+                                        "metadata": null,
+                                        "published_date": "2025-08-01",
+                                        "snippet": "Requesting an OAuth2 Bearer Token. DealCloud uses the OAuth2 Client Credentials flow to generate a bearer token, which is then used in the ...",
+                                        "title": "Requesting an OAuth2 Bearer Token - DealCloud API Docs"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://api.docs.dealcloud.com/mcp/authentication",
+                                        "metadata": null,
+                                        "published_date": "2026-09-16",
+                                        "snippet": "DealCloud MCP uses OAuth to authenticate, letting AI assistants connect on behalf of an individual user. The user signs in through DealCloud to ...",
+                                        "title": "Authentication - DealCloud API Docs"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://api.docs.dealcloud.com/docs/apikeys",
+                                        "metadata": null,
+                                        "published_date": "2025-07-30",
+                                        "snippet": "Obtaining an API Key. Once user permissions are set, click the User icon at the top-right of your DealCloud screen and select Profile. Scroll ...",
+                                        "title": "Obtaining an API Key - DealCloud API Docs"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://api.docs.dealcloud.com/docs/schema/metadata/field_types",
+                                        "metadata": null,
+                                        "published_date": "2026-03-17",
+                                        "snippet": "Intapp DealCloud FeedbackFeedback (opens in a new tab). CTRL K. CTRL K. API Reference. Getting Started; API Keys · Authorization Token ...",
+                                        "title": "Field Types - DealCloud API Docs"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 2,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "api.docs.dealcloud.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 5,
+                                    "page": 1,
+                                    "query": "\"DealCloud\" official developer documentation API authentication OAuth API key REST GraphQL",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        },
+                        {
+                            "cost": 2,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "## Connecting AI Clients\n\nDealCloud MCP can connect with Claude, ChatGPT, Microsoft Copilot Studio, Cursor, local agents such as Claude Code and Codex CLI, and other compatible AI clients. Each connection authenticates via OAuth on behalf of the signed-in user.\n\n## Client Compatibility\n\nDealCloud MCP is compatible with most AI clients that support the current MCP spec, including hosted platforms and local agents. Connections authenticate via OAuth 2.0. DealCloud MCP advertises its OAuth configuration through standard `.well-known` discovery endpoints, so clients that support dynamic discovery connect automatically, with no manual OAuth setup.\n\n| AI Client | Type | Status |\n| --- | --- | --- |\n| Claude.ai / Claude Desktop | Hosted AI platform | Supported |\n| ChatGPT | Hosted AI platform | Supported |\n| Microsoft Copilot Studio | Hosted AI platform | Supported |\n| Cursor Agents | Hosted AI platform | Supported |\n| Claude Code | Local agent | Supported, [requires enablement](https://api.docs.dealcloud.com/mcp/connections#local-mcp-clients) |\n| Codex CLI | Local agent | Supported, [requires enablement](https://api.docs.dealcloud.com/mcp/connections#local-mcp-clients) |\n| Cursor IDE (desktop) | Local agent | Supported, [requires enablement](https://api.docs.dealcloud.com/mcp/connections#local-mcp-clients) |\n| Custom / third-party AI clients | — | Contact your Account Manager |\n\n## Claude\n\nBoth claude.ai and Claude Desktop connect through the same Connectors UI and share the same OAuth callback. On Team and Enterprise plans, only organization Owners can add connectors, and individual users can then connect after the owner has set it up.\n\n[Anthropic documentation](https://support.claude.com/en/articles/11175166-getting-started-with-custom-connectors-using-remote-mcp)\n\n**For org owners / admins**\n\n### Open Organization Connectors\n\nGo to **Organization settings > Connectors** and click **Add**.\n\n### Add the Connector\n\nSelect **Custom > Web**, paste your DealCloud MCP endpoint URL, and click **Add**.\n\n**For end users**\n\n### Open Connectors\n\nGo to **Customize > Connectors** and locate the DealCloud connector your admin added.\n\n### Connect and Authorize\n\nClick **Connect** and complete the DealCloud OAuth sign-in when prompted. To activate in a specific chat, click **+** at the bottom of the chat and toggle the connector on.\n\n## ChatGPT\n\nOn Business and Enterprise plans, a workspace admin must enable and configure custom MCP connectors before users can access them.\n\n[OpenAI documentation](https://help.openai.com/en/articles/12584461-developer-mode-and-mcp-apps-in-chatgpt)\n\n**For workspace admins**\n\n### Enable Custom MCP Connectors\n\nGo to **Workspace Settings > Permissions & Roles > Connected Data** and enable **Create custom MCP connectors**.\n\n### Create the Connector\n\nNavigate to [chatgpt.com/plugins](https://chatgpt.com/plugins) and click **+**. Enter a name, set the connection type to **Server URL**, paste your DealCloud MCP endpoint URL, and configure OAuth authentication. Complete the tool scan and publish the connector to the workspace.\n\n**For end users**\n\nOnce the admin has published the connector, access it via the **+** icon in the chat input, search for the DealCloud connector, and click **Connect**. Complete the DealCloud OAuth sign-in when prompted.\n\n## Microsoft Copilot Studio\n\nDealCloud MCP is compatible with **Microsoft Copilot Studio** agents using the MCP onboarding wizard.\n\n[Microsoft documentation](https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent)\n\n⚠️\n\nOther Microsoft Copilot-branded surfaces may not be compatible with DealCloud MCP. Compatibility varies by surface; please confirm with your Microsoft admin before setting up.\n\n### Open or Create an Agent\n\nIn Copilot Studio, open an existing agent or create a new one. Navigate to the **Tools** page.\n\n### Add a Tool\n\nSelect **Add a tool > New tool > Model Context Protocol**. The MCP onboarding wizard appears.\n\n### Configure the Server\n\nEnter a **Server name**, **Server description**, and paste your DealCloud MCP endpoint URL.\n\n### Configure Authentication\n\nSelect **OAuth 2.0** as the authentication type, then select **Dynamic discovery**. Click **Create**.\n\n### Create a Connection and Add to Agent\n\nIn the **Add tool** dialog, select **Create a new connection**, then click **Add to agent**.\n\n### Authorize\n\nUsers are prompted to sign in to DealCloud via OAuth on first interaction with the agent.\n\n## Cursor Agents\n\nDealCloud MCP is compatible with **Cursor Agents** running on Cursor's hosted web environment.\n\n[Cursor documentation](https://cursor.com/docs/mcp)\n\n### Open MCP Settings\n\nIn the Cursor web interface, navigate to your agent's MCP or tool configuration settings.\n\n### Add a New Server\n\nAdd a new MCP server, enter a name, and paste your DealCloud MCP endpoint URL.\n\n### Save and Authorize\n\nSave the configuration. On first use, you will be prompted to sign in to DealCloud via OAuth.\n\n## Local MCP Clients\n\nDealCloud MCP supports local MCP clients, including Claude Code, Codex CLI, and the Cursor IDE desktop app. These clients run on your machine and use a loopback address (`http://localhost`) as their OAuth redirect URI.\n\nLocal clients must be enabled for your site before they can connect. Contact your DealCloud Account Manager to have `localhost` redirects enabled.\n\nOnce enabled, add your DealCloud MCP endpoint URL to the client and complete the DealCloud OAuth sign-in when prompted. Refer to your client's documentation for how to add a remote MCP server.\n\n## Custom or Third-Party Clients\n\nFor organizations looking to connect a custom-built or third-party MCP client not listed above, reach out to your **DealCloud Account Manager**.",
+                                        "link": "https://api.docs.dealcloud.com/mcp/connections",
+                                        "metadata": null,
+                                        "published_date": "2026-11-15",
+                                        "snippet": "DealCloud MCP supports local MCP clients, including Claude Code, Codex CLI, and the Cursor IDE desktop app. These clients run on your machine ...",
+                                        "title": "Connecting AI Clients - DealCloud API Docs"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://api.docs.dealcloud.com/releases",
+                                        "metadata": null,
+                                        "published_date": "2026-10-22",
+                                        "snippet": "DealCloud now provides a Model Context Protocol (MCP) server which gives AI agents read access to your DealCloud data.",
+                                        "title": "DealCloud API Release Notes"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://api.docs.dealcloud.com/mcp",
+                                        "metadata": null,
+                                        "published_date": "2026-09-14",
+                                        "snippet": "The DealCloud MCP Server helps teams turn their DealCloud data into faster, higher-quality outcomes, from sharper relationship and pipeline ...",
+                                        "title": "DealCloud MCP Server - DealCloud API Docs"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 1,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "api.docs.dealcloud.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 3,
+                                    "page": 1,
+                                    "query": "\"DealCloud\" official developer documentation MCP Model Context Protocol integrations API",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        }
+                    ],
+                    "summary": {
+                        "failed": 0,
+                        "successful": 2,
+                        "total": 2,
+                        "total_cost": 5
+                    }
+                }
+            },
+            "tool_slug": "SEARCH1API_SEARCH_WEB",
+            "index": 0,
+            "structure_info": {
+                "data_structure": {
+                    "type": "object",
+                    "properties": {
+                        "results": {
+                            "type": "array",
+                            "length": 2,
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 5 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 3 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                }
+                            ]
+                        },
+                        "summary": {
+                            "type": "object",
+                            "properties": {
+                                "failed": "number",
+                                "successful": "number",
+                                "total": "number",
+                                "total_cost": "number"
+                            }
+                        }
+                    }
+                },
+                "note": "This shows the complete structure of this tool's response data in the saved file"
+            },
+            "instruction": "Use structure_info (schema) and data_preview (samples) to understand the result, then process the remote response file."
+        }
+    ],
+    "total_count": 1,
+    "success_count": 1,
+    "error_count": 0,
+    "session": {
+        "id": "page",
+        "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+    },
+    "remote_file_info": {
+        "message": "As requested, responses have been saved to remote workbench in /mnt/files/mex/note.json. The response was not too large, so it has also been returned inline below. Use the inline response itself for summary/analysis, DO NOT use the workbench for small data or simple calculations—reserve it for larger or more complex tasks.",
+        "file_path": "/mnt/files/mex/note.json",
+        "filename": "note.json",
+        "total_tools_executed": 1,
+        "successful_tools": 1,
+        "failed_tools": 0,
+        "instructions": "IMPORTANT: Each result in the response above includes 'structure_info' showing the complete data structure, as well as 'data_preview' showing truncated data - USE THEM to understand the result structures and process the results in the remote file. DO NOT iterate the file to discover structure and DO NOT assume the structure!\n\nTo process the complete file inside the sandbox, use one of the following:\n- Use COMPOSIO_REMOTE_WORKBENCH and write Python code to programmatically parse and get the information needed.\n- Use COMPOSIO_REMOTE_BASH_TOOL and use `jq`, `rg` and write bash scripts to handle the file, break it down and more\n\nThe file is saved at /mnt/files/mex/note.json.\n\nThe file contains the complete multi-execute response. When working with the data:\n1-2. NOTE: Use this code snippet to load JSON and access i-th result:\n   ```python\n   file_data = json.load(open(\"/mnt/files/mex/note.json\"))  # Load the complete response file\n   i = 0  # Result index (0 for first result, 1 for second, etc.)\n   result_data = file_data['results'][i]['response']['data']  # Access the i-th result data directly\n   ```\n3. Each result's structure_info.data_structure shows the EXACT structure of what's INSIDE that result's ['response']['data'] - use it directly!\n4. For data_structure: 'type'=object/array, 'properties'=direct child fields, 'length'=array count\n5. Example: if results[0].structure_info shows messages: {type: 'array', length: 1000}, the messages are at file_data['results'][0]['response']['data']['messages'] (direct child)\n6. CRITICAL: The properties shown in data_structure are the direct children of ['response']['data'], NOT nested under another 'data' key"
+    },
+    "next_steps": "DO NOT call workbench tools (COMPOSIO_REMOTE_WORKBENCH or COMPOSIO_REMOTE_BASH_TOOL) for this response. The data is available inline above - process it directly in your next message. Only use workbench if you need complex scripting, pagination loops, or bulk tool calls that cannot be done inline."
+}

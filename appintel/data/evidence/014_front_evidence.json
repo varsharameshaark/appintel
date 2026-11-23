@@ -1,0 +1,182 @@
+{
+    "results": [
+        {
+            "response": {
+                "successful": true,
+                "data": {
+                    "results": [
+                        {
+                            "cost": 3,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "## Overview\n\nFront's API settings give you the controls you need to manage active API tokens and what resources they can access. Define the access permission scope when you create a new token, monitor your active tokens, and delete them to revoke access at any time.\n\nYou must be a Front [company admin](https://help.front.com/en/articles/2118#company_admins) to manage API tokens.\n\n---\n\n## Instructions\n\nCheck out our [API tokens documentation](https://dev.frontapp.com/docs/create-and-revoke-api-tokens) to review the following topics:\n\n- Create an API token\n- Token scopes\n- View API token details\n- Delete an API token\n\n---\n\n- [Overview of Front's API and use cases](https://help.front.com/en/articles/2482): Get an overview of Front's API and review some of key use cases\n- [Front's API rate limit](https://help.front.com/en/articles/2438): Review rate limits and learn how to access the API usage analytics dashboard\n- [Developer documentation](https://dev.frontapp.com/docs/core-api-getting-started): Once you've created your token by following the steps above, continue with our developer documentation to learn more about how to make your first API requests",
+                                        "link": "https://help.front.com/en/articles/2331",
+                                        "metadata": null,
+                                        "published_date": "2026-08-03",
+                                        "snippet": "Front's API settings give you the controls you need to manage active API tokens and what resources they can access.",
+                                        "title": "How to create and revoke API tokens"
+                                    },
+                                    {
+                                        "content": "## Overview\n\nFront’s platform features a variety of APIs that allow you to build custom workflows and user interfaces that can dramatically improve the quality and efficiency of your customer communication. Our APIs are simple to use and include detailed [documentation](https://dev.frontapp.com/docs/welcome) with walkthroughs, code examples, and more. Most custom integrations can be built in only 1-3 weeks.\n\n**If you’re interested in learning more about our platform or are looking for guidance on a particular workflow you’d like to build, feel free to reach out to your account manager or post in our** [**Front Community**](https://community.front.com/p/developers)**.** We’re here to help you strategize what workflows would be most helpful for your team, and to dive into the technical implementation details.\n\nFor some great examples of what some other customers have built with Front’s platform, feel free to check out our [Flow and Tell](https://frontapp.com/blog/flow-and-tell) contest winners. We also have dozens of [partner integrations](https://help.front.com/en/articles/2208) that can be installed with just a few clicks.\n\n**Front’s platform is made up of three primary APIs: Core API, Plugin SDK, and Channel API**\n\n---\n\n## Core API\n\nThe [Core API](https://dev.frontapp.com/docs/core-api-getting-started) is Front’s “backend” API that allows developers to access and update almost all elements in Front, including messages, contacts, channels, inboxes, teammates, analytics and more. The API also includes webhooks support to enable real-time updates from Front to your system.\n\n### Common use cases\n\n- Syncing data from a CRM or internal database to Front Contacts. This data can then be used in Front Rules to power automatic routing/triage.\n- Syncing messages in Front to corresponding records in a CRM.\n- Automatically creating draft replies to customer inquiries, which users can then review before sending.\n- Automatically assigning and triaging inbound messages based on customer metadata or teammate workloads.\n- Exporting Front analytics data to be used in a third party BI tool or data warehouse.\n\n### Case studies\n\n- [Lydia’s auto-tagging workflow](https://frontapp.com/customer-stories/lydia)\n- [Load One’s TMS sync](https://frontapp.com/customer-stories/load-one)\n- [sennder’s internal ops integration](https://frontapp.com/customer-stories/sennder)\n- [HostnFly’s automatic triage](https://frontapp.com/customer-stories/hostnfly)\n\nYou can start building with the Core API by the following our [guide](https://dev.frontapp.com/docs/core-api-getting-started).\n\n---\n\n## Plugin SDK\n\nThe [Plugin SDK](https://dev.frontapp.com/docs/plugin-getting-started) allows you to embed a custom web app in Front’s sidebar, which can interact with Front’s UI by reacting to the user’s current conversations, creating drafts, adding tags and more.\n\n### Common use cases\n\n- Custom CRM or internal tooling integration that automatically looks up the account/contact/transaction details for a particular Front conversation and enables faster message drafting by pre-filling those details\n- Phone integration with an in-app dialer to make and receive calls without leaving Front\n- Knowledge base integration to search and view any knowledge base articles directly from Front\n\n### Case studies\n\n- [Custom plugin examples](https://dev.frontapp.com/docs/sample-applications)\n\nYou can start building with the Plugin SDK by following our [guide](https://dev.frontapp.com/docs/plugin-getting-started).\n\n---\n\n## Channel API\n\nA channel is a communication stream that can be connected to Front. With the [Channel API](https://dev.frontapp.com/docs/channels-overview), you can integrate practically any kind of messaging system or external communication into Front.",
+                                        "link": "https://help.front.com/en/articles/2482",
+                                        "metadata": null,
+                                        "published_date": "2026-02-09",
+                                        "snippet": "Front's platform features a variety of APIs that allow you to build custom workflows and user interfaces that can dramatically improve the ...",
+                                        "title": "Overview of Front's API and use cases"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 2,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "front.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 5,
+                                    "page": 1,
+                                    "query": "\"Front\" official developer documentation API authentication OAuth API key REST GraphQL",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        },
+                        {
+                            "cost": 2,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "### UPDATE: There’s a new version of the MCP server. Please join the following group to learn how to get started:\n\n[https://community.front.com/groups/beta-mcp-server-83](https://community.front.com/groups/beta-mcp-server-83)\n\nThe data access note for the original MCP server does not apply to the new one linked above.\n\nWe're excited to announce the beta release of the Front MCP server — and we'd love for you to try it.\n\nModel Context Protocol (MCP) is an open standard that lets AI applications securely connect to external data sources and tools. With the Front MCP server, AI-powered tools like Claude, Cursor, Windsurf, and others can interact directly with your Front account and API documentation using natural language — no manual API calls required.\n\n**What does that look like in practice?**\n\n- Ask your AI assistant to pull open conversations from a specific inbox, then tag or triage them\n- Query your Front account data in real time to inform what you're building\n- Explore Front's API endpoints and get full details about specific ones — without digging through docs\n- Generate integration code with full context about Front's capabilities already loaded in\n\nIt's a faster, more intuitive way to build on Front — and we're just getting started.\n\n**How to get access**\n\nFill out [this form](https://forms.gle/qimUYCzWUvpuM8VJ8), and we’ll be in touch.\n\n**A note on data access**\n\nThe Front MCP server uses the same API tokens as the Core API. Because these tokens grant company-wide access rather than per-user access, we strongly recommend starting with the narrowest scopes your use case requires and being explicit when passing instructions to your AI agent.\n\n**Feedback requested**\nWe're actively gathering feedback from the community before releasing a more robust version, so we'd love to hear what you build and where you run into friction. Drop your questions, ideas, and feedback in this thread — we're paying close attention.",
+                                        "link": "https://community.front.com/api-news-updates-40/the-front-mcp-server-is-here-beta-3712",
+                                        "metadata": null,
+                                        "published_date": "2026-04-07",
+                                        "snippet": "Apr 7, 2026 ... Model Context Protocol (MCP) is an open standard that lets AI applications securely connect to external data sources and tools. With the Front ...",
+                                        "title": "The Front MCP Server is here (beta) | Community"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://help.front.com/en/articles/3070464",
+                                        "metadata": null,
+                                        "published_date": "2026-10-08",
+                                        "snippet": "Oct 8, 2026 ... MCP (Model Context Protocol) is an open standard that tools use to publish what they're able to do. When a tool supports it, Front connects to ...",
+                                        "title": "Understanding Connectors - Front Help Center"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://community.front.com/developer-discussion-39/is-anyone-working-on-creating-an-mcp-server-for-frontapp-2309",
+                                        "metadata": null,
+                                        "published_date": "2025-03-20",
+                                        "snippet": "Mar 20, 2025 ... I will feature your post in our API News & Updates section so more people are aware! Much obliged. Javier - Front Developer Relations.",
+                                        "title": "Is anyone working on creating an MCP server for FrontApp?"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 1,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "front.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 3,
+                                    "page": 1,
+                                    "query": "\"Front\" official developer documentation MCP Model Context Protocol integrations API",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        }
+                    ],
+                    "summary": {
+                        "failed": 0,
+                        "successful": 2,
+                        "total": 2,
+                        "total_cost": 5
+                    }
+                }
+            },
+            "tool_slug": "SEARCH1API_SEARCH_WEB",
+            "index": 0,
+            "structure_info": {
+                "data_structure": {
+                    "type": "object",
+                    "properties": {
+                        "results": {
+                            "type": "array",
+                            "length": 2,
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 2 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 3 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                }
+                            ]
+                        },
+                        "summary": {
+                            "type": "object",
+                            "properties": {
+                                "failed": "number",
+                                "successful": "number",
+                                "total": "number",
+                                "total_cost": "number"
+                            }
+                        }
+                    }
+                },
+                "note": "This shows the complete structure of this tool's response data in the saved file"
+            },
+            "instruction": "Use structure_info (schema) and data_preview (samples) to understand the result, then process the remote response file."
+        }
+    ],
+    "total_count": 1,
+    "success_count": 1,
+    "error_count": 0,
+    "session": {
+        "id": "page",
+        "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+    },
+    "remote_file_info": {
+        "message": "As requested, responses have been saved to remote workbench in /mnt/files/mex/take.json. The response was not too large, so it has also been returned inline below. Use the inline response itself for summary/analysis, DO NOT use the workbench for small data or simple calculations—reserve it for larger or more complex tasks.",
+        "file_path": "/mnt/files/mex/take.json",
+        "filename": "take.json",
+        "total_tools_executed": 1,
+        "successful_tools": 1,
+        "failed_tools": 0,
+        "instructions": "IMPORTANT: Each result in the response above includes 'structure_info' showing the complete data structure, as well as 'data_preview' showing truncated data - USE THEM to understand the result structures and process the results in the remote file. DO NOT iterate the file to discover structure and DO NOT assume the structure!\n\nTo process the complete file inside the sandbox, use one of the following:\n- Use COMPOSIO_REMOTE_WORKBENCH and write Python code to programmatically parse and get the information needed.\n- Use COMPOSIO_REMOTE_BASH_TOOL and use `jq`, `rg` and write bash scripts to handle the file, break it down and more\n\nThe file is saved at /mnt/files/mex/take.json.\n\nThe file contains the complete multi-execute response. When working with the data:\n1-2. NOTE: Use this code snippet to load JSON and access i-th result:\n   ```python\n   file_data = json.load(open(\"/mnt/files/mex/take.json\"))  # Load the complete response file\n   i = 0  # Result index (0 for first result, 1 for second, etc.)\n   result_data = file_data['results'][i]['response']['data']  # Access the i-th result data directly\n   ```\n3. Each result's structure_info.data_structure shows the EXACT structure of what's INSIDE that result's ['response']['data'] - use it directly!\n4. For data_structure: 'type'=object/array, 'properties'=direct child fields, 'length'=array count\n5. Example: if results[0].structure_info shows messages: {type: 'array', length: 1000}, the messages are at file_data['results'][0]['response']['data']['messages'] (direct child)\n6. CRITICAL: The properties shown in data_structure are the direct children of ['response']['data'], NOT nested under another 'data' key"
+    },
+    "next_steps": "DO NOT call workbench tools (COMPOSIO_REMOTE_WORKBENCH or COMPOSIO_REMOTE_BASH_TOOL) for this response. The data is available inline above - process it directly in your next message. Only use workbench if you need complex scripting, pagination loops, or bulk tool calls that cannot be done inline."
+}

@@ -1,0 +1,296 @@
+{
+  "results": [
+    {
+      "index": 1,
+      "use_case": "Find web search and webpage crawling tools for researching official SaaS API documentation, authentication methods, API access requirements, and MCP support.",
+      "execution_guidance": "Found 7 tools for this query. Look at the schemas to know how to use them.",
+      "primary_tool_slugs": [
+        "SEARCH1API_SEARCH_WEB",
+        "SEARCH1API_CRAWL_URLS"
+      ],
+      "related_tool_slugs": [
+        "SEARCH1API_ASK_RESEARCH",
+        "SEARCH1API_EXTRACT_STRUCTURED_DATA",
+        "SEARCH1API_SEARCH_NEWS",
+        "SEARCH1API_DISCOVER_SITEMAP",
+        "SEARCH1API_START_DEEPCRAWL"
+      ],
+      "toolkits": [
+        "search1api"
+      ]
+    }
+  ],
+  "toolkit_connection_statuses": [
+    {
+      "toolkit": "search1api",
+      "has_active_connection": true,
+      "description": "Search1API provides web, maps, and news search alongside crawling, screenshots, sitemap discovery, and structured data extraction for AI agents.",
+      "connection_details": {
+        "connected_account_id": "ca_3anqN54C8jac",
+        "status": "ACTIVE",
+        "created_at": "2026-11-23T11:48:41.386Z"
+      },
+      "current_user_info": {
+        "usage": 100,
+        "user_id": "user_3MVTRTlAUY5TlZh1JQg8FvnnMKU",
+        "credential_type": "api_key",
+        "client_id": null
+      },
+      "account_type": "PRIVATE",
+      "status_message": "Connection is active and ready to use"
+    }
+  ],
+  "tool_schemas": {
+    "SEARCH1API_SEARCH_WEB": {
+      "toolkit": "SEARCH1API",
+      "tool_slug": "SEARCH1API_SEARCH_WEB",
+      "description": "Search the web for one or more queries and return a typed outcome for each. Each query has a base cost of 1 credit plus 1 credit for each result page successfully fetched through crawl_results. The page field selects one native provider page only for Bing, Bing China, Baidu, and Grokipedia; this tool does not auto-paginate.",
+      "input_schema": {
+        "type": "object",
+        "required": [
+          "requests"
+        ],
+        "properties": {
+          "requests": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "query"
+              ],
+              "properties": {
+                "page": {
+                  "type": "integer",
+                  "default": 1,
+                  "maximum": 100,
+                  "minimum": 1,
+                  "description": "Native result page (1-100). Only bing, bingcn, baidu, and grokipedia honor values after 1; other engines ignore it."
+                },
+                "image": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Whether to include image results when supported."
+                },
+                "query": {
+                  "type": "string",
+                  "examples": [
+                    "best open source vector databases"
+                  ],
+                  "minLength": 1,
+                  "description": "Search query to send to the selected web engine."
+                },
+                "language": {
+                  "type": "string",
+                  "description": "Language code such as en, zh-CN, or fr; Search1API has no separate region parameter."
+                },
+                "time_range": {
+                  "enum": [
+                    "day",
+                    "week",
+                    "month",
+                    "year",
+                    ""
+                  ],
+                  "type": "string",
+                  "description": "Optional publication-age filter; the official schema also permits an empty string."
+                },
+                "max_results": {
+                  "type": "integer",
+                  "default": 5,
+                  "maximum": 50,
+                  "minimum": 1,
+                  "description": "Maximum search results to return (1-50)."
+                },
+                "crawl_results": {
+                  "type": "integer",
+                  "default": 0,
+                  "maximum": 50,
+                  "minimum": 0,
+                  "description": "Number of top result pages whose full text to fetch (0-50 and no greater than max_results). Each successfully fetched page adds 1 credit to the base 1-credit search."
+                },
+                "exclude_sites": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Site or domain filters to exclude from the search."
+                },
+                "include_sites": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Site or domain filters to include in the search."
+                },
+                "search_service": {
+                  "enum": [
+                    "google",
+                    "bing",
+                    "bingcn",
+                    "duckduckgo",
+                    "yahoo",
+                    "yandex",
+                    "youtube",
+                    "x",
+                    "reddit",
+                    "github",
+                    "arxiv",
+                    "wechat",
+                    "bilibili",
+                    "imdb",
+                    "wikipedia",
+                    "grokipedia",
+                    "",
+                    "baidu",
+                    "360",
+                    "quark"
+                  ],
+                  "type": "string",
+                  "default": "google",
+                  "description": "Native search engine. Omit for Google; the official schema also permits an empty string."
+                }
+              }
+            },
+            "minItems": 1,
+            "description": "One or more web search queries. Each item is billed at a base cost of 1 credit plus 1 credit for each result page successfully fetched through crawl_results."
+          }
+        }
+      },
+      "hasFullSchema": true
+    },
+    "SEARCH1API_CRAWL_URLS": {
+      "toolkit": "SEARCH1API",
+      "tool_slug": "SEARCH1API_CRAWL_URLS",
+      "description": "Fetch readable content from one or more public URLs. Search1API charges 1 credit for each successful item; a target 404 or 410 is a completed, charged lookup. Batch successes may be unordered, and failed items may be omitted.",
+      "input_schema": {
+        "type": "object",
+        "required": [
+          "requests"
+        ],
+        "properties": {
+          "requests": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "url"
+              ],
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "examples": [
+                    "https://example.com/article"
+                  ],
+                  "description": "Public HTTP(S) URL to crawl."
+                },
+                "enable_fallback": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Whether Search1API may use its fallback crawler for this URL."
+                }
+              }
+            },
+            "minItems": 1,
+            "description": "URLs to crawl. Use one item for one URL. Search1API charges 1 credit for each successful item."
+          }
+        }
+      },
+      "hasFullSchema": true
+    },
+    "SEARCH1API_ASK_RESEARCH": {
+      "toolkit": "SEARCH1API",
+      "tool_slug": "SEARCH1API_ASK_RESEARCH",
+      "description": "Run a natural-language research query across up to five provider-selected engines and return at most 10 deduplicated, reranked results plus partial source errors. Warning: each completed call costs 5 credits.",
+      "input_schema": {
+        "type": "object",
+        "required": [
+          "query"
+        ],
+        "properties": {
+          "query": {
+            "type": "string",
+            "examples": [
+              "What are developers saying about Bun 1.3 this month?"
+            ],
+            "maxLength": 500,
+            "minLength": 1,
+            "description": "Natural-language research request for Search1API to interpret and route. Platform and time hints can steer source and time-window selection."
+          }
+        }
+      },
+      "hasFullSchema": true
+    },
+    "SEARCH1API_EXTRACT_STRUCTURED_DATA": {
+      "toolkit": "SEARCH1API",
+      "tool_slug": "SEARCH1API_EXTRACT_STRUCTURED_DATA",
+      "description": "Extract caller-defined structured data from one public webpage using an optional prompt and JSON res...",
+      "hasFullSchema": false,
+      "schemaRef": {
+        "tool": "COMPOSIO_GET_TOOL_SCHEMAS",
+        "args": {
+          "tool_slugs": [
+            "SEARCH1API_EXTRACT_STRUCTURED_DATA"
+          ]
+        }
+      }
+    },
+    "SEARCH1API_SEARCH_NEWS": {
+      "toolkit": "SEARCH1API",
+      "tool_slug": "SEARCH1API_SEARCH_NEWS",
+      "description": "Search recent news for one or more queries with source, site, language, and time filters, returning ...",
+      "hasFullSchema": false,
+      "schemaRef": {
+        "tool": "COMPOSIO_GET_TOOL_SCHEMAS",
+        "args": {
+          "tool_slugs": [
+            "SEARCH1API_SEARCH_NEWS"
+          ]
+        }
+      }
+    },
+    "SEARCH1API_DISCOVER_SITEMAP": {
+      "toolkit": "SEARCH1API",
+      "tool_slug": "SEARCH1API_DISCOVER_SITEMAP",
+      "description": "Discover sitemap URLs for a public site, or list all links on one public page without fetching page ...",
+      "hasFullSchema": false,
+      "schemaRef": {
+        "tool": "COMPOSIO_GET_TOOL_SCHEMAS",
+        "args": {
+          "tool_slugs": [
+            "SEARCH1API_DISCOVER_SITEMAP"
+          ]
+        }
+      }
+    },
+    "SEARCH1API_START_DEEPCRAWL": {
+      "toolkit": "SEARCH1API",
+      "tool_slug": "SEARCH1API_START_DEEPCRAWL",
+      "description": "Start an asynchronous multi-page crawl of a public site and return its task ID. WARNING: each submis...",
+      "hasFullSchema": false,
+      "schemaRef": {
+        "tool": "COMPOSIO_GET_TOOL_SCHEMAS",
+        "args": {
+          "tool_slugs": [
+            "SEARCH1API_START_DEEPCRAWL"
+          ]
+        }
+      }
+    }
+  },
+  "time_info": {
+    "current_time_utc": "2026-11-23T14:08:18.443Z",
+    "current_time_utc_epoch_seconds": 1795442898,
+    "message": "\n          - This is time in UTC timezone. Get timezone from user if you needed.\n          - Always use this time info to construct parameters for tool calls appropriately even when the tool call requires relative times like 'last week', 'last 24 hours', 'today', 'tomorrow' etc.\n          - Do not hallucinate the time or timezone by yourself.\n        "
+  },
+  "session": {
+    "id": "page",
+    "generate_id": true,
+    "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+  },
+  "next_steps_guidance": [
+    "Follow these steps carefully to begin the task:",
+    "1) Connections active, proceed to next step"
+  ],
+  "success": true,
+  "error": null
+}

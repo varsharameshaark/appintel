@@ -1,0 +1,206 @@
+{
+    "results": [
+        {
+            "response": {
+                "successful": true,
+                "data": {
+                    "results": [
+                        {
+                            "cost": 3,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "Apps use the Freshchat REST APIs to access Freshchat data (resources). API authentication is a process that verifies the identity of app users who want to access the Freshchat data. API authentication ensures that only authorized users have access to the data.\n\nWe offer the following API authentication mechanisms to access Freshchat resources:\n\n- Basic access authentication. For information on this, see [API Authentication using API keys](https://developers.freshchat.com/api/#authentication).\n- OAuth authorization and access token authentication. This section explains how your apps can use OAuth authorization.\n\nThrough OAuth authorization, the apps access the resources securely, without collecting or exposing sensitive credentials from the app user. Freshworks enables you to implement OAuth authorization flows in Freshworks apps, Custom apps, and External apps.\n\nImportant:OAuth implementation is supported on all categories of apps: [front-end, serverless, and SMI apps](https://developers.freshworks.com/docs/app-sdk/v3.0/chat_user/freshworks-global-app-ecosystem/apps-overview/#app-categories).\n\nNotes:\n\n- Freshworks apps are built using the FDK and published to the Freshworks Marketplace. Custom apps are built using the FDK and are private to an organization. External apps are non-Freshworks apps, built using third-party SDKs (or other provisions) and published to third-party Marketplaces.\n- In this document, any app (Freshworks, Custom, or External) that uses OAuth flow is called an OAuth app.\n\nThe OAuth authorization and authentication flow, on successful implementation,\n\n- Enables app users to authorize the app to act on their behalf to access Freshchat data.\n- Enables the app to request user's authorization and place a request for an access token.\n- Enables the app to obtain the access token and place authenticated REST API calls.",
+                                        "link": "https://developers.freshworks.com/docs/app-sdk/v3.0/chat_user/oauth-implementation-in-apps/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "For information on this, see API Authentication using API keys . OAuth ... Freshdesk Omni · Freshservice · Freshsales · Freshchat · Freshmarketer. Resources.",
+                                        "title": "Freshworks Developer Docs | OAuth implementation in apps"
+                                    },
+                                    {
+                                        "content": "[Product](https://community.freshworks.dev/c/product-apis/8) [Customize x Workflows](https://community.freshworks.dev/c/product-apis/customize-workflows/31)\n\nhello guys, is there any way to use the contact details to log in to another platform?\n\nuse case:\n\nWe are developing a mobile app for opening tickets!\n\nwhen the customer portal requires the user to be logged in, i would like to authenticate the user by api!\n\nHello Marllon,\n\nIf I may confirm my understanding of the use-case,\n\n- You are developing a standalone mobile app that must work with Freshdesk.\n- The app allows users to access the customer portal features as a logged-in user.\n- Your app would like to authenticate these users as Freshdesk contacts so they could access the features through your app.\n\nPlease do confirm the above. We will check and find out if this is indeed possible today.\n\nYes, that’s right, in Brazil we have some companies that ask for this customization, today we access via api to bring the tickets from this contact, but we are using an alternative method of authentication! We would like to do a more professional authentication!\n\nhello, was any information missing?\n\nHello [@Marllon\\_Mainardes](https://community.freshworks.dev/u/marllon_mainardes),\n\nMay I know more about what method are you referring to here? Is it using the API Key as part of all the requests app makes to consume the REST APIs?\n\nPlease allow me some more time, as I hear back from the product team for some alternatives. Apologies for the delay.\n\nHello Saif, it is a mobile application for opening tickets, so the customer needs to login to the application to open tickets, I would like to use the freshdesk portal authentication method if possible!\n\nHi [@Marllon\\_Mainardes](https://community.freshworks.dev/u/marllon_mainardes),\n\nDoesn’t the app have its own form of authentication? Once it is authenticated, can the app use API key to consume REST APIs?\n\nI guess you are referring to do better form of authentication rather than the API key way, that I have suggested, Am I correct?\n\nHi [@Marllon\\_Mainardes](https://community.freshworks.dev/u/marllon_mainardes),\n\nI just confirmed with the team that we haven’t thought through the of Freshworks being the Auth provided for Mobile app client. So, unfortunately, we don’t have a better solution.\n\nShall I convert this as a feedback item for out teams to pick up when this could become available?\n\nthank you Saif, it would be nice if you ever had that!\n\nHi there, has there been any updates on this, really would like to customize the create ticket flow, but user needs to be authenticated towards freshdesk to validate if this user is allowed to create tickets and to which company the user belongs.",
+                                        "link": "https://community.developers.freshworks.com/t/authentication-by-api-for-users-contacts-on-freshdesk/1258",
+                                        "metadata": null,
+                                        "published_date": "2020-09-18",
+                                        "snippet": "The app allows users to access the customer portal features as a logged-in user. Your app would like to authenticate these users as Freshdesk ...",
+                                        "title": "Authentication by api for users (contacts) on freshdesk"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developers.freshworks.com/docs/app-sdk/v3.0/support_ticket/rest-apis/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "The official site for Freshworks app developers. Provides the Freshworks SDK tools, API documentation and other resources ... Freshdesk Omni · Freshservice ...",
+                                        "title": "Freshworks Developer Docs | REST APIs"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developers.freshworks.com/docs/app-sdk/v2.3/freshdesk/advanced-interfaces/request-method/oauth/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Use request method to place the request to OAuth-secured resources. For a demonstration of this feature, see the OAuth Freshdesk sample app . Prerequisites.",
+                                        "title": "Use request method to access OAuth-secured resources"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developers.freshworks.com/docs/app-sdk/v3.0/service_ticket/advanced-interfaces/request-method/oauth-access-freshworks-resources/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "To the default account URL displayed in the address bar, append ?dev=true. Example URL: https://subdomain.freshdesk.com/helpdesk/tickets/1?dev=true.",
+                                        "title": "Use request method + OAuth to access Freshworks resources"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 2,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "freshworks.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 5,
+                                    "page": 1,
+                                    "query": "\"Freshdesk\" official developer documentation API authentication OAuth API key REST GraphQL",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        },
+                        {
+                            "cost": 2,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "*Applies to**: Freshdesk, Freshdesk Omni 2026.*\n\nThe Freshworks Model Context Protocol (MCP) server enables AI tools like Cursor and Claude to securely connect and interact with Freshdesk. The MCP server acts as middleware to expose specific capabilities, such as creating tickets, by using public APIs and supported authentication methods.\n\nThis article provides details about supported MCP integrations and how to configure them in your AI tools.\n\n```\nNote: Currently, Freshdesk allows you to authenticate requests involved in MCP integration by using an API key only.\n```\n\n**TABLE OF CONTENTS**\n\n## Supported plans and limits\n\n```\nThis feature applies to the following products:\n• Freshdesk Standalone 2021 (Latest version)\n• Freshdesk Unified Omni 2026\n```\n\nStarting September 10, 2026, the Freshworks MCP integration is generally available. The rate limits and monthly action allowances for each plan are outlined below.\n\n```\nWhat counts as an MCP action?\n\nAn action is defined as a successful tool invocation via MCP. Examples of tool invocations. Examples:\n• Fetch conversation related to the ticket with ID 1001 (1 action)\n• Update the company name for the record with ID 11 to Apple (1 action)\n```\n\n| Supported plans | Rate limits (actions per minute) | Included MCP actions (per account, annually) |\n| --- | --- | --- |\n| Growth | 25 | 1,200 |\n| Pro | 50 | 6,000 |\n| Enterprise | 100 | 12,000 |\n\n```\nImportant:\n\n• Pricing: To view current pricing and purchase add-on action packs, see Pricing.\n\n• EAP transition:\n\n    • If you were on the Early Access Program (EAP), standard pricing and limits take effect on October 5, 2026.\n\n    • During the EAP, if you used the MCP integration on any plan other than Freshdesk Standalone 2021 (the latest version) or Freshdesk Unified Omni 2026 variant, the integration will stop working after September 10, 2026.\n```\n\n## Supported MCP integrations\n\nFreshdesk supports MCP integration with any AI tool that provides MCP support. This section highlights a selection of commonly used integrations that you can connect to Freshdesk.\n\n- Claude Code\n- Claude Desktop\n- [Cursor](http://set-up-mcp-integration-with-cursor/)\n- Microsoft Copilot Studio\n- Visual Studio Code\n\n## Option 1: Set up MCP integration with Claude Code\n\nConnect and verify the MCP server within the Claude Code editor. After the setup is complete, Claude Code can use tools exposed by the MCP server directly within the editor.\n\n### Prerequisites\n\nBefore you begin, ensure you have the following:\n\n- The Claude Code app installed.\n- An active Claude account.\n- The Freshdesk MCP URL.\n\tNote: Currently, custom domains are not supported for MCP endpoints. Ensure to use your Freshdesk base domain in the following format: https://\\<subdomain>.freshdesk.com/mcp\n\n### Create an MCP connection\n\nTo connect Claude Code to your MCP server, you must register the server using the http transport.\n\nRun the following command in your terminal to register the Freshdesk MCP server:\n\nclaude mcp add my-remote-server --transport http https://\\<subdomain>.freshdesk.com/mcp --header \"Authorization: \\<api-key>\"\n\nExpected output:\n\nAdded HTTP MCP server my-remote-server with URL: https://\\<subdomain>.freshdesk.com/mcp to local config\n\nHeaders: {\n\n\"Authorization\": \"\\<api-key>\"\n\n}\n\nFile modified: /Users/\\<username>/.claude.json \\[project: /Users/pmm\\]\n\n### Verify the connection\n\nUse the following get command to confirm the server is listed as connected within the application:\n\nclaude mcp get my-remote-server\n\nExpected output:\n\nmy-remote-server:\n\nScope: Local config (private to you in this project)\n\nStatus: ✓ Connected\n\nType: http\n\nURL: https://\\<subdomain>.freshdesk.com/mcp\n\nHeaders:\n\nAuthorization: \\<api-key>\n\n## Option 2: Set up MCP integration with Claude Desktop\n\nConnect and verify the MCP server within the Claude Desktop editor. After the setup is complete, Claude Desktop can use tools exposed by the MCP server directly within the editor.\n\n### Prerequisites\n\nBefore you begin, ensure you have the following:\n\n- The Claude Desktop app installed.\n- An active Claude account.\n- The Freshdesk MCP URL.\n\tNote: Currently, custom domains are not supported for MCP endpoints. Ensure to use your Freshdesk base domain in the following format: https://\\<subdomain>.freshdesk.com/mcp\n\n### Create an MCP connection\n\nTo connect Claude Desktop to your MCP server, follow these steps:\n\n1. Open Claude Desktop and go to Claude > Settings > Developer.\n2. Select Edit Config. The **claude\\_desktop\\_config.json** file opens in your system's default text editor.\n3. Copy and paste the following JSON configuration into the file. If other servers are already listed, add this as a new entry in the mcpServers object.\n\n\tNote: Replace \\<mcp-url> with your specific server URL (for example, https://\\<subdomain>.freshdesk.com/mcp).\n\n\"mcpServers\": {\n\n\"freshdesk-mcp\": {\n\n\"command\": \"npx\",\n\n\"args\": \\[\n\n\"-y\",\n\n\"mcp-remote\",\n\n\"https://\\<subdomain>.freshdesk.com/mcp\",\n\n\"--header\",\n\n\"Authorization:<API\\_KEY>\"\n\n\\]\n\n}\n\n}\n\n4. Save the file and close the text editor.\n5. Exit Claude Desktop by right-clicking the icon in the taskbar (Windows) or menu bar (macOS) and selecting Quit.\n6. Relaunch Claude Desktop.\n7. Follow the authentication prompts in your browser. After successful authentication, you can verify the connection status under Claude > Settings > Developer.\n\n## Option 3: Set up MCP integration with Cursor\n\nConnect and verify the MCP server within the Cursor editor. After the setup is complete, Cursor can use tools exposed by the MCP server directly within the editor.\n\n### Prerequisites\n\nBefore you begin, ensure you have the following:\n\n- The Cursor app installed.\n- An active Cursor account.\n- The Freshdesk MCP URL.\n\tNote: Currently, custom domains are not supported for MCP endpoints. Ensure to use your Freshdesk base domain in the following format: https://\\<subdomain>.freshdesk.com/mcp\n\n### Create an MCP connection\n\nTo connect Cursor to the MCP server, add the server details to your application's configuration file. To do so, follow these steps:\n\n1. Open Cursor and go to the root folder of your project or user home directory for global configuration.\n2. Create or update the**.cursor/mcp.json** file.\n3. Add the following JSON object to the file:\n\nSample configuration using API key\n\n{\n\n\"mcpServers\": {\n\n\"freshdesk\": {\n\n\"type\": \"http\",\n\n\"url\": \"https://\\<subdomain>.freshdesk.com/mcp\",\n\n\"headers\": {\n\n\"Authorization\": \"\\<API-KEY>\"\n\n}\n\n}\n\n}\n\n}\n\nThe following table describes the attributes used to configure the MCP server:\n\n<table><colgroup><col width=\"152\"> <col width=\"452\"></colgroup><tbody><tr><td><p>Attribute name</p></td><td><p>Description</p></td></tr><tr><td><p>mcpServers</p></td><td><p>List of all MCP servers to which the Cursor should connect.</p></td></tr><tr><td colspan=\"2\"><p>Attribute of the mcpServers object</p></td></tr><tr><td><p><name_of_the_MCP_object></p></td><td><p>The unique name for your MCP server object.</p></td></tr><tr><td colspan=\"2\"><p>Attribute of the <name_of_the_MCP_object> object</p></td></tr><tr><td><p>type</p></td><td><p>The protocol used by the MCP client to communicate with the MCP server.</p></td></tr><tr><td><p>url</p></td><td><p>The endpoint used by the MCP client to connect to your MCP server.</p></td></tr><tr><td><p>headers</p></td><td><p>Custom HTTP headers that the MCP client must send when connecting to your MCP server.</p><p>Note: Freshdesk supports authorization via API key only. In your configuration, include the \"Authorization\": \"<YOUR_API_KEY>\" attribute and replace <YOUR_API_KEY> with your actual Freshdesk API key.</p></td></tr></tbody></table>\n\n### Verify the configuration\n\nAfter you save the configuration file, follow these steps to verify that Cursor can access the server and its tools:\n\n1. In Cursor, go to View > Command Palette\n2. Enter View: Open MCP Settings and select it from the list.\n3. On the Tools page, locate the Installed MCP Servers section and verify your server name appears.\n4. To view the available tools, expand the server card.\n\nOnce the connection is established, Cursor automatically retrieves the tools. You can invoke them through natural language prompts or allow Cursor to suggest them based on your current task.\n\nIf the server is offline or the configuration is incorrect, Cursor displays an error message provided by the MCP server in the settings view.\n\n## Option 4: Set up MCP integration with Microsoft Copilot Studio\n\nConnect and verify the MCP server within the Microsoft Copilot Studio editor. After the setup is complete, Microsoft Copilot Studio can use tools exposed by the MCP server directly within the editor.\n\n### Prerequisites\n\nBefore you begin, ensure you have the following:\n\n- The Microsoft Copilot Studio app installed.\n- An active Microsoft Copilot Studio account.\n- An existing agent created within Microsoft Copilot Studio.\n- The Freshdesk MCP URL.\n\tNote: Currently, custom domains are not supported for MCP endpoints. Ensure to use your Freshdesk base domain in the following format: https://\\<subdomain>.freshdesk.com/mcp\n\n### Create an MCP connection\n\nTo link Copilot Studio to your MCP server, follow these steps:\n\n1. In the Copilot Studio dashboard, select Agents from the left navigation pane.\n2. Select your agent from the list.\n3. Open the Tools page for the agent.\n4. Click + Add a tool at the top left of the page.\n\tThe Add tool window appears.\n\n5. Select + New tool > Model Context Protocol.\n\tThe Add a Model Context Protocol server window appears.\n\n6. Enter the following details:\n\t- Server name: Enter a name for the server.\n\t\t- Server description: Provide a short description of why the server is required.\n\t\t- Server URL: Enter the endpoint where the MCP client can reach your MCP server. For example, *https://\\<subdomain>.freshdesk.com/mcp*.\n\t\t- Authentication: Select the authentication mode as API key\n\t\t- Click Create.\n\t\tAfter successful creation, the Add tool window appears to configure the connection.\n7. In the Connection dropdown, you will see No connections available.\n\tClick the dropdown and select Create new connection > Create.\n8. In the authorization window, select your account name and click Continue.\n9. After authorization succeeds, click Add and configure on the Add tool window.\n\nYou are redirected to the page for the newly created tool. Under the Tools section, you can view the list of available tools.\n\n### Verify the MCP connection\n\nTo confirm that your agent is actively connected to the Freshworks MCP server, follow these steps:\n\n1. Go to your agent in Copilot Studio by selecting Agents and choosing the agent you want to verify.\n\tThe agent overview page opens.\n2. Select Settings to open the agent settings page.\n3. In the left navigation pane, select Connection Settings.\n\tA table displays all connections associated with your agent.\n4. For the newly configured connection, if the status is Not connected, click Connect.\n\tThe Create or pick a connection window appears.\n5. Select the newly created connection and click Submit.\n\nThe status updates to Connected once the link is successfully established.\n\n## Option 5: Set up MCP integration with Visual Studio Code\n\nConnect and verify the MCP server within the Visual Studio Code editor. After the setup is complete, Visual Studio Code can use tools exposed by the MCP server directly within the editor.\n\n### Prerequisites\n\nBefore you begin, ensure you have the following:\n\n- The Visual Studio Code app installed.\n- The MCP extension for VS Code installed.\n- The Freshdesk MCP URL.\n\tNote: Currently, custom domains are not supported for MCP endpoints. Ensure to use your Freshdesk base domain in the following format: https://\\<subdomain>.freshdesk.com/mcp\n\n### Create an MCP connection\n\nTo integrate the MCP server into your VS Code environment, follow these steps:\n\n1. Launch VS Code.\n2. Open the Command Palette by pressing Ctrl+Shift+P (Windows) or Cmd+Shift+P (macOS).\n3. Enter and select MCP: Open User Configuration.\n\n4. Add the following JSON object to the mcp.json file and save it.\n\t{\n\n\"servers\": {\n\n\"my-remote-server\": {\n\n\"type\": \"http\",\n\n\"url\": \"https://\\<subdomain>.freshdesk.com/mcp\",\n\n\"headers\": {\n\n\"Authorization\": \"\\<api-key>\"\n\n}\n\n}\n\n}\n\n}\n\n5. A Start button appears above the my-remote-server entry. Click Start\n\n### Verify the configuration\n\n**After setting up your connection, you can confirm the server is running using either of the following methods:**\n\n- **View active servers: Open the Command Palette and select MCP: List Servers. Ensure your Freshdesk server is listed as active.**\n- **Review raw config: Open your mcp.json file to verify the server details and configuration target.**\n\n**You can now run MCP-specific commands directly within your VS Code terminal or command palette to interact with Freshdesk data.**\n\n## Troubleshoot issues\n\n### Issue: Connection failures\n\nIf the connection verification fails, check the following:\n\n- Network: Check your active internet connection and VPN status.\n- URL Accessibility: Open https://\\<subdomain>.freshdesk.com/mcp in your browser to ensure the endpoint is live.\n- Authentication: Verify that a valid API key is included in the authorization header.\n\n### Issue: MCP connection fails due to IP restrictions\n\nSymptoms\n\n- MCP server connection fails despite correct endpoint configuration\n- Timeout or connection refused errors when running mcp-remote\n- Connection works in some networks but fails in restricted environments\n\nPossible cause\nYour Freshdesk or your organization’s network, enforces IP restrictions that block requests to or from the MCP server. If the required IP ranges are not allowlisted, the connection cannot be established.\n\nResolution\n\n1. Allowlist required IP ranges:\n\n\tAdd the following IP ranges to your allowlist based on your data center/region:\n\tCore ranges\n\t- AU: 10.3.0.0/16\n\t\t- IN: 10.44.0.0/16\n\t\t- EUC: 10.113.0.0/16\n\t\t- USE: 10.111.0.0/16, 10.113.0.0/16\n\t\t- EUN: 10.96.80.0/20\n\nAdditional ranges\n\n- US:\n\t- 10.17.144.0/20\n\t\t- 10.25.128.0/18\n- EUC:\n\t- 10.17.104.0/21\n\t\t- 10.25.192.0/18\n- IN:\n\t- 10.17.128.0/20\n- AU:\n\t- 10.17.96.0/21\n- EUN:\n\t- 10.97.216.0/21\n2. Update IP restriction settings:\n\n\t[Configure IP restrictions](https://support.freshdesk.com/support/solutions/articles/195168) in your Freshworks account.\n3. Verify network access:\n\t- Ensure outbound HTTPS (port 443) is allowed\n\t\t- Confirm no firewall or proxy is blocking these IP ranges\n4. Retry the connection:\n\n\tRun: npx -y mcp-remote https://\\<subdomain>.freshdesk.com/mcp\n\nVerification\n\n- MCP connection succeeds without timeout or network errors\n- MCP client shows the server status as Connected\n\nNext steps\n\nIf the issue persists after allowlisting:\n\n- Verify region alignment between your Freshdesk account and configured IP ranges\n- Check with your network administrator for additional firewall or proxy restrictions\n\n## List of available tools\n\nThe following table lists the tools provided by Freshworks MCP server for Freshdesk.\n\n| Resource | Tool | Description |\n| --- | --- | --- |\n| Tickets | createTicket | Create a ticket |\n| Tickets | fetchTicket | Get details of a particular ticket |\n| Tickets | fetchTickets | Get list of tickets |\n| Tickets | fetchSearchTickets | Filter tickets based on search criteria |\n| Tickets | updateTicket | Update an existing ticket |\n| Tickets | createTicketBulkUpdate | Update multiple tickets in bulk |\n| Tickets | fetchTicketConversations | Get conversations associated with a ticket |\n| Conversations | replyTicket | Reply to a ticket conversation |\n| Conversations | createTicketNote | Add a note to a ticket |\n| Conversations | updateConversation | Add a message to an existing conversation |\n| Contacts | createContact | Create a contact |\n| Contacts | fetchContact | Get details of a particular contact |\n| Contacts | fetchContacts | Get list of contacts |\n| Contacts | fetchContactAutocomplete | Search for a contact by name |\n| Agents | fetchAgent | Get details of an agent |\n| Agents | fetchAgents | Get list of agents |\n| Agents | createAgent | Create an agent |\n| Agents | updateAgent | Update an existing agent |\n| Groups | createGroup | Create a group |\n| Groups | fetchGroup | Get details of a particular group |\n| Groups | fetchGroups | Get list of groups |\n| Groups | updateGroup | Update details of a group |\n| Companies | createCompany | Create a company |\n| Companies | fetchCompany | Get details of a particular company |\n| Companies | fetchCompanyAutocomplete | Search for a company by name |\n| Companies | fetchSearchCompanies | Filter companies using custom company fields |\n| Companies | updateCompany | Update an existing company |\n| Solution Category | fetchSolutionCategories | Get list of solution categories |\n| Solution Category | fetchSolutionCategory | Get details of a particular solution category |\n| Solution Category | createSolutionCategory | Create a solution category |\n| Solution Folder | fetchSolutionCategoryFolders | Get folders associated with a category |\n| Solution Folder | fetchSolutionFolder | Get details of a particular solution folder |\n| Solution Folder | createSolutionCategoryFolder | Create a solution folder. |\n| Solution Article | fetchSolutionFolderArticles | Get articles associated with a folder |\n| Solution Article | fetchSolutionArticle | Get details of a solution article |\n| Solution Article | createSolutionFolderArticle | Create a solution article |\n| Solution Article | updateSolutionArticle | Update a solution article |\n\n## Pagination in MCP\n\nWhen an MCP tool returns many results, such as a list of solution articles, sending the entire payload at once can exceed token limits or cause the LLM to truncate the data. Large payloads can also slow down response times and reduce the accuracy of the AI.\n\nTo prevent this, the MCP server uses pagination to deliver results in smaller, manageable batches. This ensures the LLM processes information efficiently while staying within its operational limits.\n\nThe pagination process provides the following benefits:\n\n- Automatic processing: The MCP client and the LLM handle subsequent data requests automatically using the nextCursor parameter.\n- No manual configuration: You don't need to manage page numbers, cursors, or page sizes manually.\n- Optimized performance: Smaller response batches ensure more reliable processing and faster response times from the AI tool.\n\n## Example prompts\n\nYou can use the following prompts to interact with the Freshdesk MCP server through your AI tool. These are samples only; you can modify them to suit your specific requirements.\n\n- Manage tickets:\n\t- \"Create a high-priority ticket for a payment issue from Sarah.\"\n\t\t- \"Get all tickets created today and group them by status.\"\n\t\t- \"Filter my assigned tickets for those with 'open' status and 'high' priority.\"\n- Manage users and groups:\n\t- \"Create a contact for John Doe with the email johndoe@acme-corp.com.\"\n\t\t- \"Add a new support group called 'Network Team'.\"\n\t\t- \"Show me the members of the Network Team group.\"\n- Manage companies and articles:\n\t- \"Create a company named 'Acme Corp'.\"\n\t\t- \"Find the solution article for payment refunds.\"\n\n## Frequently Asked Questions (FAQs)\n\nTo view frequently asked questions related to MCP integration, see [MCP FAQs](https://support.freshdesk.com/en/support/solutions/articles/50000014407).\n\n## Freshworks MCP security\n\nTo learn how various aspects of MCP security work, see [Freshworks MCP Security](https://support.freshdesk.com/en/support/solutions/articles/50000014411).",
+                                        "link": "https://crmsupport.freshworks.com/support/solutions/articles/50000012670-model-context-protocol-mcp-integration-in-freshdesk",
+                                        "metadata": null,
+                                        "published_date": "2026-10-05",
+                                        "snippet": "Oct 5, 2026 ... The Freshworks Model Context Protocol (MCP) server enables AI tools like Cursor and Claude to securely connect and interact with Freshdesk. The ...",
+                                        "title": "Model Context Protocol (MCP) integration in Freshdesk"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developers-dev.freshworks.com/docs/agentic-dev-tools/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "... Model Context Protocol (MCP). For a browsable index of skills across the ... Freshdesk Omni · Freshservice · Freshsales · Freshchat · Freshmarketer. Resources.",
+                                        "title": "Introduction to Freshworks Agentic Developer Toolkit"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developers.freshworks.com/docs/agentic-dev-tools/list-of-skills-and-tools/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Model Context Protocol (MCP) tools are the functional components that ... Freshdesk Omni · Freshservice · Freshsales · Freshchat · Freshmarketer. Resources.",
+                                        "title": "List of all Skills and MCP Tools - Freshworks Developer Platform"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 1,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "freshworks.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 3,
+                                    "page": 1,
+                                    "query": "\"Freshdesk\" official developer documentation MCP Model Context Protocol integrations API",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        }
+                    ],
+                    "summary": {
+                        "failed": 0,
+                        "successful": 2,
+                        "total": 2,
+                        "total_cost": 5
+                    }
+                }
+            },
+            "tool_slug": "SEARCH1API_SEARCH_WEB",
+            "index": 0,
+            "structure_info": {
+                "data_structure": {
+                    "type": "object",
+                    "properties": {
+                        "results": {
+                            "type": "array",
+                            "length": 2,
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 5 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 3 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                }
+                            ]
+                        },
+                        "summary": {
+                            "type": "object",
+                            "properties": {
+                                "failed": "number",
+                                "successful": "number",
+                                "total": "number",
+                                "total_cost": "number"
+                            }
+                        }
+                    }
+                },
+                "note": "This shows the complete structure of this tool's response data in the saved file"
+            },
+            "instruction": "Use structure_info (schema) and data_preview (samples) to understand the result, then process the remote response file."
+        }
+    ],
+    "total_count": 1,
+    "success_count": 1,
+    "error_count": 0,
+    "session": {
+        "id": "page",
+        "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+    },
+    "remote_file_info": {
+        "message": "As requested, responses have been saved to remote workbench in /mnt/files/mex/from.json. The response was not too large, so it has also been returned inline below. Use the inline response itself for summary/analysis, DO NOT use the workbench for small data or simple calculations—reserve it for larger or more complex tasks.",
+        "file_path": "/mnt/files/mex/from.json",
+        "filename": "from.json",
+        "total_tools_executed": 1,
+        "successful_tools": 1,
+        "failed_tools": 0,
+        "instructions": "IMPORTANT: Each result in the response above includes 'structure_info' showing the complete data structure, as well as 'data_preview' showing truncated data - USE THEM to understand the result structures and process the results in the remote file. DO NOT iterate the file to discover structure and DO NOT assume the structure!\n\nTo process the complete file inside the sandbox, use one of the following:\n- Use COMPOSIO_REMOTE_WORKBENCH and write Python code to programmatically parse and get the information needed.\n- Use COMPOSIO_REMOTE_BASH_TOOL and use `jq`, `rg` and write bash scripts to handle the file, break it down and more\n\nThe file is saved at /mnt/files/mex/from.json.\n\nThe file contains the complete multi-execute response. When working with the data:\n1-2. NOTE: Use this code snippet to load JSON and access i-th result:\n   ```python\n   file_data = json.load(open(\"/mnt/files/mex/from.json\"))  # Load the complete response file\n   i = 0  # Result index (0 for first result, 1 for second, etc.)\n   result_data = file_data['results'][i]['response']['data']  # Access the i-th result data directly\n   ```\n3. Each result's structure_info.data_structure shows the EXACT structure of what's INSIDE that result's ['response']['data'] - use it directly!\n4. For data_structure: 'type'=object/array, 'properties'=direct child fields, 'length'=array count\n5. Example: if results[0].structure_info shows messages: {type: 'array', length: 1000}, the messages are at file_data['results'][0]['response']['data']['messages'] (direct child)\n6. CRITICAL: The properties shown in data_structure are the direct children of ['response']['data'], NOT nested under another 'data' key"
+    },
+    "next_steps": "DO NOT call workbench tools (COMPOSIO_REMOTE_WORKBENCH or COMPOSIO_REMOTE_BASH_TOOL) for this response. The data is available inline above - process it directly in your next message. Only use workbench if you need complex scripting, pagination loops, or bulk tool calls that cannot be done inline."
+}

@@ -1,0 +1,49 @@
+{
+    "app_id": 1,
+    "app_name": "Salesforce",
+    "evaluation_type": "Refined research vs manual verification",
+    "summary": {
+        "Matched": 4,
+        "Partially matched": 0,
+        "Mismatch": 0,
+        "Skipped": 1,
+        "evaluated_fields": 4,
+        "strict_agreement_percent": 100.0,
+        "weighted_agreement_percent": 100.0
+    },
+    "field_results": [
+        {
+            "field": "auth_methods",
+            "refined_value": [
+                "OAuth 2.0"
+            ],
+            "verified_value": [
+                "OAuth 2.0"
+            ],
+            "status": "Matched"
+        },
+        {
+            "field": "credential_access",
+            "refined_value": "Controlled / plan-dependent",
+            "verified_value": "Controlled / plan-dependent",
+            "status": "Matched"
+        },
+        {
+            "field": "api_type",
+            "status": "Skipped",
+            "reason": "Manual verification is incomplete"
+        },
+        {
+            "field": "mcp_available",
+            "refined_value": "Yes",
+            "verified_value": "Yes",
+            "status": "Matched"
+        },
+        {
+            "field": "buildability",
+            "refined_value": "Medium",
+            "verified_value": "Medium",
+            "status": "Matched"
+        }
+    ]
+}

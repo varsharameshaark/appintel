@@ -1,0 +1,55 @@
+{
+    "app_id": 7,
+    "app_name": "Zoho CRM",
+    "category": "CRM and Sales",
+    "description": "Zoho CRM is a customer relationship management application that provides APIs and Model Context Protocol (MCP) servers to manage leads, contacts, deals, module customization, and workflow automation.",
+    "auth_methods": [
+        "OAuth 2.0",
+        "API Key"
+    ],
+    "credential_access": "Self-serve free",
+    "api_type": [
+        "REST"
+    ],
+    "api_breadth": "Zoho CRM provides comprehensive V8 REST APIs and serverless functions covering CRUD operations on standard and custom modules, metadata schema retrieval, COQL querying, record relationships, and workflow rules.",
+    "mcp_available": "Yes",
+    "mcp_evidence": "Zoho CRM offers pre-built MCP servers categorized into Data Insights, Data Operations, Module Customization, and Workflow & Process Automation, supporting MCP-compatible AI tools such as Cursor, Claude Desktop, VS Code, and Windsurf.",
+    "buildability": "Easy",
+    "blocker": "Grant tokens expire in two minutes and access tokens expire in one hour. Tokens and API permissions are scoped to specific organizations and CRM user role permissions, and requests consume standard API credits.",
+    "evidence": [
+        {
+            "url": "https://www.zoho.com/crm/developer/docs/api/v8/oauth-overview.html",
+            "title": "OAuth 2.0 Authentication | Zoho CRM API | V8",
+            "source_type": "Official",
+            "supports": "OAuth 2.0 authentication specification, 1-hour access token lifespan, and unlimited lifetime refresh tokens.",
+            "research_method": "Crawl",
+            "excerpt": "The Zoho CRM API uses the OAuth 2.0 protocol for authentication. Each access token will be valid only for an hour and can be used only for the set of operations that are described in the scope."
+        },
+        {
+            "url": "https://www.zoho.com/crm/developer/docs/api/v8/auth-request.html",
+            "title": "Authorization Request | Zoho CRM API | V8",
+            "source_type": "Official",
+            "supports": "Self-serve registration via Zoho Developer Console, organization-specific grant tokens, and authorization code flow.",
+            "research_method": "Crawl",
+            "excerpt": "Go to Zoho Developer Console (api-console.zoho.com) and log in with your Zoho CRM username and password. Choose Self Client from the list of client types, and click Create Now."
+        },
+        {
+            "url": "https://www.zoho.com/crm/developer/docs/mcp/overview.html",
+            "title": "Zoho CRM MCP - An Overview | Developer Tools",
+            "source_type": "Official",
+            "supports": "Pre-built MCP servers for Data Insights, Data Operations, Module Customization, and Workflow & Process Automation.",
+            "research_method": "Crawl",
+            "excerpt": "Zoho CRM MCP servers connect your AI tools to Zoho CRM using the Model Context Protocol (MCP). Zoho CRM groups its MCP capabilities into four pre-built servers."
+        },
+        {
+            "url": "https://www.zoho.com/crm/developer/docs/functions/serverless.html",
+            "title": "Serverless Functions | Zoho CRM | Developer Tools",
+            "source_type": "Official",
+            "supports": "REST API endpoints supporting OAuth 2.0 and API keys for serverless functions.",
+            "research_method": "Search",
+            "excerpt": "REST API endpoints support OAuth 2.0 and API key ..."
+        }
+    ],
+    "confidence": "Medium",
+    "research_notes": "Official documentation provides detailed specifications for Zoho CRM V8 REST APIs, OAuth 2.0 authentication flows via the developer console, and pre-built MCP servers for AI integration."
+}

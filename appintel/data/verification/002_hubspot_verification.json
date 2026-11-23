@@ -1,0 +1,60 @@
+
+{
+    "app_id": 2,
+    "app_name": "HubSpot",
+    "verification_type": "Manual verification against official documentation",
+    "verified_claims": [
+        {
+            "claim": "HubSpot supports OAuth 2.0 authentication for its APIs",
+            "status": "Confirmed",
+            "source": "https://developers.hubspot.com/docs/apps/legacy-apps/authentication/working-with-oauth"
+        },
+        {
+            "claim": "HubSpot remote MCP requires OAuth 2.1 with PKCE",
+            "status": "Confirmed",
+            "source": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/integrate-with-the-remote-hubspot-mcp-server"
+        },
+        {
+            "claim": "HubSpot provides a remote MCP server and a local Developer MCP server",
+            "status": "Confirmed",
+            "source": "https://developers.hubspot.com/ai-tools/mcp"
+        },
+        {
+            "claim": "MCP access respects existing HubSpot user permissions and granted scopes",
+            "status": "Confirmed",
+            "source": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/integrate-with-the-remote-hubspot-mcp-server"
+        },
+        {
+            "claim": "Sensitive Data settings can restrict access to activity objects through MCP",
+            "status": "Confirmed",
+            "source": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/integrate-with-the-remote-hubspot-mcp-server"
+        }
+    ],
+    "verified_fields": {
+        "auth_methods": {
+            "value": ["OAuth 2.0", "OAuth 2.1 with PKCE (MCP-specific)"],
+            "status": "Confirmed"
+        },
+        "credential_access": {
+            "value": "Controlled / plan-dependent",
+            "status": "Needs review"
+        },
+        "api_type": {
+            "value": ["REST", "MCP"],
+            "status": "Confirmed"
+        },
+        "mcp_available": {
+            "value": "Yes",
+            "status": "Confirmed"
+        },
+        "buildability": {
+            "value": "Medium",
+            "status": "Analyst-assessed"
+        }
+    },
+    "limitations": [
+        "API pricing and subscription-tier restrictions have not been fully verified.",
+        "Individual API endpoints have not been tested.",
+        "Buildability is an analyst assessment rather than an independently measured result."
+    ]
+}

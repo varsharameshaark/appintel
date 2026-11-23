@@ -1,0 +1,206 @@
+{
+    "results": [
+        {
+            "response": {
+                "successful": true,
+                "data": {
+                    "results": [
+                        {
+                            "cost": 3,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "## Overview\n\n## Your API Key\n\nEach User has a Docs API key. To generate, view, or regenerate the API key, click your avatar in the top right of your account, then click **Your Profile**.\n\nProfile menu\n\nNext, click **Security and Access** in the menu on the left. Your API key is listed under the **Docs API** section.\n\nSecurity and Access\n\n**Note:** If you don't see an API key in your profile, that's because you haven't been granted the \"Docs: Create new, edit settings & Collections\" permission by the Account Owner or an Administrator.\n\n## Authentication\n\nThis is an HTTPS-only API. Authentication is based on API keys. Each API key is associated with a Help Scout user. Results returned from various responses are based upon the role of the user to which the API key is tied.\n\nThe API key is passed via HTTP Basic Authentication and goes in the username field. A dummy password, such as X, goes in the password field.\n\nTo try the API via curl on the command-line, the general form used would be:\n\n```html\ncurl --user API_KEY:DUMMY_PASSWORD API_URL\n```\n\nFor instance, if your API key is 60783dd23ef, you would execute:\n\n```html\ncurl --user 60783dd23ef:X https://docsapi.helpscout.net/v1/collections\n```\n\n## Endpoints\n\nAll API requests are made to **https://docsapi.helpscout.net/** and all requests are served over HTTPS. The current version is v1.\n\n## Formats\n\nThe API will only support JSON at this time.\n\n## Correlation ID Response Header\n\nAll responses from the API contain a **Correlation-Id** header. This header contains a value (a UUID) which is used by Help Scout to trace interactions between our various APIs. In the case of an error and you're contacting the Help Scout team then include one or more of these IDs and developers will be able to assist quicker.\n\nFor instance if you wanted to print all headers on a curl request to access the Correlation-Id you would do the following:\n\n```html\ncurl -v --user 60783dd23ef:X https://docsapi.helpscout.net/v1/collections\n```\n\nYou would see console output like the following:\n\n```html\nHTTP/1.1 200 OK\nCorrelation-Id: 08d7aa72-4afb-4c2a-b027-45dacee1e1a0\n```\n\n## Rate Limiting\n\nEach account is allowed to make a limited number of requests per 10 minute period. This limit is based on the number of Docs Sites the account has:\n\n| Number of Sites | Rate Limit |\n| --- | --- |\n| 1 | 2000 requests every 10 mins |\n| 2 | 3000 requests every 10 mins |\n| 3 or more | 4000 requests every 10 mins |\n\nHeaders are returned with every API response to detail the current rate limiting status:\n\n| Header Name | Description |\n| --- | --- |\n| X-RateLimit-Limit | The maximum number of requests the account is permitted to make per 10 minute period |\n| X-RateLimit-Remaining | The number of requests remaining in the current rate limit window |\n| X-RateLimit-Reset | The number of seconds until the current rate limit window expires |\n\nResponse code 429 is returned when the limit has been reached.\n\n**Note:** Usage of the Help Scout Docs administration interface generates requests to Docs API. These requests also count towards the rate limit.\n\n## Response Envelopes\n\nThe API returns one of three envelopes depending upon the request issued:\n\n1. Single Item Envelope\n2. Collections Envelope\n3. Error Envelope\n\n### Single Item Envelope\n\nAll dates/times are returned in ISO8601 format and in UTC timezone.\n\n```xml\nStatus: 200 OK\n{\n    \"article\": {\n        \"id\": 1234,\n        ...\n        \"createdAt\": \"2012-07-17T13:41:01Z\"\n    }\n}\n```\n\n### Collections Envelope\n\nAll dates/times are returned in ISO8601 format and in UTC timezone. Collections return a maximum of 50 records per page.\n\n```xml\nStatus: 200 OK\n{\n    \"page\": 1,\n    \"pages\": 24,\n    \"count\": 1154,\n    \"items\": [\n        {\n            \"id\": 1234,\n            ...\n            \"createdAt\": \"2012-07-17T13:41:01Z\"\n        },\n        {\n            \"id\": 5678,\n            ...\n            \"createdAt\": \"2012-07-15T08:12:15Z\"\n        },\n        ...\n    ]\n}\n```\n\n### Error Envelope\n\n```xml\nStatus: 404 Not Found\n{\n    \"code\": 404,\n    \"error\": \"Resource not found\"\n}\n```",
+                                        "link": "https://developer.helpscout.com/docs-api/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Authentication is based on API keys. Each API key is associated with a Help Scout user. Results returned from various responses are based upon the role of the ...",
+                                        "title": "Docs API Overview"
+                                    },
+                                    {
+                                        "content": "This is an HTTPS-only API and it uses [OAuth 2.0 authorization](https://oauth.net/2/), implementing Authorization Code and Client Credential flows. All requests have to be authenticated via the `Authorization` header:\n\n```bash\ncurl -H \"Authorization: Bearer f4f4994a875f461ca4d4708b9e027df4\" \\\nhttps://api.helpscout.net/v2/users/me\n```\n\nThe Authorization Code flow is typically used for integrations to be used by other Help Scout users. The Client Credentials flow is meant for internal integrations.\n\nAll credentials must be associated with an active, invited user in the Help Scout account; a 401 error will be returned if a user does not meet these credentials.\n\n*Please note that you can choose to send data as JSON, form or query params in all POST requests on this page, as long as the appropriate `Content-Type` header is included.*\n\n### OAuth2 application\n\nYou need to create an OAuth2 application before you can use the API. Create one by navigating to Your Profile > My apps and click Create My App. A redirection URL is necessary when using the **Authorization Code** flow.\n\nOAu2h applications\n\n### Authorization Code flow\n\nThis is a redirection-based flow. The application must be capable of interacting with the user-agent (i.e. the user’s web browser) and receiving API authorization codes that are routed through the user-agent.\n\n#### 1\\. Redirect user to Help Scout\n\nAsk the user to authorize your application by either redirecting them to the Redirection URI or by opening the Redirection URI in the pop-up.\n\n```\nhttps://secure.helpscout.net/authentication/authorizeClientApplication?client_id={application_id}&state={your_secret}\n```\n\nThe [`state` param](https://tools.ietf.org/html/rfc6749#section-4.1.1) is optional and if you use it, it will be returned to you in step 2.\n\nIf the user is already logged in to Help Scout, they will see the following Authorization screen. If they are not logged in to Help Scout, they will be brought to the Authorization screen after they log in.\n\n#### 2\\. Redirect back to your backend\n\nAfter the user authorizes your application, we will redirect them back to the Redirection URL that is defined in My Apps. The URI will contain the `code` query param (and optionally a `state` param)\n\n#### 3\\. Get access and refresh tokens\n\nYour application can now use the `code` param and exchange it for access and refresh token pair:\n\n##### Request\n\n```bash\ncurl -X POST https://api.helpscout.net/v2/oauth2/token \\\n --data 'code={code}' \\\n --data 'client_id={application_id}' \\\n --data 'client_secret={application_secret}' \\\n --data 'grant_type=authorization_code'\n```\n\n##### Response\n\n```\nHTTP/1.1 200 OK\nContent-Type: application/json; charset=utf-8\n\n{\n    \"refresh_token\":\"c01194f69c3e4307a4fd0e9403fc8fd0\",\n    \"token_type\":\"bearer\",\n    \"access_token\":\"8fccb4f5cf6746148f336414f798cd87\",\n    \"expires_in\":172800\n}\n```\n\n#### 4\\. Refresh access token\n\nWhen the access token expires (indicated by HTTP 401 return code), you can use the refresh token to retrieve a new access and refresh token pair:\n\n##### Request\n\n```bash\ncurl -X POST https://api.helpscout.net/v2/oauth2/token \\\n --data 'refresh_token={refresh_token}' \\\n --data 'client_id={application_id}' \\\n --data 'client_secret={application_secret}' \\\n --data 'grant_type=refresh_token'\n```\n\n##### Response\n\n```\nHTTP/1.1 200 OK\nContent-Type: application/json; charset=utf-8\n\n{\n    \"refresh_token\":\"8fccb4f5cf6746148f336414f798cd87\",\n    \"token_type\":\"bearer\",\n    \"access_token\":\"8fccb99232cf6743148f336414f798cd87\",\n    \"expires_in\":172800\n}\n```\n\n### Client Credentials flow\n\nWith the **Client Credentials** flow it is possible to retrieve an access token directly using your application id and application secret:\n\n#### Request\n\n```bash\ncurl -X POST https://api.helpscout.net/v2/oauth2/token \\\n    --data \"grant_type=client_credentials\" \\\n    --data \"client_id={application_id}\" \\\n    --data \"client_secret={application_secret}\"\n```\n\n#### Response\n\n```\nHTTP/1.1 200 OK\nContent-Type: application/json; charset=utf-8\n\n{\n    \"token_type\":\"bearer\",\n    \"access_token\":\"369dbb08be58430086d2f8bd832bc1eb\",\n    \"expires_in\":172800\n}\n```\n\nThis token is valid for 2 days and you should create a new one only after the existing token expires. Expiration will be indicated by the API responding with HTTP 401.\n\nIf creating a new application to generate an `application_id` and `application_secret`, you will be prompted to supply a redirection URL. If you intend to exclusively a Client Credentials flow, you can provide a placeholder URL (such as https://www.google.com) to continue with generating the application.\n\n## Token Size\n\nExpect that the length of all access token types will change over time as we make changes to what is stored in them and how they are encoded. You can expect that they will grow and shrink over time. Please use a variable length data type without a specific maximum size to store access or refresh tokens.",
+                                        "link": "https://developer.helpscout.com/mailbox-api/overview/authentication",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "1. Redirect user to Help Scout. Ask the user to authorize your application by either redirecting them to the Redirection URI or by opening the Redirection URI ...",
+                                        "title": "Authentication | Help Scout Developers"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developer.helpscout.com/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Help Scout provides several tools for developers to make magic happen: Apps - display your own content as an internal sidebar application in the Inbox; Beacon - ...",
+                                        "title": "Help Scout Developers - API Documentation | Help Scout ..."
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developer.helpscout.com/mailbox-api/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Help Scout Developers. Inbox API. Overview · Authentication · Backward compatibility and API updates · Content Types · Errors · HTTP Methods · Links ...",
+                                        "title": "Inbox API 2.0 | Help Scout Developers"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developer.helpscout.com/docs-api/objects/category/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Help Scout Developers. Docs API. Overview · Overview · Status Codes · Restricted Docs · Overview · Examples · Show login screen when signing in.",
+                                        "title": "Category Object | Help Scout Developers"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 2,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "helpscout.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 5,
+                                    "page": 1,
+                                    "query": "\"Help Scout\" official developer documentation API authentication OAuth API key REST GraphQL",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        },
+                        {
+                            "cost": 2,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "Help Scout MCP gives AI assistants secure, official access to Help Scout data. You can connect Claude, ChatGPT, Cursor, and your own internal AI tools directly to Help Scout to pull up conversations, customer details, mailbox data, and Docs content. This integration is available on the Standard, Plus, and Pro plans — any plan that includes Help Scout API access. Report tools require Plus or Pro. Access is read-only for new connections, and each team member connects with their own Help Scout credentials, ensuring your AI Agent only accesses data that the specific user is permitted to see.\n\n#### What's Covered\n\n## Before You Get Started\n\nKeep the following requirements and details in mind before setting up the connector:\n\n- Your Help Scout account must have API access, which is included on the Standard, Plus, and Pro plans.\n- Log in to Help Scout with your own credentials during setup. AI Agents only access data that your specific user account is permitted to see. For more details on user permissions, see [User Roles and Permissions](https://docs.helpscout.com/article/15-user-roles-and-permissions).\n- Adding the connector may require an admin. On Claude Team and Enterprise plans, only a Claude Owner can add custom connectors. On ChatGPT Business, Enterprise, and Education workspaces, your workspace admin needs to approve Developer mode first. If that's not you, you'll need their help before you can connect.\n- The connector is read-only. AI Agents can find and summarize information in your account, but they cannot create, send, edit, or delete data. If your account took part in the MCP beta, see Limitations below.\n- To allow AI Agents to search your Docs knowledge base, you need a Docs API key.\n- On HIPAA-enabled accounts, your BAA with Help Scout doesn't cover your AI provider. See HIPAA accounts below before connecting.\n\n## Add the Connector in Claude\n\nHelp Scout isn't listed in Claude's connector directory yet; it's added as a custom connector using a server URL. How you add it depends on your Claude plan.\n\n### Team and Enterprise plans\n\nOnly a Claude Owner can add a custom connector. Ask your Owner to:\n\n1. Go to Organization settings > Connectors.\n2. Click **Add**, hover over **Custom**, then select **Web**.\n\tSet the remote MCP server URL to `https://mcp.helpscout.net/mcp`.\n\t1. Leave Advanced settings empty. The OAuth Client ID and Client Secret fields are optional; the connector registers itself. Don't enter a Help Scout App ID or secret from My Apps here; those are for the Help Scout API and won't work for the connector.\n3. Click **Add**.\n\nOnce the connector is added, each team member connects individually:\n\n1. Go to Customize > Connectors.\n2. Find Help Scout in the list — it has a **Custom** label.\n3. Click **Connect**, then log in to Help Scout and approve access.\n\n### Pro and Max plans\n\nFollow these steps to connect Help Scout to Claude:\n\n1. In Claude, go to **Customize** > **Connectors** > **Add** > and click **Add custom connector**.\n\n2. Name the connector **Help Scout**.\n\tSet the remote MCP server URL to `https://mcp.helpscout.net/mcp`.\n\t1. Leave Advanced settings empty. The OAuth Client ID and Client Secret fields are optional; the connector registers itself. Don't enter a Help Scout App ID or secret from My Apps here; those are for the Help Scout API and won't work for the connector.\n3. Click **Add**.\n\n5. Log in to Help Scout on the authorization page and approve access.\n\nYour Help Scout tools are now available in your Claude conversations. To confirm the connection is working, ask Claude: \"Run the Help Scout health check\".\n\nTo disconnect the integration, remove the Help Scout connector from the Claude **Settings** > **Connectors** page.\n\n## Add the Connector in ChatGPT\n\nChatGPT adds custom MCP connectors through developer mode, so you'll see a standard warning when you turn it on. That warning applies to custom connectors in general, not to anything specific to Help Scout. To get things set up:\n\n1. In ChatGPT, go to Settings > Security and login and turn on Developer mode. On Business, Enterprise, and Education workspaces, your workspace admin needs to approve it first.\n\n2. Go to Plugins (or open chatgpt.com/plugins) and click the + button to add a new connector.\n\n3. Enter Help Scout as the name, add a short description (for example, \"Search Help Scout conversations, customers, and Docs\"), and set the MCP server URL to [https://mcp.helpscout.net/mcp](https://mcp.helpscout.net/mcp).\n\n4. Click Create.\n5. Log in to Help Scout when prompted and approve access.\n\nTo confirm everything is working, ask ChatGPT: \"Run the Help Scout health check\".\n\nTo disconnect later, remove the Help Scout connector from your Plugins page.\n\n## Turn On Knowledge Base Tools\n\nInbox tools connect automatically when you authorize the integration. Enabling Docs tools requires an additional step because the Docs API uses its own API key.\n\nFirst, retrieve your Docs API key:\n\n1. In Help Scout, navigate to **Your Profile** > **Security and Access**. To learn more about managing your profile settings, see [Manage Your User Profile](https://docs.helpscout.com/article/499-manage-your-user-profile).\n2. Copy your Docs API key.\n\n**Note:** If you do not see an API key on the Security and Access page, you need the **Docs: Create new, edit settings & Collections** permission. Ask your Account Owner or an Administrator to grant this permission.\n\nNext, add the key during the Claude connection process:\n\n1. On the Help Scout authorization page, paste your key into the **Help Scout Docs API Key (optional)** field.\n\n2. Approve access.\n\n**Note:** If you already connected without a key, remove the Help Scout connector, and add it again to paste your key on the authorization page. If the key is missing or invalid, other tools continue to function while Docs tools remain unavailable.\n\n## What You Can Ask\n\nYou can ask Claude to perform various actions using plain English. Here are some examples to help you get started:\n\n- \"Show me all open conversations in the Support inbox\"\n- \"What did customer@example.com last contact us about?\"\n- \"Search for conversations mentioning 'refund request'\"\n- \"Summarize conversation #12345, the opening question and the latest reply\"\n- \"Search our docs for 'how to reset password'\"\n- \"Show me the happiness report for January 2026\"\n\n#### Getting better results\n\nYour AI Agent works best with specific, scoped questions.\n\n- Name the inbox, customer, or date range instead of asking broadly. \"Active conversations in Support from this week\" works better than \"show me conversations.\"\n- For long threads, ask for a summary if you just need the gist. It's faster than pulling the whole history.\n- If a broad question doesn't return what you expected, narrow it. Search or list first, then ask about the specific conversation you want.\n\n## What's Available via the MCP\n\nOnce connected, Claude can work with the following areas of your account:\n\n- **Conversations:** Conversations: List, search, and summarize conversations, including threads, tags, custom fields, and attachment details such as file names. Your AI Agent can't open attachment files.\n- **Customers:** Retrieve customer profiles, email addresses, phone numbers, conversation history, and organization details.\n- **Inboxes and saved replies:** Browse inboxes, folders, and saved replies.\n- **Users and teams:** View account users and team configurations.\n- **Workflows:** View active workflows configured on your account.\n- **Reports:** Pull company, conversation, productivity, and happiness reports, and drill down into the underlying conversations. For more details on report metrics, see [Understanding Reports in Help Scout](https://docs.helpscout.com/article/385-reports).\n- **Docs:** Search and read knowledge base articles, sites, and collections (requires a Docs API key).\n\n## Limitations\n\nThe connector has the following limitations:\n\n- **Read-only access.** Connections created today are read-only; your AI Agent can find and summarize information, but it can't reply to customers, add notes, change tags, or edit Docs articles. A small number of accounts from the MCP beta program kept write tools when the connector became generally available. Write actions for all accounts are on the roadmap. There's no date to share yet. To see what your assistant can actually do, open the Help Scout connector in your AI client and review its tool list. You can turn off individual tools from the same screen.\n- **Reports require Plus or Pro.** The Help Scout reporting API isn't available on Standard, so report tools won't return data on that plan. Every other tool works normally. On Plus and Pro, reports cover all-time history.\n- **Docs tools.** Requires a Docs API key and the appropriate user permissions.\n\n## How Your Data Is Handled\n\nYou connect through Help Scout's OAuth sign-in: you log in on Help Scout's own page, so the connector never sees or stores your Help Scout password.\n\n- The connector acts as your Help Scout user, so your AI Agent only accesses data you're permitted to view. Inbox permissions are what actually restrict access. Filtering a search by tag or folder is just a query choice. A differently worded question can still reach conversations outside that filter.\n- Requests are handled in real time, and nothing you ask for is stored on Help Scout's end. The only things kept are your session tokens and, if you added one, your Docs API key, both of which are encrypted at rest. The connector holds no AI provider credentials and makes no model calls of its own.\n- When your AI Agent retrieves something, that content becomes part of your conversation with it. What happens to it from there, including whether it's used to train a model, is governed by your AI provider's terms, not Help Scout's. Check your plan with your provider for specifics.\n- The connector doesn't remove sensitive information. Anything a customer pasted into a conversation, including credentials shared by mistake, reaches your AI Agent. Treat anything shared in a support conversation as something to rotate, not something to keep secret from your own tools.\n- There's no Help Scout setting to turn MCP off account-wide. Any User or Administrator can connect their own AI Agent, and Help Scout's permissions determine what it can access on their behalf. Light Users can't connect because they don't have API access. If you want to block connections centrally, that control lives with your AI platform: Claude Team and Enterprise admins can allowlist or block connectors by URL, and ChatGPT Business, Enterprise, and Edu workspaces already require an admin to enable custom connectors before anyone can add one. Check your plan's admin settings if this matters to your organization.\n\nFor Help Scout's broader security practices, see [Security at Help Scout](https://docs.helpscout.com/article/1263-security-at-help-scout).\n\n### HIPAA Accounts\n\nHIPAA support is available on the Pro plan and requires a signed BAA. The connector follows the same rules as any other integration, see [HIPAA and Integrations](https://docs.helpscout.com/article/330-hipaa#hipaaintegrations). In short: data leaving Help Scout is governed by whoever receives it, and if PHI could reach your AI Agent, you'll need a BAA with that provider too.\n\nOne difference from other integrations: you can't see or revoke individual connections in Help Scout the way you can with installed apps. Any User or Administrator can connect their own AI Agent, and it inherits their inbox permissions. On Plus and Pro, you can stop a specific user from connecting by turning off their Access API permission, or by changing them to a Light User. Either one blocks all API use for that person, not just the connector. Central control is managed through your AI platform's admin settings, as described in the last bullet above.\n\n#### Revoking access\n\nRemoving the connector from your AI client stops it from making new requests, but it doesn't reliably cancel the credential on Help Scout's side. Some clients send a revocation request when you disconnect. Some don't. Without one, an access token stays valid for up to 2 hours, and its refresh token for up to 30 days.\n\nThe reliable way to cut off access immediately is to deactivate the Help Scout user who authorised it. That revokes everything tied to their login. One exception: a Docs API key is a separate credential and keeps working until you revoke it in Help Scout, even after the user is deactivated.\n\nIf you need to cut off access urgently, during a security incident, for example, deactivate the user in Help Scout. If you need help, contact our support team.\n\n## Common Questions\n\n### I visited the MCP server URL directly and got an error. Is something broken?\n\nNo, that's expected. `https://mcp.helpscout.net/mcp` isn't a page to browse; it's an endpoint your AI client talks to. Visiting it directly returns an authorization error because no client credentials are attached. If your AI Agent is connected and working, this doesn't affect it.\n\n### I was connecting my AI Agent and got sent to this page. What happened?\n\nYou were setting up the connector with an older server URL that no longer accepts new connections. Use [https://mcp.helpscout.net/mcp](https://mcp.helpscout.net/mcp) instead.\n\nSee Add the Connector in Claude or Add the Connector in ChatGPT for the steps.\n\n### I tried to add the connector again and got \"a server with that URL already exists.\"\n\nThis happens if the connector is already added in your AI client. Check your existing connectors list first. If you need to reconnect (for example, to add a Docs API key), remove the existing Help Scout connector before adding it again rather than adding a second one.\n\n### Some of my team can connect, but others get \"Could not identify Help Scout user. Try again.\"\n\nFirst, check whether the affected users are Light Users. Light Users don't have API access, so they can't connect. To give them access, change them to a User. For more details, see About Light Users ([https://docs.helpscout.com/article/1464-light-users](https://docs.helpscout.com/article/1464-light-users)).\n\nIf they aren't Light Users, check whether your account uses Custom Permissions. If so, the affected users likely don't have Access API enabled. Go to Settings → Users → \\[User\\] → Permissions and turn it on. This is Help Scout's own permission for using the API, not an MCP-specific setting, but the connector needs it to identify who's signing in.\n\n## Report a Security Issue\n\nIf you find a security vulnerability in the Help Scout MCP server, reach out to us to report it. We investigate all security reports.\n\nIn-scope issues include vulnerabilities in the MCP server, weaknesses in the OAuth sign-in flow, credential storage issues, or unauthorized data access. Out-of-scope issues include documented tool behaviors, AI model decisions, denial of service, and vulnerabilities in third-party dependencies.\n\n## Get Help\n\nIf you have questions about the connector or need assistance with setup, reach out to our support team and we'd be happy to help you get connected.",
+                                        "link": "https://docs.helpscout.com/article/1779-connect-your-ai-agent-with-help-scout-to-search-conversations-and-pull-reports",
+                                        "metadata": null,
+                                        "published_date": "2026-10-16",
+                                        "snippet": "Oct 16, 2026 ... Help Scout MCP gives AI assistants secure, official access to Help Scout data. You can connect Claude, ChatGPT, Cursor, and your own ...",
+                                        "title": "Connect your AI Agent to Help Scout via MCP"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://www.helpscout.com/blog/help-scout-features/",
+                                        "metadata": null,
+                                        "published_date": "2026-10-26",
+                                        "snippet": "Oct 26, 2026 ... Setting this up will require development work by your own team using the Help Scout Docs API. ... Help Scout offers a model context protocol (MCP) ...",
+                                        "title": "A Comprehensive List of Help Scout's Features"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://www.helpscout.com/blog/help-scout-ai-features/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Help Scout's Model Context Protocol (MCP) server does the opposite: it brings your Help Scout customer knowledge into the AI tools your team already uses.",
+                                        "title": "Help Scout's AI Features: Deliver Better Support, Faster"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 1,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "helpscout.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 3,
+                                    "page": 1,
+                                    "query": "\"Help Scout\" official developer documentation MCP Model Context Protocol integrations API",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        }
+                    ],
+                    "summary": {
+                        "failed": 0,
+                        "successful": 2,
+                        "total": 2,
+                        "total_cost": 5
+                    }
+                }
+            },
+            "tool_slug": "SEARCH1API_SEARCH_WEB",
+            "index": 0,
+            "structure_info": {
+                "data_structure": {
+                    "type": "object",
+                    "properties": {
+                        "results": {
+                            "type": "array",
+                            "length": 2,
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 5 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 3 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                }
+                            ]
+                        },
+                        "summary": {
+                            "type": "object",
+                            "properties": {
+                                "failed": "number",
+                                "successful": "number",
+                                "total": "number",
+                                "total_cost": "number"
+                            }
+                        }
+                    }
+                },
+                "note": "This shows the complete structure of this tool's response data in the saved file"
+            },
+            "instruction": "Use structure_info (schema) and data_preview (samples) to understand the result, then process the remote response file."
+        }
+    ],
+    "total_count": 1,
+    "success_count": 1,
+    "error_count": 0,
+    "session": {
+        "id": "page",
+        "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+    },
+    "remote_file_info": {
+        "message": "As requested, responses have been saved to remote workbench in /mnt/files/mex/hand.json. The response was not too large, so it has also been returned inline below. Use the inline response itself for summary/analysis, DO NOT use the workbench for small data or simple calculations—reserve it for larger or more complex tasks.",
+        "file_path": "/mnt/files/mex/hand.json",
+        "filename": "hand.json",
+        "total_tools_executed": 1,
+        "successful_tools": 1,
+        "failed_tools": 0,
+        "instructions": "IMPORTANT: Each result in the response above includes 'structure_info' showing the complete data structure, as well as 'data_preview' showing truncated data - USE THEM to understand the result structures and process the results in the remote file. DO NOT iterate the file to discover structure and DO NOT assume the structure!\n\nTo process the complete file inside the sandbox, use one of the following:\n- Use COMPOSIO_REMOTE_WORKBENCH and write Python code to programmatically parse and get the information needed.\n- Use COMPOSIO_REMOTE_BASH_TOOL and use `jq`, `rg` and write bash scripts to handle the file, break it down and more\n\nThe file is saved at /mnt/files/mex/hand.json.\n\nThe file contains the complete multi-execute response. When working with the data:\n1-2. NOTE: Use this code snippet to load JSON and access i-th result:\n   ```python\n   file_data = json.load(open(\"/mnt/files/mex/hand.json\"))  # Load the complete response file\n   i = 0  # Result index (0 for first result, 1 for second, etc.)\n   result_data = file_data['results'][i]['response']['data']  # Access the i-th result data directly\n   ```\n3. Each result's structure_info.data_structure shows the EXACT structure of what's INSIDE that result's ['response']['data'] - use it directly!\n4. For data_structure: 'type'=object/array, 'properties'=direct child fields, 'length'=array count\n5. Example: if results[0].structure_info shows messages: {type: 'array', length: 1000}, the messages are at file_data['results'][0]['response']['data']['messages'] (direct child)\n6. CRITICAL: The properties shown in data_structure are the direct children of ['response']['data'], NOT nested under another 'data' key"
+    },
+    "next_steps": "DO NOT call workbench tools (COMPOSIO_REMOTE_WORKBENCH or COMPOSIO_REMOTE_BASH_TOOL) for this response. The data is available inline above - process it directly in your next message. Only use workbench if you need complex scripting, pagination loops, or bulk tool calls that cannot be done inline."
+}

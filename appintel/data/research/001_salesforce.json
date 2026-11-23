@@ -1,0 +1,83 @@
+
+{
+    "app_id": 1,
+    "app_name": "Salesforce",
+    "category": "CRM and Sales",
+    "description": "Salesforce is a cloud-based CRM platform providing customer relationship management, data management, analytics, and developer integration capabilities.",
+    "auth_methods": [
+        "OAuth 2.0"
+    ],
+    "credential_access": "Controlled / plan-dependent",
+    "api_type": [
+        "REST",
+        "Bulk API",
+        "Apex REST",
+        "SOAP",
+        "MCP"
+    ],
+    "api_breadth": "Comprehensive API coverage including REST resources, Bulk API 2.0, Apex REST web services, SOAP API, Connect REST API, and hosted MCP servers exposing Salesforce platform capabilities.",
+    "mcp_available": "Yes",
+    "mcp_evidence": "Salesforce provides standard hosted MCP servers for SObject operations, Content, Data 360, Metadata Grounding, Tableau Next, and CRM Analytics. Servers are disabled by default, require administrator activation, and use per-user authentication and Salesforce permissions.",
+    "buildability": "Medium",
+    "blocker": "Requires OAuth configuration through an External Client App, administrator activation of hosted MCP servers, appropriate user permissions, and an edition with API access. Hosted MCP usage may also require Flex Credits.",
+    "evidence": [
+        {
+            "url": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/servers-reference.html",
+            "title": "Standard Servers | Reference | Hosted MCP Servers",
+            "source_type": "Official",
+            "supports": "Native hosted MCP servers and their available tools, administrator activation, per-user authentication, and Salesforce security enforcement.",
+            "research_method": "Search",
+            "excerpt": "Standard servers are pre-configured by Salesforce, disabled by default, and can be enabled by an administrator. They enforce per-user authentication and Salesforce security permissions."
+        },
+        {
+            "url": "https://developer.salesforce.com/docs/platform/api-rest/guide/intro-oauth-and-connected-apps.html",
+            "title": "Authorization Through External Client Apps or Connected Apps and OAuth 2.0",
+            "source_type": "Official",
+            "supports": "OAuth 2.0 authorization for REST API access through External Client Apps or Connected Apps.",
+            "research_method": "Search",
+            "excerpt": "A client application must be authorized using an External Client App or Connected App and an OAuth 2.0 authorization flow."
+        },
+        {
+            "url": "https://developer.salesforce.com/docs/platform/connect-rest-api/guide/intro_using_oauth.html",
+            "title": "OAuth and Connect REST API",
+            "source_type": "Official",
+            "supports": "OAuth authentication requirements for Connect REST API.",
+            "research_method": "Search",
+            "excerpt": "Connect REST API uses OAuth to securely identify an application before connecting to Salesforce."
+        },
+        {
+            "url": "https://developer.salesforce.com/docs/platform/api-rest/guide/intro-rest-compatible-editions.html",
+            "title": "Supported Editions and Required Permissions",
+            "source_type": "Official",
+            "supports": "API availability by Salesforce edition and the API Enabled user permission.",
+            "research_method": "Search",
+            "excerpt": "API access is enabled by default in Enterprise, Performance, Unlimited, and Developer Edition orgs. Professional Edition can add API access as an add-on. Users require API Enabled permission."
+        },
+        {
+            "url": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/activate-mcp-servers.html",
+            "title": "Activate MCP Servers",
+            "source_type": "Official",
+            "supports": "Administrator activation requirements for hosted MCP servers.",
+            "research_method": "Search",
+            "excerpt": "MCP servers are disabled by default and must be enabled by an administrator before clients can connect."
+        },
+        {
+            "url": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/setup-overview.html",
+            "title": "Set Up Your Org",
+            "source_type": "Official",
+            "supports": "External Client App configuration, OAuth scopes, PKCE, and administrator permissions for MCP setup.",
+            "research_method": "Search",
+            "excerpt": "MCP client setup requires an External Client App, OAuth scopes, and appropriate security configuration."
+        },
+        {
+            "url": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/hosted-mcp-servers-overview.html",
+            "title": "Salesforce Hosted MCP Servers",
+            "source_type": "Official",
+            "supports": "Hosted MCP capabilities and Flex Credits usage considerations.",
+            "research_method": "Search",
+            "excerpt": "Hosted MCP servers support OAuth-based integration and are intended for customers with Flex Credits; usage may incur charges."
+        }
+    ],
+    "confidence": "Medium",
+    "research_notes": "Salesforce provides a free Developer Edition with API access. Enterprise, Performance, and Unlimited editions also include API access by default, while Professional Edition requires an API add-on. Users need the API Enabled permission. Hosted MCP servers require administrator activation and External Client App OAuth configuration. Hosted MCP usage may require Flex Credits. The buildability assessment is Medium because access depends on edition, permissions, authentication setup, and administrator configuration."
+}

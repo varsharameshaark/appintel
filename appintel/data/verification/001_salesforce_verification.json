@@ -1,0 +1,76 @@
+
+{
+    "app_id": 1,
+    "app_name": "Salesforce",
+    "verification_type": "Manual verification against official documentation",
+    "verified_claims": [
+        {
+            "claim": "OAuth 2.0 authentication is supported",
+            "status": "Confirmed",
+            "source": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/setup-overview.html"
+        },
+        {
+            "claim": "API access depends on Salesforce edition and user permissions",
+            "status": "Confirmed",
+            "source": "https://developer.salesforce.com/docs/platform/api-rest/guide/intro-rest-compatible-editions.html"
+        },
+        {
+            "claim": "Salesforce provides standard hosted MCP servers",
+            "status": "Confirmed",
+            "source": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/servers-reference.html"
+        },
+        {
+            "claim": "Hosted MCP servers are disabled by default and require administrator activation",
+            "status": "Confirmed",
+            "source": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/activate-mcp-servers.html"
+        },
+        {
+            "claim": "External Client App configuration is required for standard MCP client connections",
+            "status": "Confirmed",
+            "source": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/client-connection-overview.html"
+        }
+    ],
+    "verified_fields": {
+        "auth_methods": {
+            "verified_value": ["OAuth 2.0"],
+            "status": "Confirmed"
+        },
+        "credential_access": {
+            "verified_value": "Controlled / plan-dependent",
+            "status": "Confirmed"
+        },
+        "api_type": {
+            "verified_value": [],
+            "status": "Needs review"
+        },
+        "api_breadth": {
+            "verified_value": null,
+            "status": "Needs review"
+        },
+        "mcp_available": {
+            "verified_value": "Yes",
+            "status": "Confirmed"
+        },
+        "mcp_evidence": {
+            "verified_value": "Salesforce provides standard hosted MCP servers. They are disabled by default, require administrator activation, and use External Client App configuration for standard client connections.",
+            "status": "Confirmed"
+        },
+        "buildability": {
+            "verified_value": "Medium",
+            "status": "Analyst-assessed"
+        },
+        "blocker": {
+            "verified_value": "OAuth configuration, administrator activation, edition requirements and user permissions.",
+            "status": "Analyst-assessed"
+        }
+    },
+    "assessment": {
+        "buildability": "Medium",
+        "reason": "OAuth configuration, administrator activation, edition requirements and user permissions introduce implementation dependencies."
+    },
+    "limitations": [
+        "The complete API catalog has not been independently verified.",
+        "Not every API endpoint has been tested.",
+        "Buildability is an analyst judgement rather than an official Salesforce classification."
+    ]
+}

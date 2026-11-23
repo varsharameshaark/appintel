@@ -1,0 +1,45 @@
+{
+    "error": "1 out of 1 tools failed",
+    "details": {
+        "data": {
+            "results": [
+                {
+                    "response": {
+                        "successful": false,
+                        "data": {
+                            "message": "Search1API requires payment or sufficient account credits for this search.",
+                            "status_code": 402
+                        },
+                        "error": "Search1API requires payment or sufficient account credits for this search."
+                    },
+                    "error": "Search1API requires payment or sufficient account credits for this search.",
+                    "tool_slug": "SEARCH1API_SEARCH_WEB",
+                    "index": 0,
+                    "structure_info": null,
+                    "instruction": "Use structure_info (schema) and data_preview (samples) to understand the result, then process the remote response file."
+                }
+            ],
+            "total_count": 1,
+            "success_count": 0,
+            "error_count": 1,
+            "session": {
+                "id": "page",
+                "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+            },
+            "remote_file_info": {
+                "message": "As requested, responses have been saved to remote workbench in /mnt/files/mex/came.json. The response was not too large, so it has also been returned inline below. Use the inline response itself for summary/analysis, DO NOT use the workbench for small data or simple calculations—reserve it for larger or more complex tasks.",
+                "file_path": "/mnt/files/mex/came.json",
+                "filename": "came.json",
+                "total_tools_executed": 1,
+                "successful_tools": 0,
+                "failed_tools": 1,
+                "instructions": "IMPORTANT: Each result in the response above includes 'structure_info' showing the complete data structure, as well as 'data_preview' showing truncated data - USE THEM to understand the result structures and process the results in the remote file. DO NOT iterate the file to discover structure and DO NOT assume the structure!\n\nTo process the complete file inside the sandbox, use one of the following:\n- Use COMPOSIO_REMOTE_WORKBENCH and write Python code to programmatically parse and get the information needed.\n- Use COMPOSIO_REMOTE_BASH_TOOL and use `jq`, `rg` and write bash scripts to handle the file, break it down and more\n\nThe file is saved at /mnt/files/mex/came.json.\n\nThe file contains the complete multi-execute response. When working with the data:\n1-2. NOTE: Use this code snippet to load JSON and access i-th result:\n   ```python\n   file_data = json.load(open(\"/mnt/files/mex/came.json\"))  # Load the complete response file\n   i = 0  # Result index (0 for first result, 1 for second, etc.)\n   result_data = file_data['results'][i]['response']['data']  # Access the i-th result data directly\n   ```\n3. Each result's structure_info.data_structure shows the EXACT structure of what's INSIDE that result's ['response']['data'] - use it directly!\n4. For data_structure: 'type'=object/array, 'properties'=direct child fields, 'length'=array count\n5. Example: if results[0].structure_info shows messages: {type: 'array', length: 1000}, the messages are at file_data['results'][0]['response']['data']['messages'] (direct child)\n6. CRITICAL: The properties shown in data_structure are the direct children of ['response']['data'], NOT nested under another 'data' key"
+            },
+            "next_steps": "DO NOT call workbench tools (COMPOSIO_REMOTE_WORKBENCH or COMPOSIO_REMOTE_BASH_TOOL) for this response. The data is available inline above - process it directly in your next message. Only use workbench if you need complex scripting, pagination loops, or bulk tool calls that cannot be done inline."
+        },
+        "error": "1 out of 1 tools failed",
+        "successful": false,
+        "log_id": "log_3ogYMacTZdfi",
+        "result_type": "failed"
+    }
+}

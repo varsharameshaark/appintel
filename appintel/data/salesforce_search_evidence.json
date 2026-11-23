@@ -1,0 +1,156 @@
+{
+  "results": [
+    {
+      "response": {
+        "successful": true,
+        "data": {
+          "results": [
+            {
+              "cost": 3,
+              "data": {
+                "images": null,
+                "results": [
+                  {
+                    "content": "## OAuth and Connect REST API\n\nConnect REST API uses OAuth to securely identify your application before connecting to Salesforce. To use Connect REST API, create a REST entry point in your org. Salesforce defines this entry point as an external client app. See [Step Two: Set Up Authorization](https://developer.salesforce.com/docs/platform/connect-rest-api/guide/CR_quickstart_oauth.html) to create your external client app.\n\nA user must be authenticated before accessing Salesforce. OAuth has multiple authentication flows. There are several steps in each authentication flow, as dictated by the OAuth standard and the type of application trying to access Salesforce. On successful authorization, the client application receives access and refresh tokens.\n\nFor more information about setting up external client app OAuth flows, see [Set Up OAuth Flows](https://help.salesforce.com/s/articleView?id=xcloud.external_client_apps_oauth_flow_config.htm&type=5) in Salesforce Help.\n\n- **[Request Static Assets and Post Forms Directly from HTML](https://developer.salesforce.com/docs/platform/connect-rest-api/guide/intro_requesting_bearer_token_url.html)**\n\tHTML pages that aren’t hosted on Salesforce have had difficulty displaying user and group images and posting file attachments in forms. The reason is that URLs for these assets require authentication, which is provided with a session cookie when pages are hosted on Salesforce. Pages not hosted on Salesforce don’t have access to the session cookie. Also, it isn’t possible to pass an OAuth token from the HTML contexts `<img>`, `<a>`, and `<form>`.",
+                    "link": "https://developer.salesforce.com/docs/platform/connect-rest-api/guide/intro_using_oauth.html",
+                    "metadata": null,
+                    "published_date": null,
+                    "snippet": "A user must be authenticated before accessing Salesforce. OAuth has multiple authentication flows. There are several steps in each authentication flow, as ...",
+                    "title": "OAuth and Connect REST API - Salesforce Developers"
+                  },
+                  {
+                    "content": "## Authorization Through External Client Apps or Connected Apps and OAuth 2.0\n\nFor a client application to access REST API resources, it must be authorized as a safe visitor. To implement this authorization, use either an external client app or a connected app and an OAuth 2.0 authorization flow.\n\nCreating connected apps is restricted as of Spring ‘26. You can continue to use existing connected apps during and after Spring ‘26. However, we recommend using [external client apps](https://help.salesforce.com/s/articleView?id=xcloud.external_client_apps.htm) instead. If you must continue creating connected apps, contact Salesforce Support.\n\nSee [New connected apps can no longer be created in Spring ‘26](https://help.salesforce.com/s/articleView?id=005228017&type=1) for more details.\n\nBoth external client apps and connected apps request access to REST API resources on behalf of the client application. For an external client app or connected app to request access, it must be integrated with your org’s REST API using the OAuth 2.0 protocol. OAuth 2.0 is an open protocol that authorizes secure data sharing between applications through the exchange of tokens.\n\nFor instructions to configure an external client app, see [Create an External Client App](https://help.salesforce.com/s/articleView?id=xcloud.create_a_local_external_client_app.htm) or [Enable OAuth Settings for API Integration](https://help.salesforce.com/articleView?id=connected_app_create_api_integration.htm) in *Salesforce Help*. For more information about connected apps, see [Connected Apps](https://help.salesforce.com/s/articleView?id=xcloud.connected_app_overview.htm) in *Salesforce Help*.\n\nOAuth authorization flows grant a client app restricted access to REST API resources on a resource server. Each OAuth flow offers a different process for approving access to a client application, but in general the flows consist of three main steps.\n\n1. To initiate an authorization flow, a connected app on behalf of a client app requests access to a REST API resource.\n2. In response, an authorizing server grants access tokens to the external client app or connected app.\n3. A resource server validates these access tokens and approves access to the protected REST API resource.\n\nAfter reviewing and selecting an OAuth authorization flow, apply it to your external client app or connected app. For details about each supported flow, see [OAuth Authorization Flows](https://help.salesforce.com/articleView?id=remoteaccess_oauth_flows.htm) in *Salesforce Help*.\n\nDemonstrating Proof-of-Possession (DPoP) binds an OAuth access token to the client that requested it. To use the token, the client must prove that it owns the matching private key. Even if a threat actor steals the token, they can’t use it to access your data.\n\nDPoP is optional. To use it, enable **Require DPoP (Demonstrating Proof-of-Possession)** in the OAuth settings of your external client app or connected app. For setup steps and proof generation, see [OAuth 2.0 DPoP Guide](https://help.salesforce.com/s/articleView?id=xcloud.remoteaccess_dpop_guide.htm&type=5) in *Salesforce Help*.\n\nWhen DPoP is required, each REST API request must include these headers:\n\n- `Authorization`: The DPoP-bound access token with the `DPoP` prefix instead of `Bearer`.\n- `DPoP`: A signed DPoP proof JWT for this request.\n\nIf a request sends a DPoP proof with an access token that isn’t DPoP-bound, Salesforce rejects the request with an `INVALID_AUTH_HEADER` error. To fix this error, get a DPoP-bound access token from an external client app or connected app that requires DPoP, or remove the `DPoP` header.\n\nThe same headers apply to Bulk API 2.0 and Apex REST web services.\n\nSalesforce offers the following resources to help you navigate connected apps and OAuth:\n\n- *Salesforce Help*: [External Client Apps](https://help.salesforce.com/s/articleView?id=xcloud.external_client_apps.htm)\n- *Salesforce Help*: [Authorize Apps with OAuth](https://help.salesforce.com/articleView?id=remoteaccess_authenticate.htm)\n- *Salesforce Help*: [OpenID Connect Token Introspection](https://help.salesforce.com/articleView?id=remoteaccess_oidc_token_introspection_endpoint.htm)\n- *Salesforce Help*: [OAuth 2.0 DPoP Guide](https://help.salesforce.com/s/articleView?id=xcloud.remoteaccess_dpop_guide.htm&type=5)\n- *Trailhead*: [Build Integrations Using External Client Apps](https://trailhead.salesforce.com/content/learn/projects/build-integrations-with-external-client-apps)",
+                    "link": "https://developer.salesforce.com/docs/platform/api-rest/guide/intro-oauth-and-connected-apps.html",
+                    "metadata": null,
+                    "published_date": null,
+                    "snippet": "For an external client app or connected app to request access, it must be integrated with your org's REST API using the OAuth 2.0 protocol. OAuth 2.0 is an open ...",
+                    "title": "Authorization Through External Client Apps or Connected Apps and ..."
+                  },
+                  {
+                    "content": null,
+                    "link": "https://developer.salesforce.com/docs/atlas.en-us.chatterapi.meta/chatterapi/intro_using_oauth.htm",
+                    "metadata": null,
+                    "published_date": null,
+                    "snippet": "OAuth has multiple authentication flows. There are several steps in each authentication flow, as dictated by the OAuth standard and the type of application ...",
+                    "title": "OAuth and Connect REST API - Salesforce Developers"
+                  },
+                  {
+                    "content": null,
+                    "link": "https://developer.salesforce.com/docs/platform/mobile-sdk/guide/oauth-intro-flow.html",
+                    "metadata": null,
+                    "published_date": null,
+                    "snippet": "OAuth 2.0 Authentication Flow · First Time Authorization Flow · Ongoing Authorization · PIN Authentication (Optional) · DEVELOPER CENTERS · POPULAR RESOURCES.",
+                    "title": "OAuth 2.0 Authentication Flow | Mobile SDK Development Guide"
+                  },
+                  {
+                    "content": null,
+                    "link": "https://developer.salesforce.com/docs/commerce/b2c-commerce/references/b2c-commerce-ocapi/oauth.html",
+                    "metadata": null,
+                    "published_date": null,
+                    "snippet": "The OAuth 2.0 protocol is used for authentication and authorization where the shopping customer context provided by JWT doesn't fit. When using the Data API in ...",
+                    "title": "OAuth 2.0 | Open Commerce API (deprecated)"
+                  }
+                ],
+                "search_parameters": {
+                  "crawl_results": 2,
+                  "exclude_sites": [],
+                  "image": false,
+                  "include_sites": [
+                    "developer.salesforce.com"
+                  ],
+                  "language": null,
+                  "max_results": 5,
+                  "page": 1,
+                  "query": "site:developer.salesforce.com/docs Salesforce REST API OAuth 2.0 authentication developer documentation",
+                  "search_service": "google",
+                  "time_range": null
+                }
+              },
+              "error": null,
+              "success": true
+            },
+            {
+              "cost": 3,
+              "data": {
+                "images": null,
+                "results": [
+                  {
+                    "content": "## Standard MCP Servers Reference\n\nSalesforce provides a set of standard MCP servers that expose built-in platform and product capabilities. These servers are pre-configured by Salesforce and provide a fixed set of tools. Standard servers are disabled by default and can be enabled by an administrator, but their tool sets cannot be modified.\n\nAll servers enforce per-user authentication and respect Salesforce’s standard security model: field-level security, object permissions, and sharing rules apply to every tool call.\n\n- **[SObject All](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/sobject-all.html)** - Full CRUD operations (create, read, update, delete) plus query and search across all Salesforce objects\n- **[SObject Reads](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/sobject-reads.html)** - Read and query only, no mutations\n- **[SObject Mutations](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/sobject-mutations.html)** - Create and update operations, no delete\n- **[SObject Deletes](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/sobject-deletes.html)** - Delete operations only\n- **[Content Read-Only](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/content-readonly.html)** and **[Content Write](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/content-write.html)** - Get read and write access to Salesforce CMS assets including workspaces, channels, content, and folders\n- **[Data 360](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/data360-mcp.html)** - Query unified customer data in Data 360\n- **[Headless 360 (Beta)](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/headless-360-mcp.html)** - Access the full breadth of Salesforce Setup and platform capabilities through tools like Discover, Describe, and Dispatch. [Archive Connect](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/archive-connect.html) tools (search, unarchive, analysis, and compliance operations on archived records) are available through this server.\n- **[Insurance Design Advisor](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/insurance-design-advisor.html)** - Validate insurance product setup, pricing configuration, API payloads, and user permissions before runtime.\n- **[Metadata Grounding (Beta)](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/metadata-grounding.html)** - Discover and reuse Salesforce metadata from a connected org such as standard and custom objects and fields, Lightning web components (LWC), users, permission sets, flows, Apex classes, and so on.\n- **[Tableau Next](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/tableau-next.html)** - Discover semantic models, query KPIs, and execute analytics\n- **[CRM Analytics (Beta)](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/crm-analytics-mcp.html)** - Discover analytics apps, inspect dataset schemas, run SAQL queries, and read dashboard and lens metadata",
+                    "link": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/servers-reference.html",
+                    "metadata": null,
+                    "published_date": null,
+                    "snippet": "Salesforce provides a set of standard MCP servers that expose built-in platform and product capabilities. These servers are pre-configured by Salesforce and ...",
+                    "title": "Standard Servers | Reference | Hosted MCP Servers"
+                  },
+                  {
+                    "content": "## Reference Documentation\n\nThis section contains technical reference documentation for Salesforce Hosted MCP Servers.\n\n**Available References:**\n\n- **[Servers and Tools](https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references/reference/servers-reference.html)** - Detailed documentation for each MCP server type, including SObject operations, custom servers, and product integrations.",
+                    "link": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/references",
+                    "metadata": null,
+                    "published_date": null,
+                    "snippet": "Servers and Tools - Detailed documentation for each MCP server type, including SObject operations, custom servers, and product integrations. control-j is ...",
+                    "title": "Overview | Reference | Hosted MCP Servers - Salesforce Developers"
+                  },
+                  {
+                    "content": null,
+                    "link": "https://developer.salesforce.com/docs/platform/sfdx-dev/guide/sfdx-dev-mcp.html",
+                    "metadata": null,
+                    "published_date": null,
+                    "snippet": "The Salesforce DX MCP Server is a specialized Model Context Protocol (MCP) implementation designed to facilitate seamless interaction between LLMs and ...",
+                    "title": "Salesforce DX MCP Server and Tools"
+                  },
+                  {
+                    "content": null,
+                    "link": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/client-connection-overview.html",
+                    "metadata": null,
+                    "published_date": null,
+                    "snippet": "Connecting a client to a Salesforce Hosted MCP Server is a process that involves both Salesforce Setup and your selected client application.",
+                    "title": "Connect MCP Clients | Hosted MCP Servers - Salesforce Developers"
+                  },
+                  {
+                    "content": null,
+                    "link": "https://developer.salesforce.com/docs/ai/agentforce/guide/mcp.html",
+                    "metadata": null,
+                    "published_date": null,
+                    "snippet": "To register, track, and manage the MCP servers and APIs connected to your org, use the API Catalog Connect REST API. Note. See Also.",
+                    "title": "MCP Solutions | Agentforce Developer Guide - Salesforce Developers"
+                  }
+                ],
+                "search_parameters": {
+                  "crawl_results": 2,
+                  "exclude_sites": [],
+                  "image": false,
+                  "include_sites": [
+                    "developer.salesforce.com"
+                  ],
+                  "language": null,
+                  "max_results": 5,
+                  "page": 1,
+                  "query": "site:developer.salesforce.com/docs Salesforce Hosted MCP Servers documentation",
+                  "search_service": "google",
+                  "time_range": null
+                }
+              },
+              "error": null,
+              "success": true
+            }
+          ],
+          "summary": {
+            "failed": 0,
+            "successful": 2,
+            "total": 2,
+            "total_cost": 6
+          }
+        }
+      },
+      "tool_slug": "SEARCH1API_SEARCH_WEB",
+      "index": 0
+    }
+  ],
+  "total_count": 1,
+  "success_count": 1,
+  "error_count": 0,
+  "session": {
+    "id": "page",
+    "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+  }
+}

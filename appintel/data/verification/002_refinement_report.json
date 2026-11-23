@@ -1,0 +1,60 @@
+{
+    "app_id": 2,
+    "app_name": "HubSpot",
+    "baseline_type": "Original AI research file",
+    "fields_changed": 2,
+    "fields_unchanged": 2,
+    "fields_skipped": 1,
+    "changes": [
+        {
+            "field": "auth_methods",
+            "original_ai_value": [
+                "OAuth 2.0",
+                "OAuth 2.1 (with PKCE)"
+            ],
+            "refined_value": [
+                "OAuth 2.0",
+                "OAuth 2.1 with PKCE (MCP-specific)"
+            ],
+            "change_type": "Evidence-verified correction",
+            "verification_status": "Confirmed"
+        },
+        {
+            "field": "buildability",
+            "original_ai_value": "Easy",
+            "refined_value": "Medium",
+            "change_type": "Analyst-assessed refinement",
+            "verification_status": "Analyst-assessed"
+        }
+    ],
+    "unchanged_fields": [
+        "api_type",
+        "mcp_available"
+    ],
+    "skipped_fields": [
+        {
+            "field": "credential_access",
+            "reason": "Manual verification is incomplete"
+        }
+    ],
+    "verification_status": {
+        "auth_methods": "Confirmed",
+        "credential_access": "Needs review",
+        "api_type": "Confirmed",
+        "mcp_available": "Confirmed",
+        "buildability": "Analyst-assessed",
+        "app_id": "AI-generated / Not independently verified",
+        "app_name": "AI-generated / Not independently verified",
+        "category": "AI-generated / Not independently verified",
+        "description": "AI-generated / Not independently verified",
+        "api_breadth": "AI-generated / Not independently verified",
+        "mcp_evidence": "AI-generated / Not independently verified",
+        "blocker": "AI-generated / Not independently verified"
+    },
+    "limitations": [
+        "API pricing and subscription-tier restrictions have not been fully verified.",
+        "Individual API endpoints have not been tested.",
+        "Buildability is an analyst assessment rather than an independently measured result."
+    ],
+    "interpretation": "Refined values are derived from manually reviewed verification data. Confirmed changes and analyst-assessed changes are distinguished. Unverified AI-generated fields are explicitly labelled. This process does not independently measure factual accuracy."
+}

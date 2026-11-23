@@ -1,0 +1,198 @@
+{
+    "results": [
+        {
+            "response": {
+                "successful": true,
+                "data": {
+                    "results": [
+                        {
+                            "cost": 3,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "A headless portal lets your customers read, create, and reply to their threads inside your own product. You build the interface; Plain stores the threads, routes them to your team, and gives you the API to read and write them.\n\nBecause you own the markup, the portal matches your product rather than looking like an embedded widget, and customers stay signed in with your existing session instead of a separate support login. Threads created this way arrive with the account, priority, and labels already set, so they land in your queue ready to triage.\n\nHeadless portal in Plain\n\nHeadless portal in Plain\n\nBuilding one is four pieces of work:\n\n1. Create an account for each of your customers.\n2. Fetch that account’s threads to list them.\n3. Let customers open new threads.\n4. Let customers reply to a thread.\n\nRead the [data model](https://www.plain.com/docs/graphql/introduction) first, since the rest of this page assumes it.\n\n## Create an account for each customer\n\nWhen a customer signs up to your product, create an account for them. Each account in Plain should map 1:1 to the workspace, team, or organization concept in your own product. [Accounts](https://www.plain.com/docs/graphql/accounts) covers the model in full.\n\nThis is the step that scopes the portal. Without accounts, there is no reliable way to tell which threads belong to which of your customers’ teams, so a portal cannot show one team its own threads and nothing else.\n\nCreate accounts by [upserting them](https://www.plain.com/docs/graphql/accounts/upsert), then [add individual customers to an account](https://www.plain.com/docs/graphql/accounts/add-customers).\n\nYou can skip accounts while prototyping and filter by customer instead. The trade-off is that if John and Lucy are on the same team in your product, John sees only his own threads and not Lucy’s. For most B2B products that is the wrong experience, but it is fine for a first pass.\n\n## Fetch an account’s threads\n\nOnce threads carry an account, fetch them by filtering on it:\n\n```typescript\nconst threads = await plainClient.getThreads({\n    filters: {\n      accountIdentifiers: [{ externalId: accountExternalId }],\n      statuses: [ThreadStatus.Todo, ThreadStatus.Snoozed],\n    },\n  });\n```\n\nIf you skipped accounts, filter by `customerId` instead to get one customer’s threads.\n\nThat returns the threads but not their contents. To read the messages on a thread, query its timeline entries.\n\nThe selection below includes chat messages and custom timeline entries. Imported inbound and outbound messages are custom timeline entries, so rendering this selection shows them to the customer. Leave `NoteEntry`, the internal note, out of a customer view, the same way the [Customer Inbox](https://www.plain.com/docs/product/help-center/customer-inbox) does.\n\n```graphql\nquery threadTimeline($threadId: ID!, $first: Int, $after: String, $last: Int, $before: String) {\n  thread(threadId: $threadId) {\n    title\n    description\n    priority\n    status\n    createdAt {\n      __typename\n      iso8601\n    }\n    customer {\n      fullName\n    }\n    updatedAt {\n      __typename\n      iso8601\n    }\n    timelineEntries(first: $first, after: $after, last: $last, before: $before) {\n      edges {\n        cursor\n        node {\n          id\n          timestamp {\n            __typename\n            iso8601\n          }\n          actor {\n            __typename\n            ... on UserActor {\n              user {\n                fullName\n              }\n            }\n            ... on CustomerActor {\n              customer {\n                fullName\n              }\n            }\n            ... on MachineUserActor {\n              machineUser {\n                fullName\n              }\n            }\n          }\n          entry {\n            __typename\n            ... on CustomEntry {\n              title\n              components {\n                __typename\n                ... on ComponentText {\n                  text\n                }\n              }\n            }\n            ... on ChatEntry {\n              chatId\n              text\n            }\n          }\n        }\n      }\n      pageInfo {\n        __typename\n        hasPreviousPage\n        hasNextPage\n        startCursor\n        endCursor\n      }\n    }\n  }\n}\n```\n\n## Let customers open new threads\n\nBuild a contact form in your portal that [creates a thread](https://www.plain.com/docs/graphql/threads/create). Pre-fill the customer’s account ID on the thread, or it will not appear in the portal.\n\nA form with only a title and a message works, but structured questions are worth the extra fields: what the request is about, how urgent it is, which product area it affects. Those answers become thread fields and labels, which is what makes the thread routable without a human reading it first.\n\n## Let customers reply to a thread\n\nTechnically this is one call to the `replyToThread` mutation. The work is in the interface rather than the API.\n\nWhat you build depends on the channels you support. If your portal does not handle email, you do not need `Cc` or `Bcc` fields.\n\n## Example implementation\n\nThere is a working Next.js example that puts all four pieces together:\n\n[Headless portal example on GitHub](https://github.com/team-plain/example-headless-support-app)\n\n## Security\n\nA portal calls [Plain’s GraphQL API with an API key](https://www.plain.com/docs/graphql/authentication). That key needs broad permissions, because it reads threads and customer details and performs actions such as sending email.\n\nNever call the Plain API directly from the browser. Doing so exposes an API key that can read every thread and customer in your workspace.\n\nMake every Plain API call from a backend you control. That is also where you enforce access control, so a customer can only reach their own threads.\n\nIf a key leaks, delete it in your workspace settings straight away, then contact Plain so we can help with mitigation and investigation.\n\n## Getting help\n\nA polished portal involves more than the four steps above: formatting, attachments, and file uploads all add work. Plain’s engineering team can help you plan and scope it against your product and stack.\n\nTo talk it through, contact us in Plain or at [help@plain.com](mailto:help@plain.com).",
+                                        "link": "https://www.plain.com/docs/headless-portal",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Build a support portal inside your own product using the Plain API, so customers read and reply to their threads without leaving your UI.",
+                                        "title": "Headless portal - Plain Docs"
+                                    },
+                                    {
+                                        "content": "The [Plain Support Skill](https://github.com/team-plain/skills) gives AI tools direct access to your Plain workspace via the GraphQL API.\n\nOnce installed, your agent can read customers, threads, thread timelines, Help Center articles, and more.\n\nThe skill uses your Plain API key to authenticate, so the agent will only have access to what that API key permits.\n\nAgent skill in Plain\n\nAgent skill in Plain\n\n## Compatible agents\n\nThe Plain Support Skill follows the open [Agent Skills specification](https://skills.sh/) and works with any compatible agent, including:\n\n- [Claude Code](https://code.claude.com/)\n- [OpenAI Codex](https://openai.com/codex/)\n- [Amp](https://ampcode.com/)\n- [OpenCode](https://opencode.ai/)\n- [Cursor](https://cursor.com/)\n- And [many more](https://skills.sh/docs/faq)\n\n## Installation\n\nInstall the skill using the skills CLI:\n\n```shellscript\nnpx skills add team-plain/plain-support\n```\n\nThe installer will ask which agent(s) you want to install to. You can also specify the agent directly:\n\n```shellscript\nnpx skills add team-plain/plain-support -a claude-code\nnpx skills add team-plain/plain-support -a codex\nnpx skills add team-plain/plain-support -a opencode\n```\n\nAlternatively, you can clone the repository manually:\n\n```shellscript\ngit clone git@github.com:team-plain/plain-support.git\n```\n\n## Prerequisites\n\n### API key\n\nIn Plain, go to **Settings → Machine users & agents** and create an API key. Then set it as an environment variable:\n\n```shellscript\nexport PLAIN_API_KEY=\"plainApiKey_...\"\n```\n\nAdd this to your shell profile (`.bashrc`, `.zshrc`, etc.) so it persists across sessions.\n\n### Dependencies\n\nThe skill requires `curl` and `jq`. On most systems `curl` is already installed. For `jq`:\n\n```shellscript\n# macOS\nbrew install jq\n\n# Ubuntu/Debian\nsudo apt-get install jq\n```\n\n## What you can do\n\n| Resource | Read | Write |\n| --- | --- | --- |\n| **Customers** | List, get, search by name/email/external ID | None |\n| **Threads** | List, get, search, read full timeline | Add internal notes |\n| **Help Center** | List centers, articles, groups | Create/update articles and groups |\n| **Accounts** | List, get | None |\n| **Labels** | List | None |\n| **Tiers & SLAs** | List, get with SLA configs | None |\n| **Workspace** | Get info | None |\n\n## Use case examples\n\n- **Debug a customer issue end to end:** Ask your agent to look up a customer, read their thread timeline, and summarize the conversation. Then use that context to investigate the bug in your codebase and put up a fix, all in one session.\n- **Research customer history before a call:** “Show me everything about customer [john@acme.com](mailto:john@acme.com) ”. The agent will pull their profile, open threads, and recent conversations so you’re fully briefed.\n- **Add investigation notes:** After debugging an issue, tell the agent to add your findings as an internal note on the thread so your team has context.\n- **Draft Help Center content:** Ask the agent to create a new Help Center article based on patterns it sees in support threads. It can write the HTML content and publish it directly to your Plain Help Center.\n- **Ad hoc analysis:** “Which customers are in the Enterprise tier?” or “Show me all open threads with priority 0”. Query your support data conversationally.\n\n## Example prompts\n\n- “What are the open support threads for customer [john@example.com](mailto:john@example.com)?”\n- “Read the full conversation on thread th\\_01ABC and summarize it”\n- “Add a note to thread th\\_01ABC with my investigation findings”\n- “Create a Help Center article about how to reset passwords”\n- “Which customers are in the Enterprise tier?”\n- “List my open threads”",
+                                        "link": "https://www.plain.com/docs/integrations/agent-skill",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "The skill uses your Plain API key to authenticate, so the agent will only have access to what that API key permits. Agent skill in Plain. Compatible agents. The ...",
+                                        "title": "Agent skill - Plain Docs"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://www.plain.com/docs/integrations/cursor",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "If it is off, turn it on in Settings → Plain AI. 2. Get a Cursor API key. Log into Cursor and go to Dashboard ...",
+                                        "title": "Cursor - Plain Docs"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://www.plain.com/blog/plain-vs-zendesk-comparison-2026",
+                                        "metadata": null,
+                                        "published_date": "2026-03-06",
+                                        "snippet": "Mar 6, 2026 ... A detailed comparison of Plain and Zendesk for B2B customer support. Pricing, features, AI, API, Slack integration, real customer results, ...",
+                                        "title": "Plain vs Zendesk: Which Is Better for B2B SaaS Support in 2026?"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 2,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "plain.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 5,
+                                    "page": 1,
+                                    "query": "\"Plain\" official developer documentation API authentication OAuth API key REST GraphQL",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        },
+                        {
+                            "cost": 2,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "MCP (Model Context Protocol) is an open standard that lets AI tools connect to external platforms. The Plain MCP server at `https://mcp.plain.com/mcp` lets tools like Claude, ChatGPT, and Cursor work with your support data directly.\n\nYou authenticate with your existing Plain account, so the MCP server has the same permissions as your user. No API keys needed.\n\nMCP server in Plain\n\nMCP server in Plain\n\n## Setup\n\n### ChatGPT\n\nIn ChatGPT, add the official Plain plugin:\n\n1. Open the [Plain plugin](https://chatgpt.com/plugins/plugin_asdk_app_6aec88addd3c8191bc0daa4b3fff3a4c) and add it\n2. Sign in with your Plain account and choose your workspace\n3. In a chat, type **@** and pick **Plain**\n\n### Cursor\n\nYou can add the Plain MCP to Cursor via your Cursor config at `~/.cursor/mcp.json`\n\n```json\n{\n  \"mcpServers\": {\n    \"plain\": {\n      \"type\": \"remote\",\n      \"url\": \"https://mcp.plain.com/mcp\"\n    }\n  }\n}\n```\n\nGo to **Cursor Settings** → **Tools & MCP** and click **Connect** next to Plain to authenticate.\n\n### Claude.ai\n\n1. Go to “Customize” → “Connectors”\n2. Click the ➕ icon, then choose “Add custom connector”\n3. Add a custom connector named “Plain” with the Remote MCP server URL `https://mcp.plain.com/mcp`\n4. Click the “Connect” button next to the newly created Plain connector to authenticate.\n\nClaude.ai in Plain\n\nClaude.ai in Plain\n\nIf you’re on a Claude Team plan, you may need to reach out to your administrator to add this custom connector for you.\n\n### Claude Code\n\nAdding the Plain MCP to claude-code can be done via the `mcp-remote` helper package which involves adding the following to your `~/.claude.json` configuration.\n\n```json\n\"mcpServers\": {\n  \"plain\": {\n    \"command\": \"npx\",\n    \"args\": [\"-y\", \"mcp-remote\", \"https://mcp.plain.com/mcp\"],\n    \"enabled\": true\n  }\n}\n```\n\nUnfortunately Claude Code does not support refreshing OAuth tokens yet. A workaround until that is implemented is to use the `mcp-remote` npm package.\n\nNext time you start Claude Code, it will launch a browser window asking you to authenticate with your Plain account and select the workspace you’d like to connect. Run the `/mcp` command and select the `plain` MCP to see more details.\n\n### FX\n\n[**fx**](https://fx.sh/ \"https://fx.sh\") is a terminal AI coding agent from Vercel Labs. Add the Plain MCP via the CLI:\n\n```text\nfx mcp add --transport http plain https://mcp.plain.com/mcp\n```\n\nOr add it manually to `~/.fx/mcp.json`:\n\n```text\n{\n  \"mcp\": {\n    \"plain\": {\n      \"type\": \"http\",\n      \"url\": \"https://mcp.plain.com/mcp\",\n      \"enabled\": true\n    }\n  }\n}\n```\n\nfx will prompt you to complete the OAuth flow with your Plain account on the next session start.\n\n### Other MCP clients\n\nMCP clients that run locally (not in the browser) can connect to Plain if they support remote HTTP servers. Point it at `https://mcp.plain.com/mcp` and complete the OAuth flow when prompted.\n\n## Authentication\n\nPlain MCP uses OAuth to allow your MCP server connection to share the same context as your normal web app user. No additional managing of permissions required. This means replies to threads will appear as though they come from your user.\n\n### Required OAuth scopes\n\nThe Plain MCP server requires every OAuth token to include the `openid` and `offline_access` scopes. If your authorization request omits these, the server returns `403 Forbidden`, even when OAuth completes successfully and returns tokens.\n\nSet `scope` to `openid offline_access` (space-separated) in your authorization request. If you are using `@modelcontextprotocol/sdk`, some versions discover required scopes automatically via the [Protected Resource Metadata endpoint](https://mcp.plain.com/.well-known/oauth-protected-resource/mcp). If yours does not, set them explicitly in your client configuration.\n\nAfter you sign in, your client receives an access token and a refresh token; automatic refresh depends on your client.\n\n## Available tools\n\nOnce connected, your AI client can do almost anything you can do in Plain, across nearly 400 tools.\n\nTools cover:\n\n- Threads and replies\n- Customers and accounts\n- Labels, thread fields, and tasks\n- The Help Center and knowledge sources\n- Workflows and broadcasts\n- Tiers, service level agreements (SLAs), and business hours\n- Snippets and saved views\n- Discussions with the Sidekick Agent\n\n### Good to know\n\n- Your AI client can ask you to confirm actions such as sending a reply or deleting data.\n- Your Plain role and permissions apply to every tool.\n- Some changes stay in the Plain app: API keys, billing, roles, invites, webhooks, and custom domains.\n- The tool list can change. Reconnect the server if a tool is missing.\n\n## Interactive views in your chat\n\nSome AI clients can show parts of Plain right inside the chat, so you can review and change what your AI client set up without opening Plain. These views are built on [MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview), an official extension to MCP. They act as your user, with your role and permissions, like every other tool.\n\nYour AI client opens a view by calling one of the tools below. AI clients call these tools when they’re relevant, for example after creating a workflow or when a specific thread comes up. You can also ask for one directly: “Show me my labels.”\n\n### Thread\n\n`showThread` shows a [thread](https://www.plain.com/docs/product/platform/threads/what-is-a-thread) as Plain’s thread page. You can read the thread’s messages, reply, add notes, and change the thread’s status, assignee, priority, labels and fields. The view doesn’t update live; it refreshes every 15s while it’s on screen.\n\nThe Thread view in a Claude chat, showing a test thread's timeline and reply bar\n\nThe Thread view in a Claude chat, showing a test thread's timeline and reply bar\n\n### Workflow editor\n\n`showWorkflow` opens a [workflow](https://www.plain.com/docs/product/workflows) in Plain’s workflow editor, so you can review and change a workflow your AI client built or changed.\n\nThe workflow editor view in a Claude chat, showing the AI labels triage workflow\n\nThe workflow editor view in a Claude chat, showing the AI labels triage workflow\n\n### Labels\n\n`showLabels` shows your workspace’s [labels](https://www.plain.com/docs/product/platform/labels), which you can create and edit in place. Your AI client can pass labels it recommends as suggestions, and you create the ones you want by clicking them. The call itself creates nothing.\n\nThe Labels view in a Claude chat, with three suggested labels above the workspace's active labels\n\nThe Labels view in a Claude chat, with three suggested labels above the workspace's active labels\n\n### Which clients show views\n\nViews appear in clients that support the MCP Apps extension, for example Claude.ai, Claude Desktop and ChatGPT. For the current list, see the [MCP extension support matrix](https://modelcontextprotocol.io/extensions/client-matrix).\n\nIn clients without MCP Apps support, the view tools aren’t listed. Every other tool works as usual and returns text, so there’s nothing to set up.\n\n## Use case examples\n\n### Triage your queue\n\n> “Show me my assigned threads. Summarize the top 5 by urgency and suggest which ones I should handle first.”\n\nRead your active threads and get a prioritized summary without opening each one.\n\n### Understand a customer’s history\n\n> “Look up the customer with email [alex@acme.com](mailto:alex@acme.com). Show me their recent threads and summarize the pattern. Are they hitting the same issue repeatedly?”\n\nPull together a customer’s full context in seconds instead of clicking through timelines.\n\n### Summarize what’s waiting\n\n> “Show me all my TODO threads. Group them by label and summarize what each one is about.”\n\nSee what has gone quiet, so you can decide what needs attention.\n\n### Draft a reply with full context\n\n> “Show me thread th\\_01ABC123. Read the full timeline, then draft a reply that addresses the customer’s latest question. Use a helpful but concise tone.”\n\nThe AI reads the full thread history and drafts a reply for you to review before sending.\n\n### Audit your Help Center\n\n> “List all articles in my Help Center. Flag any that haven’t been updated in the last 90 days.”\n\nSpot outdated documentation without manually checking each article.\n\n### Fill a knowledge gap\n\n> “Show me the knowledge gaps customers hit this week. For the top one, check whether our knowledge sources already cover it, draft a Help Center article, and mark the gap’s task done.”\n\nTurn a question the Customer Agent couldn’t answer into an article without leaving your AI client.\n\n### Get a snapshot of an account’s health\n\n> “Look up the account ‘Acme Corp’. Show me their details and all open threads. Are there any patterns or escalation risks?”\n\nPrep for an account review by pulling account context and open issues together.\n\n### Cross-reference with other tools\n\nThe Plain MCP works alongside other MCP servers. If you also have Slack, GitHub, or Linear MCPs connected, you can combine them:\n\n> “Find threads about ‘payment errors’ from the last 7 days, check if there’s a related GitHub issue, and post a summary to #incidents in Slack.”\n\nEach server handles its own domain, and the AI coordinates between them.\n\n## If something isn’t working\n\n- **Can’t authenticate:** Make sure you can log into Plain at [app.plain.com](http://app.plain.com/) first. The MCP server uses the same auth.\n- **403 after OAuth completes:** Your token is missing required scopes. Add `openid offline_access` to the `scope` parameter in your authorization request and complete a fresh OAuth flow. See Authentication for details.\n- **Tool not appearing:** Some AI clients cache available tools. Try disconnecting and reconnecting the MCP server.\n- **View not appearing:** Check that your client supports MCP Apps (see Which clients show views). If it does, disconnect and reconnect the Plain MCP server, then start a new chat.\n- **Permission errors:** Check that your Plain user has the right role for the action you’re trying to take.\n\nIf it’s still not working, collect:\n\n- Your workspace ID (visible in **Settings → General**)\n- The exact error message\n- Which AI client you’re using\n\nThen reach out to us via [**help@plain.com**](mailto:help@plain.com) for assistance.",
+                                        "link": "https://www.plain.com/docs/integrations/mcp-server",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "MCP (Model Context Protocol) is an open standard that lets AI tools connect to external platforms. The Plain MCP server at https://mcp.plain.com/mcp lets ...",
+                                        "title": "MCP server - Plain Docs"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://www.plain.com/docs/getting-started",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "You do the setup through Plain's Model Context Protocol (MCP) server at https://mcp.plain.com/mcp , which signs in as that person with OAuth. Don't ask the ...",
+                                        "title": "Set up Plain for a person - Plain Docs"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://www.plain.com/blog/mcp-customer-support-2026",
+                                        "metadata": null,
+                                        "published_date": "2026-03-06",
+                                        "snippet": "Mar 6, 2026 ... As of October 28, 2026, Plain's MCP server docs list 43 tools (29 read, 14 write). What is MCP for customer support? MCP (Model Context Protocol) ...",
+                                        "title": "MCP for Customer Support: Platforms and Permissions (2026) - Plain"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 1,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "plain.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 3,
+                                    "page": 1,
+                                    "query": "\"Plain\" official developer documentation MCP Model Context Protocol integrations API",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        }
+                    ],
+                    "summary": {
+                        "failed": 0,
+                        "successful": 2,
+                        "total": 2,
+                        "total_cost": 5
+                    }
+                }
+            },
+            "tool_slug": "SEARCH1API_SEARCH_WEB",
+            "index": 0,
+            "structure_info": {
+                "data_structure": {
+                    "type": "object",
+                    "properties": {
+                        "results": {
+                            "type": "array",
+                            "length": 2,
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 4 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 3 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                }
+                            ]
+                        },
+                        "summary": {
+                            "type": "object",
+                            "properties": {
+                                "failed": "number",
+                                "successful": "number",
+                                "total": "number",
+                                "total_cost": "number"
+                            }
+                        }
+                    }
+                },
+                "note": "This shows the complete structure of this tool's response data in the saved file"
+            },
+            "instruction": "Use structure_info (schema) and data_preview (samples) to understand the result, then process the remote response file."
+        }
+    ],
+    "total_count": 1,
+    "success_count": 1,
+    "error_count": 0,
+    "session": {
+        "id": "page",
+        "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+    },
+    "remote_file_info": {
+        "message": "As requested, responses have been saved to remote workbench in /mnt/files/mex/hurt.json. The response was not too large, so it has also been returned inline below. Use the inline response itself for summary/analysis, DO NOT use the workbench for small data or simple calculations—reserve it for larger or more complex tasks.",
+        "file_path": "/mnt/files/mex/hurt.json",
+        "filename": "hurt.json",
+        "total_tools_executed": 1,
+        "successful_tools": 1,
+        "failed_tools": 0,
+        "instructions": "IMPORTANT: Each result in the response above includes 'structure_info' showing the complete data structure, as well as 'data_preview' showing truncated data - USE THEM to understand the result structures and process the results in the remote file. DO NOT iterate the file to discover structure and DO NOT assume the structure!\n\nTo process the complete file inside the sandbox, use one of the following:\n- Use COMPOSIO_REMOTE_WORKBENCH and write Python code to programmatically parse and get the information needed.\n- Use COMPOSIO_REMOTE_BASH_TOOL and use `jq`, `rg` and write bash scripts to handle the file, break it down and more\n\nThe file is saved at /mnt/files/mex/hurt.json.\n\nThe file contains the complete multi-execute response. When working with the data:\n1-2. NOTE: Use this code snippet to load JSON and access i-th result:\n   ```python\n   file_data = json.load(open(\"/mnt/files/mex/hurt.json\"))  # Load the complete response file\n   i = 0  # Result index (0 for first result, 1 for second, etc.)\n   result_data = file_data['results'][i]['response']['data']  # Access the i-th result data directly\n   ```\n3. Each result's structure_info.data_structure shows the EXACT structure of what's INSIDE that result's ['response']['data'] - use it directly!\n4. For data_structure: 'type'=object/array, 'properties'=direct child fields, 'length'=array count\n5. Example: if results[0].structure_info shows messages: {type: 'array', length: 1000}, the messages are at file_data['results'][0]['response']['data']['messages'] (direct child)\n6. CRITICAL: The properties shown in data_structure are the direct children of ['response']['data'], NOT nested under another 'data' key"
+    },
+    "next_steps": "DO NOT call workbench tools (COMPOSIO_REMOTE_WORKBENCH or COMPOSIO_REMOTE_BASH_TOOL) for this response. The data is available inline above - process it directly in your next message. Only use workbench if you need complex scripting, pagination loops, or bulk tool calls that cannot be done inline."
+}

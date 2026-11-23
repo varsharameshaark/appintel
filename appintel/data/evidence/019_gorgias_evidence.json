@@ -1,0 +1,198 @@
+{
+    "results": [
+        {
+            "response": {
+                "successful": true,
+                "data": {
+                    "results": [
+                        {
+                            "cost": 3,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "## Access your Gorgias REST API credentialsUpdated 5 months ago\n\nThe Gorgias REST API lets you read and write data in your helpdesk programmatically. To authenticate API requests, Gorgias uses HTTP Basic Authentication with three pieces of information: your base API URL, your email address, and an API key. You can find and manage all three from the REST API settings page in your helpdesk.\n\n**Note:** API keys are tied to your individual account, not to the helpdesk as a whole.\n\nFor full API documentation, visit the [Gorgias Developer Documentation](https://developers.gorgias.com/).\n\n---\n\n### Requirements\n\n- Available on all [Helpdesk plans](https://www.gorgias.com/pricing)\n- The account owner and [admins](https://docs.gorgias.com/en-US/user-permissions-196938) can access the API credentials and create API keys\n\n---\n\n## Find your API credentials\n\nYou can find the **Base API URL** (`https://{your-domain}.gorgias.com/api/`), **Username** (the email address on your account), and **API key** in your Gorgias settings. If you don’t have an existing API key, you’ll have to create one first.\n\n1. From your helpdesk, click the   **Settings icon** in the bottom-left corner.\n2. In the menu, locate **Account**, then select **REST API**.\n3. Under **API Access & Credentials**, you'll find the **Base API URL**, your **Username**, and **Password (API Key)**.\n4. Click **Copy** next to any field to copy it to your clipboard.\n\n## Create an API key\n\nIf you haven't created an API key yet, the Password field will show a **Create API key** button instead of a key value.\n\n1. From your helpdesk, click the   **Settings icon** in the bottom-left corner.\n2. In the menu, locate **Account**, then select **REST API**.\n3. Under **Password (API Key)**, click **Create API Key**.\n\nYour API key is generated immediately and displayed alongside the other credentials. Your API key grants full access to your account's data. Once you’ve copied it, store it somewhere secure and don’t share it with anyone.\n\n### Reset your API key\n\nYou can reset your API key at any time. Resetting generates a new key and immediately invalidates the old one. Any integrations or scripts using the old key will stop working until they're updated with the new one.\n\n1. From your helpdesk, click the   **Settings icon** in the bottom-left corner.\n2. In the menu, locate **Account**, then select **REST API**.\n3. Next to the **Password (API Key)** field, click **Reset**.\n4. Click **OK** to confirm.\n\n## Import the Postman collection\n\nThe REST API settings page also includes a **Run in Postman** button. Clicking it imports the Gorgias Postman collection with your domain, email address, and API key pre-filled as environment variables, so you can start making requests immediately.\n\n---\n\nWas this article helpful?",
+                                        "link": "https://docs.gorgias.com/en-US/rest-api-208286",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "To authenticate API requests, Gorgias uses HTTP Basic Authentication with three pieces of information: your base API URL, your email address, and an API key.",
+                                        "title": "Access your Gorgias REST API credentials"
+                                    },
+                                    {
+                                        "content": "## Connect external apps to Gorgias and create sidebar widgetsUpdated 4 months ago\n\nIn the [Gorgias App Store](https://www.gorgias.com/apps-category/all-apps), you can browse apps that connect to third-party platforms and allow you to bring their data into your helpdesk. If you're looking to connect to a platform that doesn't have an existing app in our App Store, you can build an HTTP integration using the third-party's public API. You might use an HTTP integration to automatically fetch data to display alongside tickets, or to trigger an action in an external system whenever a ticket event occurs.\n\n---\n\n### Requirements\n\n- Available on all [Helpdesk plans](https://www.gorgias.com/pricing)\n- The account owner and [admins](https://docs.gorgias.com/en-US/user-permissions-196938) can create and manage HTTP integrations\n\n---\n\n## Set up an HTTP integration\n\nBefore you start, you'll need the API endpoint URL from the third-party app you'd like to connect, the HTTP method it expects, and any authentication details; such as an API key. Refer to the app's API documentation for these details.\n\n1. From your helpdesk, click the   **Settings icon** in the bottom-left corner.\n2. In the menu, locate **Account**, then select **HTTP integration**.\n3. Click the **Manage tab**, then click **Add HTTP integration**.\n4. In the **Integration name** field, enter a descriptive name for your integration.\n5. In the **URL** field, enter the endpoint URL from the third-party app.\n6. Set the **HTTP Method** to match what the external API requires (`GET`, `POST`, `PUT`, or `DELETE`).\n7. If the method is not `GET`, select the **Request content type** (`application/json` or `application/x-www-form-urlencoded`) and configure the request body.\n8. If your API requires authentication, you have two options:\n\t- **Header-based**: Add the necessary key-value pairs under **Header** — for example, `Authorization: Bearer &lt;your-api-key>`.\n\t\t- **OAuth2**: Toggle on **Enable authentication method: OAuth2** and fill in the **Token URL**, **Client ID**, **Client Secret**, **Token Location** (Header or Query String), **Token Key**, and optionally **Scopes**.\n9. Under **Triggers**, select the ticket events that should fire this integration. The available triggers are **Ticket created**, **Ticket updated**, **Ticket self unsnoozed**, **Ticket message created**, and **Ticket message failed**. Note that **Ticket assignment updated** and **Ticket status updated** are mutually exclusive with the others — selecting either one disables the rest.\n10. Click **Add integration**.\n\n**Tip:** You can use Gorgias template variables like \\`{{ticket.customer.email}}\\` anywhere in the URL or request body to pass customer data dynamically — see the Gorgias [developer documentation](https://developers.gorgias.com/reference/the-tickethttpintegration-object) for the full list of supported variables.\n\n### Display fetched data in the ticket sidebar\n\nIf your integration fetches customer data from an external system, you can surface it in the ticket sidebar as a custom widget.\n\n1. Open a ticket relevant to the data your integration is built to return.\n2. Click the   **nut icon** in the ticket sidebar, then select **Custom integrations** to open widget settings.\n3. Click the   **six dots icon** on the section that contains your integration's data, then drag it into the sidebar.\n4. You can customize which variables the widget displays in the ticket sidebar, and how they're displayed. Hover over a variable, then click the   **trash can icon** to remove it from the widget, or the   **pencil icon** to change the name or type of variable. To restore a variable that you've deleted, drag it over to the sidebar from the left-hand side of the page.\n5. To change widget's border color, click **Customize Widget**. To remove the widget from the ticket sidebar, click **Delete Widget**.\n\n**Tip:** If you don't see the data you're looking to add to the sidebar, you may need to trigger a ticket event to have Gorgias fetch the data. Add a tag to a ticket to create a **ticket updated event**, refresh the page, then try again.\n\nOnce set up, the sidebar will automatically show the fetched data for every new ticket. You can also reference this data in macros using back-office variables — see the [Macro variables article](https://docs.gorgias.com/en-US/macro-variables-101-81845#back-office-variables) for details.\n\n## Reliability and event delivery\n\nHTTP integrations rely on the configured endpoint being reachable when ticket events fire. Each request has a 5-second timeout, and Gorgias handles failures differently depending on what goes wrong:\n\n- **The endpoint can't be reached at all** (for example, it's down, or the connection is refused): Gorgias retries the request, regardless of which authentication method your integration uses.\n- **The endpoint accepts the connection but doesn't respond within 5 seconds**: Gorgias retries the request only if your integration uses **OAuth2** authentication. For **Header-based** authentication, requests are not retried.\n- **The endpoint returns an error status code** (like a 429 or 500): Gorgias doesn't retry requests for these responses, for either authentication method. If you're seeing these status codes in your event logs, check your endpoint's rate limits and error handling.\n\nWhen a retry does happen, Gorgias tries up to 3 times with exponential backoff: starting at 10 seconds, then 20, then 40.\n\n**Tip:** If you need more control over delivery or if your endpoint has intermittent availability, consider using [Hookdeck](https://hookdeck.com/). Hookdeck provides queuing, failure recovery, scaling, and monitoring for incoming webhooks without requiring you to build that infrastructure yourself.\n\n### Review integration event logs\n\nGorgias disables an HTTP integration automatically if 500 consecutive requests to your endpoint fail. Common causes include downtime on the receiving service, latency issues causing requests to time out, or a misconfigured endpoint URL. If you've received a notification that your integration was disabled, fix the underlying issue first, then re-enable the integration in Gorgias.\n\nGorgias resets the failure count back to zero after a successful request is delivered. This means the occasional failure won't cause the integration to be disabled, only a sustained run of 500 consecutive failures will.\n\nTo troubleshoot the specific requests that failed, check the Events log for your integration:\n\n1. From your helpdesk, click the   **Settings icon** in the bottom-left corner.\n2. In the menu, locate **Account**, then select **HTTP integration**.\n3. Click the **Manage tab**, then select an existing integration from the list.\n4. Click the **Events tab** to review the latest requests sent by the integration.\n5. Click any request to view more details.\n\n## FAQ\n\nCan I use an HTTP integration to send data to a third-party app, not just receive it?\n\nYes. In addition to fetching customer data, you can configure an HTTP integration to send a payload to an external system whenever a ticket event fires. Set the HTTP method to \\`POST\\`, \\`PUT\\`, or \\`DELETE\\` depending on what the external API requires, and configure the request body and headers accordingly.\n\nWhat's the difference between an HTTP integration and an HTTP hook in a macro?\n\nHTTP integrations fire automatically based on ticket events. In contrast, an [HTTP hook in a macro](https://docs.gorgias.com/en-US/http-loyaltylion-and-klaviyo-actions-433668) is triggered manually when an agent applies the macro to a ticket. Use HTTP integrations for ongoing, event-driven data syncs, and HTTP hook macros for on-demand, agent-initiated actions.\n\n---\n\nWas this article helpful?",
+                                        "link": "https://docs.gorgias.com/http-integrations-81822",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "The endpoint accepts the connection but doesn't respond within 5 seconds: Gorgias retries the request only if your integration uses OAuth2 authentication. For ...",
+                                        "title": "HTTP Integrations"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developers.gorgias.com/reference/limitations",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "The Gorgias API is rate-limited using a leaky bucket algorithm, meaning that the number of requests you can make in a period of time is limited, but replenishes ...",
+                                        "title": "Rate Limits"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://docs.gorgias.com/en-US/articles/developer-resources-18370",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Access your Gorgias REST API credentials. Gorgias has an open REST API - go to Settings → You → REST API to access your unique credentials.",
+                                        "title": "Developer resources"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developers.gorgias.com/docs/building-a-high-quality-gorgias-app",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Building a high-quality Gorgias app · 1. Easy setup: One-click install with OAuth2 · 2. Appropriate OAuth2 scopes · 3. Nail your app use case · 4. Efficient usage ...",
+                                        "title": "Building a high-quality Gorgias app"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 2,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "gorgias.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 5,
+                                    "page": 1,
+                                    "query": "\"Gorgias\" official developer documentation API authentication OAuth API key REST GraphQL",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        },
+                        {
+                            "cost": 2,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "### Who can use this feature?\n\nAll roles\n\nAll Helpdesk plans (AI Agent isn't required)\n\nThe Gorgias MCP lets you work with your Gorgias helpdesk using an AI assistant, like Claude or ChatGPT. Once you connect the MCP, your AI assistant can access your Gorgias data and account, so you can manage your helpdesk through conversations. For example, you can use an AI assistant to read and analyze your tickets, audit your account, configure AI Agent, and update your settings.\n\nMCP (Model Context Protocol) is the standard that lets an AI tool connect to another app like Gorgias.\n\nYou can add the Gorgias MCP from Claude's connector directory or ChatGPT's plugin directory. If you use another AI client, such as Claude Code, Codex, Cursor, or Copilot, you can create a custom connector for the MCP instead. This article covers:\n\n## Requirements\n\n- A Gorgias account on any [Helpdesk plan](https://www.gorgias.com/pricing).\n- An account with Claude, ChatGPT, or another MCP-compatible AI assistant.\n- Your Gorgias subdomain. This is the `your-brand` part of your account URL (`your-brand.gorgias.com`). You'll enter it when you authorize the connection.\n\n## Who can use the Gorgias MCP?\n\nEveryone can connect the Gorgias MCP, but the [actions you can take with your AI assistant](https://helpcenter.gorgias.com/en-US/user-permissions-196938#ai-assistants) depend on the role assigned to your user in Gorgias.\n\nIf your company uses Claude Team or Enterprise, or a managed ChatGPT workspace (Business, Enterprise, or Edu), an admin may need to make the Gorgias MCP available before you can connect.\n\n## Connect an AI assistant to the Gorgias MCP\n\nClaude and ChatGPT both list the Gorgias MCP in their connector directories, so you can add it without any manual configuration. Follow the steps for the assistant you use, then authorize your Gorgias account to finish connecting.\n\n### Connect Claude\n\nThe Gorgias MCP is available in Claude's connector directory. You can connect the MCP using Claude on the web, desktop app, or mobile app.\n\nOn Claude Team and Enterprise plans, an Owner or Primary Owner must enable the Gorgias MCP for your organization before members can connect it. Owners can find the steps in [Claude's connector documentation](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities). If you don't see the Gorgias MCP in your connectors list, ask your Owner to enable it.\n\n**Note:** Claude's menus change from time to time. For the most up-to-date steps, refer to [Claude's connector documentation](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities).\n\n1. In Claude, select **Customize**, then select **Connectors**.\n2. Browse the connector directory and search for **Gorgias**.\n3. Select **Gorgias MCP**, then select **Connect**. You're redirected to your browser.\n4. Authorize your Gorgias account.\n\n### Connect ChatGPT\n\nThe Gorgias MCP is available in ChatGPT as a plugin. If you use a managed ChatGPT workspace (Business, Enterprise, or Edu), an admin may need to make the Gorgias MCP available to your workspace first. Admins can find the steps in [OpenAI's plugin controls documentation](https://learn.chatgpt.com/docs/enterprise/apps-and-connectors). If you can't find the Gorgias MCP in the directory, ask your workspace admin.\n\n**Note:** ChatGPT's menus change from time to time. For the most up-to-date steps, refer to [OpenAI's plugin documentation](https://help.openai.com/en/articles/20001256-plugins-in-chatgpt-and-codex).\n\n1. In ChatGPT, open the plugin directory and search for **Gorgias MCP**.\n2. Select **Install plugin**.\n3. Authorize your Gorgias account.\n\n## Authorize your Gorgias account\n\nAfter you select **Connect** in Claude or **Install plugin** in ChatGPT, a browser window opens where you can authorize your AI assistant to connect with the Gorgias MCP.\n\n1. Enter your Gorgias subdomain (example: `your-brand.gorgias.com`), then select **Continue**.\n2. Select **Allow Access**.\n3. Sign in to Gorgias. If you already have an active Gorgias session in your browser, you won't be prompted to sign in.\n4. Review the data the Gorgias MCP can access, then select **Authorize**.\n5. Return to Claude or ChatGPT.\n\nThat's it. You're connected, and you can start prompting.\n\n## Connect a different AI client\n\nGorgias MCP works with any MCP-compatible AI client. The setup process varies by client, but the connection URL is the same: [https://mcp.gorgias.com/mcp](https://mcp.gorgias.com/mcp)\n\nRefer to your AI client's documentation for how to add an HTTP MCP server, then complete the Gorgias authentication step when prompted:\n\n- [Claude Code](https://code.claude.com/docs/en/mcp) (if you sign in with your Claude account, connectors you add in Claude on the web are also available in Claude Code)\n- [Codex](https://developers.openai.com/codex/mcp)\n- [Cursor](https://cursor.com/docs/mcp)\n- [VS Code Copilot](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)\n\n## What your AI assistant can do\n\nOnce connected, your AI assistant can read your helpdesk data and take actions on your behalf, within the limits of your [Gorgias role](https://helpcenter.gorgias.com/en-US/user-permissions-196938). It can work with:\n\n- **Tickets:** search and read tickets, reply to customers, add internal notes, and update status, priority, and assignee, and add tags.\n- **Macros and rules:** find stale or duplicate macros, create and update macros, and manage automation rules.\n- **AI Agent:** audit your setup, edit tone of voice, guidance, skills, and handover topics, and preview replies before you turn anything on.\n- **Knowledge:** review and draft Help Center articles and AI Agent knowledge.\n- **Customers and team:** look up customer profiles and review your team.\n- **Insights:** pull voice-of-customer trends, response times, ticket volume, and CSAT data.\n\nSome actions can reach your customers or go live, so check the details before you approve them. For example, replying to a ticket or applying a macro can send a message to a customer, and publishing guidance or skills changes how AI Agent responds. By default, Help Center articles and AI Agent guidance are saved as drafts until you publish them, and new rules and actions are created turned off.\n\nYou can also [explore every tool in the Gorgias MCP](https://helpcenter.gorgias.com/en-US/explore-gorgias-mcp-tools-9131180), including the Gorgias role each one needs.\n\n## Try it out\n\nNow that you've connected the Gorgias MCP to your AI assistant, you're ready to start prompting. Here are a few examples to get you started:\n\n- \"Audit my AI Agent setup and flag any handover conditions that seem too broad or likely to cause unnecessary escalations.\"\n- \"Simulate how my AI Agent would respond to this message before I enable it: \\[paste a sample customer message\\].\"\n- \"What are the top reasons customers are contacting us this month? Group them by theme.\"\n- \"Find the macros we use least and suggest which ones we should update or retire.\"\n- \"What was our average first response time last month, broken down by channel?\"\n- \"Find recent tickets about refunds and summarize what customers are asking for.\"\n\nTo see what else your AI assistant can do, [explore the full list of Gorgias MCP tools](https://helpcenter.gorgias.com/en-US/explore-gorgias-mcp-tools-9131180).\n\nFor more ideas, check out the [Gorgias MCP Cookbook](https://github.com/gorgias/mcp-cookbook): a public GitHub repo of ready-to-fork recipes and prompt ideas for merchants using the Gorgias MCP.\n\n## FAQ\n\nCan I do anything in Gorgias with my AI assistant?\n\nNo. Your AI assistant acts as you, so it can only do what your Gorgias role allows. Some actions need a Lead or Admin role. If a request fails with an \"Insufficient role\" message, review the [AI assistants section of user permissions](https://helpcenter.gorgias.com/en-US/user-permissions-196938#ai-assistants) or ask an Admin.\n\nWhat does my AI assistant see when I connect Gorgias?\n\nYour AI assistant receives the ticket, customer, and settings data it retrieves to answer your requests. That data is handled under your AI provider's terms and privacy settings, not Gorgias's. In ChatGPT, plugins can also receive parts of your conversation, such as chat context and memories. Review your provider's data controls before you connect, especially if your company has specific data-handling policies.\n\nWhat's the difference between the Gorgias MCP and AI Agent?\n\n[AI Agent](https://helpcenter.gorgias.com/en-US/ai-agent-explained-497772) helps your shoppers browse, buy, and get support automatically and in your brand's voice. It works inside your helpdesk, across email, chat, SMS, and social media, resolving questions like returns, order changes, and shipping updates and helping new shoppers find products.\n\nThe Gorgias MCP is different: it lets you manage your Gorgias account from an external AI tool, like Claude or ChatGPT. AI Agent talks to your shoppers, while the MCP lets you talk to your helpdesk. The two work together. For example, you can use your AI assistant to audit and improve your AI Agent's guidance, skills, and settings.\n\nI can't find the Gorgias MCP in Claude or ChatGPT.\n\nOn Claude Team and Enterprise plans, an Owner or Primary Owner enables connectors for the organization. If you can't find Gorgias MCP under **Customize > Connectors**, ask them to add it from **Organization settings > Connectors**. In a managed ChatGPT workspace (Business, Enterprise, or Edu), ask your workspace admin to make the plugin available (admins can follow [OpenAI's plugin controls documentation](https://learn.chatgpt.com/docs/enterprise/apps-and-connectors)). Once it's enabled, it appears in your directory.\n\nThe connection URL shows a page saying \"This URL hosts an MCP endpoint\" when I open it in a browser.\n\nThis is expected. The URL is a connection endpoint. It's designed to be added inside your AI client's connectors settings, not opened in a browser tab. When you connect the Gorgias MCP in your AI tool, use this URL as the remote MCP server URL.\n\nCan I connect the Gorgias MCP for multiple brands?\n\nEach connection works with one Gorgias account. To connect more than one brand in Claude, add a custom connector for each brand and use that brand's Gorgias subdomain in the connection URL, replacing `YOUR_GORGIAS_SUBDOMAIN`:\n\n`https://mcp.gorgias.com/mcp?gorgias_subdomain=YOUR_GORGIAS_SUBDOMAIN`\n\nAuthenticate each connection with the Gorgias account that has access to the corresponding brand. For steps on adding a custom connector, refer to [Claude's documentation](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp).\n\n---",
+                                        "link": "https://docs.gorgias.com/en-US/connect-your-ai-assistant-to-the-gorgias-mcp-6310546",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Learn how to connect Claude, ChatGPT, or another AI assistant to Gorgias using the Gorgias MCP (Model Context Protocol) so your assistant can read your ...",
+                                        "title": "Connect your AI assistant to the Gorgias MCP"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://www.gorgias.com/llm-info",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "The Gorgias MCP lets brands work with their Gorgias account through an AI assistant. MCP (Model Context Protocol) is the standard that lets an AI tool connect ...",
+                                        "title": "Official Information About Gorgias"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 1,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "gorgias.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 3,
+                                    "page": 1,
+                                    "query": "\"Gorgias\" official developer documentation MCP Model Context Protocol integrations API",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        }
+                    ],
+                    "summary": {
+                        "failed": 0,
+                        "successful": 2,
+                        "total": 2,
+                        "total_cost": 5
+                    }
+                }
+            },
+            "tool_slug": "SEARCH1API_SEARCH_WEB",
+            "index": 0,
+            "structure_info": {
+                "data_structure": {
+                    "type": "object",
+                    "properties": {
+                        "results": {
+                            "type": "array",
+                            "length": 2,
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 5 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 2 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                }
+                            ]
+                        },
+                        "summary": {
+                            "type": "object",
+                            "properties": {
+                                "failed": "number",
+                                "successful": "number",
+                                "total": "number",
+                                "total_cost": "number"
+                            }
+                        }
+                    }
+                },
+                "note": "This shows the complete structure of this tool's response data in the saved file"
+            },
+            "instruction": "Use structure_info (schema) and data_preview (samples) to understand the result, then process the remote response file."
+        }
+    ],
+    "total_count": 1,
+    "success_count": 1,
+    "error_count": 0,
+    "session": {
+        "id": "page",
+        "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+    },
+    "remote_file_info": {
+        "message": "As requested, responses have been saved to remote workbench in /mnt/files/mex/gone.json. The response was not too large, so it has also been returned inline below. Use the inline response itself for summary/analysis, DO NOT use the workbench for small data or simple calculations—reserve it for larger or more complex tasks.",
+        "file_path": "/mnt/files/mex/gone.json",
+        "filename": "gone.json",
+        "total_tools_executed": 1,
+        "successful_tools": 1,
+        "failed_tools": 0,
+        "instructions": "IMPORTANT: Each result in the response above includes 'structure_info' showing the complete data structure, as well as 'data_preview' showing truncated data - USE THEM to understand the result structures and process the results in the remote file. DO NOT iterate the file to discover structure and DO NOT assume the structure!\n\nTo process the complete file inside the sandbox, use one of the following:\n- Use COMPOSIO_REMOTE_WORKBENCH and write Python code to programmatically parse and get the information needed.\n- Use COMPOSIO_REMOTE_BASH_TOOL and use `jq`, `rg` and write bash scripts to handle the file, break it down and more\n\nThe file is saved at /mnt/files/mex/gone.json.\n\nThe file contains the complete multi-execute response. When working with the data:\n1-2. NOTE: Use this code snippet to load JSON and access i-th result:\n   ```python\n   file_data = json.load(open(\"/mnt/files/mex/gone.json\"))  # Load the complete response file\n   i = 0  # Result index (0 for first result, 1 for second, etc.)\n   result_data = file_data['results'][i]['response']['data']  # Access the i-th result data directly\n   ```\n3. Each result's structure_info.data_structure shows the EXACT structure of what's INSIDE that result's ['response']['data'] - use it directly!\n4. For data_structure: 'type'=object/array, 'properties'=direct child fields, 'length'=array count\n5. Example: if results[0].structure_info shows messages: {type: 'array', length: 1000}, the messages are at file_data['results'][0]['response']['data']['messages'] (direct child)\n6. CRITICAL: The properties shown in data_structure are the direct children of ['response']['data'], NOT nested under another 'data' key"
+    },
+    "next_steps": "DO NOT call workbench tools (COMPOSIO_REMOTE_WORKBENCH or COMPOSIO_REMOTE_BASH_TOOL) for this response. The data is available inline above - process it directly in your next message. Only use workbench if you need complex scripting, pagination loops, or bulk tool calls that cannot be done inline."
+}

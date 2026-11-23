@@ -1,0 +1,52 @@
+{
+    "app_id": 1,
+    "app_name": "Salesforce",
+    "category": "CRM and Sales",
+    "description": "Enterprise cloud-based customer relationship management (CRM) platform providing comprehensive sales, service, marketing, and custom application development capabilities.",
+    "auth_methods": [
+        "OAuth 2.0 (WebServer, User-Agent, JWT Bearer, SAML Assertion)",
+        "Basic Authentication (SOAP/REST with security token)",
+        "Session ID / SOAP Login"
+    ],
+    "credential_access": "Controlled / plan-dependent",
+    "api_type": [
+        "REST",
+        "SOAP",
+        "Bulk API 2.0",
+        "GraphQL",
+        "Streaming API / Pub/Sub API"
+    ],
+    "api_breadth": "Extensive enterprise coverage supporting standard and custom objects, metadata management, bulk data sync, real-time event streaming, and custom Apex REST/SOAP endpoints.",
+    "mcp_available": "Yes",
+    "mcp_evidence": "Salesforce provides official Hosted Model Context Protocol (MCP) servers allowing AI agents to securely query and interact with Salesforce environments, documented under developer.salesforce.com.",
+    "buildability": "Medium",
+    "blocker": "Navigating complex enterprise permission sets, API governor limits, connected app security configurations, and Salesforce edition/licensing requirements.",
+    "evidence": [
+        {
+            "url": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/hosted-mcp-servers-overview.html",
+            "title": "Hosted MCP Servers Overview",
+            "source_type": "Official",
+            "supports": "Official MCP availability",
+            "research_method": "Manual verification",
+            "excerpt": "Salesforce Hosted MCP Servers provide a secure way to connect AI assistants and agents to Salesforce data and metadata."
+        },
+        {
+            "url": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/servers-reference.html",
+            "title": "Hosted MCP Servers Reference",
+            "source_type": "Official",
+            "supports": "Official MCP server reference and lifecycle status",
+            "research_method": "Manual verification",
+            "excerpt": "Reference documentation for Salesforce Hosted MCP server tools, endpoints, and integration requirements."
+        },
+        {
+            "url": "https://developer.salesforce.com/docs/apis",
+            "title": "Salesforce REST and SOAP API Developer Guide",
+            "source_type": "Official",
+            "supports": "API types and authentication methods",
+            "research_method": "Manual verification",
+            "excerpt": "Salesforce APIs include REST, SOAP, Bulk API, GraphQL, and Streaming API supporting OAuth 2.0 and session authentication."
+        }
+    ],
+    "confidence": "High",
+    "research_notes": "Free Developer Edition orgs provide full access for testing APIs and Hosted MCP servers, but production use is strictly governed by enterprise licensing tiers, Connected App policies, and governor limits."
+}

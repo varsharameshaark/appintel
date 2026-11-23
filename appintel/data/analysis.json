@@ -1,0 +1,46 @@
+{
+    "applications_analyzed": 7,
+    "categories_analyzed": 2,
+    "authentication_distribution": {
+        "OAuth 2.0": 7,
+        "API Key": 5,
+        "OAuth 2.1 with PKCE (MCP-specific)": 1,
+        "Bearer Token": 1,
+        "HTTP Basic Authentication": 1,
+        "Basic Authentication": 1
+    },
+    "credential_access_distribution": {
+        "Self-serve free": 3,
+        "Controlled / plan-dependent": 2,
+        "Admin approval": 1,
+        "Partnership/contact sales": 1
+    },
+    "buildability_distribution": {
+        "Easy": 4,
+        "Medium": 3
+    },
+    "mcp_distribution": {
+        "Yes": 6,
+        "Unknown": 1
+    },
+    "api_type_distribution": {
+        "REST": 7,
+        "MCP": 2,
+        "Bulk API": 1,
+        "Apex REST": 1,
+        "SOAP": 1,
+        "SQL": 1
+    },
+    "credential_access_by_category": {
+        "CRM and Sales": {
+            "Controlled / plan-dependent": 1,
+            "Self-serve free": 3,
+            "Admin approval": 1,
+            "Partnership/contact sales": 1
+        },
+        "Support and Helpdesk": {
+            "Controlled / plan-dependent": 1
+        }
+    },
+    "data_source": "Refined data"
+}

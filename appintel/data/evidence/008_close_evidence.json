@@ -1,0 +1,206 @@
+{
+    "results": [
+        {
+            "response": {
+                "successful": true,
+                "data": {
+                    "results": [
+                        {
+                            "cost": 3,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "API keys are best used for scripts and simple integrations that are internal to your organization. Alternatively, see [Authentication with OAuth](https://developer.close.com/api/overview/oauth-authentication) instead.\n\n## Getting an API key\n\nAPI keys can be created and managed in your Close account under **Settings** → **Developer** → **API Keys**.\n\nAPI keys are scoped to a particular user/organization combination and can be generated and deleted in the Settings page. See [API Keys & OAuth](https://help.close.com/docs/api-keys-oauth) for more information.\n\n## Perform API calls with API key\n\nAPI keys use [HTTP Basic client side authentication](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side). Basic authentication is a simple authentication scheme built into the HTTP protocol. To use it, send your HTTP requests with an Authorization header that contains the word Basic followed by a space and a base64-encoded string composed of an api key followed by a colon. The API key acts as the username and the password is always empty.\n\n### cURL example\n\nExample cURL request with an api key.\n\n```bash\ncurl https://api.close.com/api/v1/me/ -u yourapikey:\n```\n\nNotice the ’:’ at the end of the api key. This is used because the key is sent as the username with a blank password.\n\n```txt\nGET /api/v1/me/ HTTP/1.1\n```\n\nThis results in the header `Authorization: Basic eW91cmFwaWtleTo=` sent with the request as base64-encoded string `yourapikey:` is `eW91cmFwaWtleTo=`\n\nAPI Base URL: `https://api.close.com/api/v1`",
+                                        "link": "https://developer.close.com/api/overview/api-key-authentication",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "API keys can be created and managed in your Close account under Settings → Developer → API Keys. API keys are scoped to a particular user/organization ...",
+                                        "title": "Authentication with API keys"
+                                    },
+                                    {
+                                        "content": "Close’s [REST API](https://developer.close.com/api) supports everything from a simple internal script to a full product integration used by thousands of Close customers. If building AI Agent integrations, you may prefer to connect via the [MCP server](https://developer.close.com/mcp) instead.\n\n## Choose an authentication method\n\nThere are two ways to authenticate with the Close REST API or MCP server.\n\n- **API keys** — A key is tied to a specific user and organization. Great for scripts, internal tools, import jobs, and automations. Generate one in **Settings → Developer → API Keys** and then follow [API keys](https://developer.close.com/api/overview/api-key-authentication) to authenticate your requests.\n- **OAuth 2.0** — Lets each user authorize your app to act on their behalf. Strongly recommended for user-facing integrations that multiple users will authenticate to. See [Creating an OAuth App](https://developer.close.com/integrations/create-an-oauth-app) to get started and then follow [Authentication with OAuth](https://developer.close.com/api/overview/oauth-authentication) to implement the request flow.\n\nAccess permissions inherit from the specific user/membership associated with the API key or OAuth token.\n\n## Internal integration\n\nBuilding something for your own Close organization — an import script, a sync job, an internal dashboard, or an AI agent?\n\n1. **Choose an authentication method** — Either method described above can be a good choice for internal integrations.\n2. **Build your integration** — Use the [API Reference](https://developer.close.com/api) to read and write Close data. Set up [webhooks](https://developer.close.com/api/resources/webhooks) if you need real-time updates.\n\n## Multi-customer integration\n\nBuilding a product that connects to your customers’ Close accounts? OAuth 2.0 is strongly recommended so each customer can authorize access to their own org.\n\n1. **[Create an OAuth App](https://developer.close.com/integrations/create-an-oauth-app)** — Register your application in Close to get client credentials.\n2. **[Implement the OAuth 2.0 flow](https://developer.close.com/api/overview/oauth-authentication)** — Let users authorize your app and obtain access tokens.\n3. **Build your integration** — Use the [API Reference](https://developer.close.com/api) to interact with Close data on behalf of each connected customer.\n4. **[Get listed](https://developer.close.com/integrations/publish)** — Submit your integration to the [Close Integrations Directory](https://close.com/integrations/) to reach thousands of sales teams.\n\n## Dev/test organization\n\nIf you need a separate Close organization for development and testing:\n\n- **Already a Close user** — You can create a free secondary organization. See [Secondary organization](https://help.close.com/docs/secondary-organization) for instructions.\n- **Not a Close user** — Integration partners who don’t use Close in their own sales process can request a free Dev organization by emailing [support@close.com](mailto:support@close.com) with a description of your OAuth app, the overall workflow, and your expected release timeline. Dev organizations work identically to standard Close organizations but have no subscription fees.\n\nYour OAuth app continues to work regardless of whether your Close account’s subscription is active, expired, or canceled.",
+                                        "link": "https://developer.close.com/integrations",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "There are two ways to authenticate with the Close REST API or MCP server. API keys — A key is tied to a specific user and organization. Great for scripts ...",
+                                        "title": "Build an Integration | Close | Developer API Documentation"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developer.close.com/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Push leads, contacts, activities, and custom data into Close from your website or other systems via the REST API. Sync data out — Stream ...",
+                                        "title": "Close Developer Platform | Close | Developer API Documentation"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developer.close.com/api/overview/oauth-authentication",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "How to register an OAuth 2.0 application and authenticate users with the Close API.",
+                                        "title": "Authentication with OAuth | Close | Developer API Documentation"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://help.close.com/integrations/api-keys-oauth",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "An API key is a secret token, which is used to authenticate your requests to the Close API. It should be kept private and stored securely. On the other hand, an ...",
+                                        "title": "API Keys & OAuth | Close Help Center"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 2,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "close.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 5,
+                                    "page": 1,
+                                    "query": "\"Close\" official developer documentation API authentication OAuth API key REST GraphQL",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        },
+                        {
+                            "cost": 2,
+                            "data": {
+                                "images": null,
+                                "results": [
+                                    {
+                                        "content": "[Model Context Protocol (MCP)](https://modelcontextprotocol.io/) servers provide a standardized interface that allows any compatible AI model or agent to access your Close data in a simple and secure way. Below are instructions for adding Close’s MCP server to commonly used clients.\n\n## Accessing Close’s Remote MCP Server\n\nThe MCP server URL is `https://mcp.close.com/mcp` and has “HTTP Streamable” and “OAuth 2.0 Dynamic Client Registration (DCR)” support.\n\nWe recommend accessing the MCP server via OAuth 2.0 using a supported MCP client (e.g. Claude, ChatGPT, Cursor, etc). If you prefer to interact with the MCP server using a custom setup, create an [OAuth application](https://developer.close.com/integrations/create-an-oauth-app) to authenticate using OAuth 2.0 or authenticate using an API key and include the following headers in your request:\n\n```txt\nClose-API-Key: {{ Your Close API Key }}\n```\n\nThe `Close-Scope` header determines the scope and available tools:\n\n- **`mcp.read`** — read-only access\n- **`mcp.write_safe`** — can read and write data\n- **`mcp.write_destructive`** — can read, write, and delete data\n\nFor more information on which tools are available for each scope, see [Close MCP Tools](https://developer.close.com/mcp/tools).\n\n## MCP Client Setup\n\n## FAQs\n\n### Does Close MCP support SSE?\n\nWe currently don’t support SSE, but please email [support@close.com](mailto:support@close.com) with your specific use case and MCP client details if this is something your team requires.\n\n### What tools does the MCP server have access to?\n\nSee [Close MCP Tools](https://developer.close.com/mcp/tools) for the full list of tools available for each scope.\n\n### Can I create multiple MCP connections if I want to work with more than one Close organization?\n\nYes. You can add a custom connector for each organization with the URL as `https://mcp.close.com/mcp` and use either OAuth 2.0 or API key authentication via the Close-API-Key and Close-Scope headers. Each connection will need a unique name like `close-mcp-org-name`.",
+                                        "link": "https://developer.close.com/mcp",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Model Context Protocol (MCP) servers provide a standardized interface that allows any compatible AI model or agent to access your Close data in a simple and ...",
+                                        "title": "Close MCP Server | Close | Developer API Documentation"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://help.close.com/integrations/close-mcp-server",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Model Context Protocol (MCP) servers provide a standardized interface that allows any compatible AI model or agent to access your Close data in a simple and ...",
+                                        "title": "Close MCP Server | Close Help Center"
+                                    },
+                                    {
+                                        "content": null,
+                                        "link": "https://developer.close.com/",
+                                        "metadata": null,
+                                        "published_date": null,
+                                        "snippet": "Build integrations, automate workflows, and extend Close for your team.",
+                                        "title": "Close Developer Platform | Close | Developer API Documentation"
+                                    }
+                                ],
+                                "search_parameters": {
+                                    "crawl_results": 1,
+                                    "exclude_sites": [],
+                                    "image": false,
+                                    "include_sites": [
+                                        "close.com"
+                                    ],
+                                    "language": null,
+                                    "max_results": 3,
+                                    "page": 1,
+                                    "query": "\"Close\" official developer documentation MCP Model Context Protocol integrations API",
+                                    "search_service": "google",
+                                    "time_range": null
+                                }
+                            },
+                            "error": null,
+                            "success": true
+                        }
+                    ],
+                    "summary": {
+                        "failed": 0,
+                        "successful": 2,
+                        "total": 2,
+                        "total_cost": 5
+                    }
+                }
+            },
+            "tool_slug": "SEARCH1API_SEARCH_WEB",
+            "index": 0,
+            "structure_info": {
+                "data_structure": {
+                    "type": "object",
+                    "properties": {
+                        "results": {
+                            "type": "array",
+                            "length": 2,
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 5 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "cost": "number",
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "images": "object",
+                                                "results": "[Array with 3 items]",
+                                                "search_parameters": "{Object with 10 fields}"
+                                            }
+                                        },
+                                        "error": "object",
+                                        "success": "boolean"
+                                    }
+                                }
+                            ]
+                        },
+                        "summary": {
+                            "type": "object",
+                            "properties": {
+                                "failed": "number",
+                                "successful": "number",
+                                "total": "number",
+                                "total_cost": "number"
+                            }
+                        }
+                    }
+                },
+                "note": "This shows the complete structure of this tool's response data in the saved file"
+            },
+            "instruction": "Use structure_info (schema) and data_preview (samples) to understand the result, then process the remote response file."
+        }
+    ],
+    "total_count": 1,
+    "success_count": 1,
+    "error_count": 0,
+    "session": {
+        "id": "page",
+        "instructions": "REQUIRED: Pass session_id \"page\" in ALL subsequent meta tool calls for this workflow."
+    },
+    "remote_file_info": {
+        "message": "As requested, responses have been saved to remote workbench in /mnt/files/mex/spin.json. The response was not too large, so it has also been returned inline below. Use the inline response itself for summary/analysis, DO NOT use the workbench for small data or simple calculations—reserve it for larger or more complex tasks.",
+        "file_path": "/mnt/files/mex/spin.json",
+        "filename": "spin.json",
+        "total_tools_executed": 1,
+        "successful_tools": 1,
+        "failed_tools": 0,
+        "instructions": "IMPORTANT: Each result in the response above includes 'structure_info' showing the complete data structure, as well as 'data_preview' showing truncated data - USE THEM to understand the result structures and process the results in the remote file. DO NOT iterate the file to discover structure and DO NOT assume the structure!\n\nTo process the complete file inside the sandbox, use one of the following:\n- Use COMPOSIO_REMOTE_WORKBENCH and write Python code to programmatically parse and get the information needed.\n- Use COMPOSIO_REMOTE_BASH_TOOL and use `jq`, `rg` and write bash scripts to handle the file, break it down and more\n\nThe file is saved at /mnt/files/mex/spin.json.\n\nThe file contains the complete multi-execute response. When working with the data:\n1-2. NOTE: Use this code snippet to load JSON and access i-th result:\n   ```python\n   file_data = json.load(open(\"/mnt/files/mex/spin.json\"))  # Load the complete response file\n   i = 0  # Result index (0 for first result, 1 for second, etc.)\n   result_data = file_data['results'][i]['response']['data']  # Access the i-th result data directly\n   ```\n3. Each result's structure_info.data_structure shows the EXACT structure of what's INSIDE that result's ['response']['data'] - use it directly!\n4. For data_structure: 'type'=object/array, 'properties'=direct child fields, 'length'=array count\n5. Example: if results[0].structure_info shows messages: {type: 'array', length: 1000}, the messages are at file_data['results'][0]['response']['data']['messages'] (direct child)\n6. CRITICAL: The properties shown in data_structure are the direct children of ['response']['data'], NOT nested under another 'data' key"
+    },
+    "next_steps": "DO NOT call workbench tools (COMPOSIO_REMOTE_WORKBENCH or COMPOSIO_REMOTE_BASH_TOOL) for this response. The data is available inline above - process it directly in your next message. Only use workbench if you need complex scripting, pagination loops, or bulk tool calls that cannot be done inline."
+}

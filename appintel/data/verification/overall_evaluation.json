@@ -1,0 +1,37 @@
+{
+    "total_applications_compared": 2,
+    "matched_fields": 6,
+    "partially_matched_fields": 1,
+    "mismatched_fields": 1,
+    "skipped_fields": 2,
+    "manual_review_fields": 2,
+    "evaluated_fields": 8,
+    "overall_strict_agreement_percent": 75.0,
+    "overall_weighted_agreement_percent": 81.25,
+    "applications": [
+        {
+            "app_id": 1,
+            "app_name": "Salesforce",
+            "strict_agreement_percent": 100.0,
+            "weighted_agreement_percent": 100.0,
+            "matched_fields": 4,
+            "mismatched_fields": 0,
+            "manual_review_fields": 2
+        },
+        {
+            "app_id": 2,
+            "app_name": "HubSpot",
+            "strict_agreement_percent": 50.0,
+            "weighted_agreement_percent": 62.5,
+            "matched_fields": 2,
+            "mismatched_fields": 1,
+            "manual_review_fields": 0
+        }
+    ],
+    "limitations": [
+        "Only applications with comparison files are included.",
+        "Agreement measures consistency with manually entered verification values, not absolute factual accuracy.",
+        "Descriptive fields require human review.",
+        "Analyst-assessed fields are not independent factual confirmations."
+    ]
+}

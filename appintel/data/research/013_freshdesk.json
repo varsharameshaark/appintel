@@ -1,0 +1,48 @@
+{
+    "app_id": 13,
+    "app_name": "Freshdesk",
+    "category": "Support and Helpdesk",
+    "description": "Freshdesk is a customer support and helpdesk management platform that enables organizations to manage support tickets, customer conversations, contacts, companies, support groups, agents, and knowledge base solution articles.",
+    "auth_methods": [
+        "API Key",
+        "OAuth 2.0",
+        "Basic Authentication"
+    ],
+    "credential_access": "Controlled / plan-dependent",
+    "api_type": [
+        "REST"
+    ],
+    "api_breadth": "Freshdesk offers comprehensive REST API and native MCP server capabilities spanning tickets, conversations, contacts, companies, support agents, groups, solution categories, solution folders, and solution articles.",
+    "mcp_available": "Yes",
+    "mcp_evidence": "Freshworks provides an official Model Context Protocol (MCP) server endpoint for Freshdesk (`https://<subdomain>.freshdesk.com/mcp`) supporting ticket management, contact and agent administration, company records, and knowledge base operations authenticated via API key.",
+    "buildability": "Easy",
+    "blocker": "MCP integration requires specific Freshdesk plan tiers (Growth, Pro, or Enterprise) and relies on API key authorization; network firewall or IP restriction settings may block MCP endpoint connections if required IP ranges are not allowlisted.",
+    "evidence": [
+        {
+            "url": "https://crmsupport.freshworks.com/support/solutions/articles/50000012670-model-context-protocol-mcp-integration-in-freshdesk",
+            "title": "Model Context Protocol (MCP) integration in Freshdesk",
+            "source_type": "Official",
+            "supports": "Official Freshdesk MCP server availability, endpoint format (https://<subdomain>.freshdesk.com/mcp), API key authentication requirement, tier restrictions (Growth, Pro, Enterprise), and tool catalog covering tickets, contacts, agents, groups, companies, and solution articles.",
+            "research_method": "Crawl",
+            "excerpt": "The Freshworks Model Context Protocol (MCP) server enables AI tools like Cursor and Claude to securely connect and interact with Freshdesk. The MCP server acts as middleware to expose specific capabilities, such as creating tickets, by using public APIs and supported authentication methods."
+        },
+        {
+            "url": "https://developers.freshworks.com/docs/app-sdk/v3.0/chat_user/oauth-implementation-in-apps/",
+            "title": "Freshworks Developer Docs | OAuth implementation in apps",
+            "source_type": "Official",
+            "supports": "Authentication options including API keys, Basic access authentication, and OAuth authorization across Freshworks applications.",
+            "research_method": "Crawl",
+            "excerpt": "We offer the following API authentication mechanisms to access Freshchat resources: Basic access authentication... API Authentication using API keys... OAuth authorization and access token authentication."
+        },
+        {
+            "url": "https://developers.freshworks.com/docs/app-sdk/v3.0/support_ticket/rest-apis/",
+            "title": "Freshworks Developer Docs | REST APIs",
+            "source_type": "Official",
+            "supports": "REST API availability for support tickets.",
+            "research_method": "Search",
+            "excerpt": "The official site for Freshworks app developers. Provides the Freshworks SDK tools, API documentation and other resources ... Freshdesk Omni · Freshservice ..."
+        }
+    ],
+    "confidence": "Medium",
+    "research_notes": "Freshdesk natively provides an official HTTP-based MCP server endpoint (https://<subdomain>.freshdesk.com/mcp) with extensive tool coverage for managing helpdesk operations. MCP integration requires API key authorization and is available on Growth, Pro, and Enterprise subscription tiers."
+}

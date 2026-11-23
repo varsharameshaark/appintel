@@ -1,0 +1,55 @@
+{
+    "app_id": 8,
+    "app_name": "Close",
+    "category": "CRM and Sales",
+    "description": "Close is a CRM and sales engagement platform for managing leads, contacts, activities, and custom sales data.",
+    "auth_methods": [
+        "API Key",
+        "OAuth 2.0"
+    ],
+    "credential_access": "Self-serve free",
+    "api_type": [
+        "REST"
+    ],
+    "api_breadth": "Offers capabilities to read and write leads, contacts, activities, custom data, webhooks, user profile endpoints, and MCP server tools.",
+    "mcp_available": "Yes",
+    "mcp_evidence": "Close provides an official remote MCP server at https://mcp.close.com/mcp with HTTP Streamable and OAuth 2.0 DCR support, as well as API key authentication with configurable scopes (mcp.read, mcp.write_safe, mcp.write_destructive).",
+    "buildability": "Easy",
+    "blocker": "None. API keys are directly accessible via Settings -> Developer -> API Keys, and free dev/secondary testing organizations are available.",
+    "evidence": [
+        {
+            "url": "https://developer.close.com/api/overview/api-key-authentication",
+            "title": "Authentication with API keys",
+            "source_type": "Official",
+            "supports": "API key creation under Settings -> Developer -> API Keys, HTTP Basic authentication structure, and API base URL (https://api.close.com/api/v1).",
+            "research_method": "Crawl",
+            "excerpt": "API keys can be created and managed in your Close account under Settings → Developer → API Keys... API keys use HTTP Basic client side authentication. To use it, send your HTTP requests with an Authorization header that contains the word Basic followed by a space and a base64-encoded string composed of an api key followed by a colon."
+        },
+        {
+            "url": "https://developer.close.com/integrations",
+            "title": "Build an Integration | Close | Developer API Documentation",
+            "source_type": "Official",
+            "supports": "OAuth 2.0 authentication, REST API access, webhooks, and developer access via free secondary or Dev organizations.",
+            "research_method": "Crawl",
+            "excerpt": "There are two ways to authenticate with the Close REST API or MCP server: API keys... and OAuth 2.0... Integration partners who don’t use Close in their own sales process can request a free Dev organization by emailing support@close.com."
+        },
+        {
+            "url": "https://developer.close.com/mcp",
+            "title": "Close MCP Server | Close | Developer API Documentation",
+            "source_type": "Official",
+            "supports": "Official Close remote MCP server availability, endpoint, authentication protocols, and MCP scopes.",
+            "research_method": "Crawl",
+            "excerpt": "The MCP server URL is https://mcp.close.com/mcp and has “HTTP Streamable” and “OAuth 2.0 Dynamic Client Registration (DCR)” support... authenticate using an API key and include the following headers in your request: Close-API-Key: {{ Your Close API Key }}."
+        },
+        {
+            "url": "https://developer.close.com/",
+            "title": "Close Developer Platform | Close | Developer API Documentation",
+            "source_type": "Official",
+            "supports": "REST API functionality for pushing leads, contacts, activities, and custom data into Close.",
+            "research_method": "Search",
+            "excerpt": "Push leads, contacts, activities, and custom data into Close from your website or other systems via the REST API."
+        }
+    ],
+    "confidence": "Medium",
+    "research_notes": "Close offers well-documented developer tools including API Key basic auth, OAuth 2.0 app registration, a full REST API, and an official remote MCP server."
+}

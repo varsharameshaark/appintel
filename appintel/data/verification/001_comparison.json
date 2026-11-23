@@ -1,0 +1,47 @@
+{
+    "app_id": 1,
+    "app_name": "Salesforce",
+    "matched_fields": 4,
+    "partially_matched_fields": 0,
+    "mismatched_fields": 0,
+    "skipped_fields": 1,
+    "manual_review_fields": 2,
+    "evaluated_fields": 4,
+    "strict_agreement_percent": 100.0,
+    "weighted_agreement_percent": 100.0,
+    "evaluation_method": "Structured field comparison against manually verified values. Supports both value and verified_value verification formats. Descriptive fields require human review.",
+    "field_results": [
+        {
+            "field": "auth_methods",
+            "ai_value": [
+                "OAuth 2.0"
+            ],
+            "verified_value": [
+                "OAuth 2.0"
+            ],
+            "verification_status": "Confirmed",
+            "comparison_result": "Matched"
+        },
+        {
+            "field": "credential_access",
+            "ai_value": "Controlled / plan-dependent",
+            "verified_value": "Controlled / plan-dependent",
+            "verification_status": "Confirmed",
+            "comparison_result": "Matched"
+        },
+        {
+            "field": "mcp_available",
+            "ai_value": "Yes",
+            "verified_value": "Yes",
+            "verification_status": "Confirmed",
+            "comparison_result": "Matched"
+        },
+        {
+            "field": "buildability",
+            "ai_value": "Medium",
+            "verified_value": "Medium",
+            "verification_status": "Analyst-assessed",
+            "comparison_result": "Matched"
+        }
+    ]
+}

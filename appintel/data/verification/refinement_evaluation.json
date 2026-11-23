@@ -1,0 +1,48 @@
+{
+    "report_title": "AppIntel Research Refinement Evaluation",
+    "applications_evaluated": 2,
+    "applications_improved": 1,
+    "applications_unchanged": 1,
+    "applications_declined": 0,
+    "average_original_strict_agreement": 75.0,
+    "average_refined_strict_agreement": 100.0,
+    "average_strict_agreement_change": 25.0,
+    "average_original_weighted_agreement": 81.25,
+    "average_refined_weighted_agreement": 100.0,
+    "average_weighted_agreement_change": 18.75,
+    "application_results": [
+        {
+            "app_id": 1,
+            "app_name": "Salesforce",
+            "original_strict_agreement": 100.0,
+            "refined_strict_agreement": 100.0,
+            "strict_agreement_change": 0.0,
+            "original_weighted_agreement": 100.0,
+            "refined_weighted_agreement": 100.0,
+            "weighted_agreement_change": 0.0,
+            "status": "Unchanged",
+            "original_evaluated_fields": 4,
+            "refined_evaluated_fields": 4
+        },
+        {
+            "app_id": 2,
+            "app_name": "HubSpot",
+            "original_strict_agreement": 50.0,
+            "refined_strict_agreement": 100.0,
+            "strict_agreement_change": 50.0,
+            "original_weighted_agreement": 62.5,
+            "refined_weighted_agreement": 100.0,
+            "weighted_agreement_change": 37.5,
+            "status": "Improved",
+            "original_evaluated_fields": 4,
+            "refined_evaluated_fields": 4
+        }
+    ],
+    "limitations": [
+        "Evaluation currently covers only manually verified applications.",
+        "Agreement percentages measure field-level agreement, not overall factual accuracy.",
+        "Fields marked Needs review are excluded from comparison.",
+        "Analyst-assessed fields are not independently verified vendor facts.",
+        "Averages are calculated across applications, not weighted by evaluated field counts."
+    ]
+}

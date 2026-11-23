@@ -1,0 +1,56 @@
+{
+    "app_id": 2,
+    "app_name": "HubSpot",
+    "category": "CRM and Sales",
+    "description": "A comprehensive CRM platform providing APIs and Model Context Protocol (MCP) servers for managing customer data, marketing, sales, and AI integrations.",
+    "auth_methods": [
+        "OAuth 2.0",
+        "OAuth 2.1 (with PKCE)"
+    ],
+    "credential_access": "Self-serve free",
+    "api_type": [
+        "REST",
+        "MCP"
+    ],
+    "api_breadth": "Extensive capabilities covering CRM objects (contacts, companies, deals, tickets), marketing content, custom objects, analytics, conversations, and AI tool integrations through Model Context Protocol (MCP).",
+    "mcp_available": "Yes",
+    "mcp_evidence": "HubSpot provides two distinct Model Context Protocol (MCP) servers: a remote HubSpot MCP Server for connecting LLMs to CRM data via https://mcp.hubspot.com, and a local Developer MCP Server.",
+    "buildability": "Easy",
+    "blocker": "OAuth flows require proper implementation of PKCE for MCP connections and handling token expiration/refresh token rotation.",
+    "evidence": [
+        {
+            "url": "https://developers.hubspot.com/docs/api-reference/latest/overview",
+            "title": "2026-09 API reference - HubSpot docs",
+            "source_type": "Official",
+            "supports": "API endpoints and date-based versioning scheme.",
+            "research_method": "Crawl",
+            "excerpt": "The 2026-09 APIs use a date-based versioning scheme (e.g., /crm/2026-09/) that follows the previous 2026-03 API version."
+        },
+        {
+            "url": "https://developers.hubspot.com/docs/apps/legacy-apps/authentication/working-with-oauth",
+            "title": "Working with OAuth - HubSpot docs",
+            "source_type": "Official",
+            "supports": "OAuth authentication methods and requirements.",
+            "research_method": "Crawl",
+            "excerpt": "OAuth is a secure means of authentication that uses authorization tokens rather than a password to connect your app to a user account."
+        },
+        {
+            "url": "https://developers.hubspot.com/ai-tools/mcp",
+            "title": "HubSpot MCP Server",
+            "source_type": "Official",
+            "supports": "Official MCP servers availability and architecture.",
+            "research_method": "Crawl",
+            "excerpt": "HubSpot offers two distinct MCP (Model Context Protocol) servers — one for connecting any MCP-compatible AI tool or agent to your CRM, and one for building..."
+        },
+        {
+            "url": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/integrate-with-the-remote-hubspot-mcp-server",
+            "title": "Integrate AI tools with the HubSpot MCP server",
+            "source_type": "Official",
+            "supports": "Integration details for the remote HubSpot MCP server and PKCE requirements.",
+            "research_method": "Crawl",
+            "excerpt": "The HubSpot Model Context Protocol (MCP) server enables AI assistants and Large Language Models to securely interact with your HubSpot CRM data through natural conversation."
+        }
+    ],
+    "confidence": "Medium",
+    "research_notes": "HubSpot provides robust official documentation regarding both its traditional date-versioned REST APIs and its newly introduced Remote and Developer Model Context Protocol (MCP) servers. Authentication utilizes OAuth 2.0 and OAuth 2.1 with PKCE."
+}

@@ -1,0 +1,58 @@
+{
+    "app_id": 4,
+    "app_name": "Attio",
+    "category": "CRM and Sales",
+    "description": "Attio is a customizable CRM platform for managing workspace data including contacts, companies, deals, pipelines, activities, tasks, and notes.",
+    "auth_methods": [
+        "OAuth 2.0",
+        "API Key",
+        "Bearer Token",
+        "HTTP Basic Authentication"
+    ],
+    "credential_access": "Admin approval",
+    "api_type": [
+        "REST",
+        "SQL"
+    ],
+    "api_breadth": "Comprehensive CRM capabilities covering objects, records, attributes, activities, lists, views, comments, notes, tasks, meetings, emails, workspace members/teams, basic reporting, and read-only SQL queries.",
+    "mcp_available": "Yes",
+    "mcp_evidence": "Attio offers an official hosted MCP server at https://mcp.attio.com/mcp using OAuth authentication to grant AI tools access to search, create, update, and analyze workspace CRM data.",
+    "buildability": "Easy",
+    "blocker": "Workspace admin approval is required to grant workspace-level OAuth tokens or install apps in a workspace; certain advanced features like SQL querying (`query-particle-sql`) are plan-dependent.",
+    "evidence": [
+        {
+            "url": "https://docs.attio.com/rest-api/guides/authentication",
+            "title": "Authenticating requests",
+            "source_type": "Official",
+            "supports": "Authentication methods (OAuth 2.0, API keys, Bearer Token, Basic Auth), token levels, PKCE, and workspace admin permission requirements.",
+            "research_method": "Crawl",
+            "excerpt": "In order to make requests to the Attio REST API, you need to generate an access token. There are two ways to generate an access token: 1. By implementing an OAuth 2.0 flow 2. By generating an API key for your workspace"
+        },
+        {
+            "url": "https://docs.attio.com/rest-api/overview",
+            "title": "Overview",
+            "source_type": "Official",
+            "supports": "REST API availability over HTTPS exchanging JSON payloads.",
+            "research_method": "Crawl",
+            "excerpt": "Attio provides a public REST API which exchanges JSON over HTTPS."
+        },
+        {
+            "url": "https://docs.attio.com/mcp/overview",
+            "title": "Attio MCP - Attio Docs",
+            "source_type": "Official",
+            "supports": "Hosted MCP server features, OAuth authentication setup, supported MCP tools, and plan restrictions for SQL querying.",
+            "research_method": "Crawl",
+            "excerpt": "Attio MCP is Attio’s hosted MCP server that gives AI tools secure access to your Attio workspace. It’s designed to work seamlessly with popular AI assistants like Claude, ChatGPT, Cursor, and more."
+        },
+        {
+            "url": "https://attio.com/apps/mcp",
+            "title": "MCP Integration - Attio",
+            "source_type": "Official",
+            "supports": "MCP server connection details and supported AI tool integrations.",
+            "research_method": "Crawl",
+            "excerpt": "Add https://mcp.attio.com/mcp as a remote MCP server and complete the OAuth authentication when prompted."
+        }
+    ],
+    "confidence": "Medium",
+    "research_notes": "Attio provides well-documented REST APIs and an official hosted MCP server (https://mcp.attio.com/mcp). Access tokens can be generated via workspace single-workspace API keys or OAuth 2.0 authorization code flows."
+}
